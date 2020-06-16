@@ -20,10 +20,17 @@ document.getElementByTagName('jb-input').addEventListener('change',(event)=>{con
 you can set validation to your input:
 
 ```js
-    titleInput.validationList = [{
+    titleInput.validationList = [
+        {
             validator: /.{3}/g,
             message: 'عنوان حداقل باید سه کاکتر طول داشته باشد'
-        }, ]
+        },
+        #you can use function as a validator too
+        {
+            validator: (inputedText)=>{return inputedText == "سلام"},
+            message: 'شما تنها میتوانید عبارت سلام را وارد کنید'
+        },
+    ]
 ```
 
 ### check validation
