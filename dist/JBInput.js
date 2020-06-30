@@ -9,12 +9,17 @@ class JBInputWebComponent extends HTMLElement {
     }
     set value(value) {
         this._value = value;
-        this.internals_.setFormValue(value);
+        if(this.internals_){
+            this.internals_.setFormValue(value);
+        }
         this._shadowRoot.querySelector('.input-box input').setAttribute('value', value);
     }
     constructor() {
         super();
-        this.internals_ = this.attachInternals();
+        if(typeof this.attachInternals == "function"){
+            //some browser dont support attachInternals
+            this.internals_ = this.attachInternals();
+        }
         this.initWebComponent();
         this.initProp();
         // js standard input element to more assosicate it with form element
