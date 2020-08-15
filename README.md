@@ -1,5 +1,11 @@
 # jb-input
-
+## install
+```cmd
+npm install jb-input
+```
+```html
+<jb-input value="defualt value"></jb-input>
+```
 ## instructions
 
 ### get/set value
