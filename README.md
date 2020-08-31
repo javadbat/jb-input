@@ -7,7 +7,19 @@ npm install jb-input
 <jb-input value="defualt value"></jb-input>
 ```
 ## instructions
-
+### install
+```cmd
+npm i jb-input
+```
+in one of your js in page
+```js
+import 'jb-input';
+```
+in your html or jsx
+```html
+<jb-input class="" label="لیبل" message="متن ثابت زیر کادر متن"></jb-input>
+```
+```
 ### get/set value
 
 ```js
