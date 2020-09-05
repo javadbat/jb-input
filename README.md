@@ -64,3 +64,15 @@ in `change` event we have detail object you can access it by `event.detail.isVal
 | name           | name you want to set to actual input element `<jb-input name="username"></jb-input>`          |
 | message        | in botton of input we show small message for example "user name must be at least 5 char"      |
 | autocomplete   | set autocomplete directly into dom element in case you need it                                |
+
+### set custome style
+
+in some cases in your project you need to change defualt style of web-component for example you need zero margin or different border-radius and etc.    
+if you want to set a custom style to this web-component all you need is to set css variable in parent scope of web-component 
+| css variable name                  | description                                                                                   |
+| -------------                      | -------------                                                                                 |
+| --jb-input-margin                  | web-component margin defualt is `0 12px`                                                      |
+| --jb-input-border-radius           | web-component border-radius defualt is `16px`                                                 |
+| --jb-input-border-color            | border color of select in normal mode                                                         |
+| --jb-input-border-color-focus      | border color of select in normal mode                                                         |
+| --jb-input-bgcolor                 | background color of input                                                                     |

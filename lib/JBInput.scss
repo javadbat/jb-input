@@ -1,6 +1,6 @@
 .jb-input-web-component {
     width: 100%;
-    margin: 12px 0;
+    margin: var(--jb-input-margin ,  12px 0);
     direction: rtl;
     label {
         width: 100%;
@@ -8,16 +8,19 @@
         display: block;
         font-size: 0.8em;
         color: #1f1735;
+        &.--hide{
+            display: none;
+        }
     }
 
     .input-box {
         width: 100%;
         box-sizing: border-box;
         height: 40px;
-        border: solid 1px #f7f6f6;
-        background-color: #f7f6f6;
-        border-bottom: solid 3px #f7f6f6;
-        border-radius: 16px;
+        border: solid 1px var(--jb-input-border-color , #f7f6f6);
+        background-color: var(--jb-input-bgcolor , #f7f6f6) ;
+        border-bottom: solid 3px var(--jb-input-border-color , #f7f6f6);
+        border-radius: var(--jb-input-border-radius , 16px);
         margin: 4px 0px;
         display: block;
         transition: ease 0.3s all;
@@ -26,7 +29,7 @@
         justify-content: space-between;
 
         &:focus-within {
-            border-color: #1e2832;
+            border-color: var(--jb-input-border-color-focus , #1e2832) ;
         }
 
         &.type-password {
