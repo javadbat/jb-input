@@ -76,3 +76,7 @@ if you want to set a custom style to this web-component all you need is to set c
 | --jb-input-border-color            | border color of select in normal mode                                                         |
 | --jb-input-border-color-focus      | border color of select in normal mode                                                         |
 | --jb-input-bgcolor                 | background color of input                                                                     |
+| --jb-input-border-botton-width     | border bottom thickness desualt is `3px`                                                      |
+| --jb-input-label-font-size         | font size of input label defualt is `0.8em`                                                   |
+| --jb-input-message-font-size       | font size of message we show under input                                                      |
+| --jb-input-message-error-color     | change color of error we show under input defualt is `red`                                    |

@@ -6,7 +6,7 @@
         width: 100%;
         margin: 4px 0px;
         display: block;
-        font-size: 0.8em;
+        font-size: var(--jb-input-label-font-size , 0.8em);
         color: #1f1735;
         &.--hide{
             display: none;
@@ -19,7 +19,7 @@
         height: 40px;
         border: solid 1px var(--jb-input-border-color , #f7f6f6);
         background-color: var(--jb-input-bgcolor , #f7f6f6) ;
-        border-bottom: solid 3px var(--jb-input-border-color , #f7f6f6);
+        border-bottom: solid var(--jb-input-border-botton-width , 3px) var(--jb-input-border-color , #f7f6f6);
         border-radius: var(--jb-input-border-radius , 16px);
         margin: 4px 0px;
         display: block;
@@ -105,16 +105,15 @@
         }
     }
     .message-box{
-        font-size: 0.7em;
+        font-size: var(--jb-input-message-font-size , 0.7em);
         padding: 2px 8px;
         color: #929292;
         display: var(--jb-input-message-box-display , block) ;
-
         &:empty{
             padding: 0;
         }
         &.error{
-            color: red;
+            color: var(--jb-input-message-error-color ,red);
         }
     }
 
