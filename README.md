@@ -80,3 +80,8 @@ if you want to set a custom style to this web-component all you need is to set c
 | --jb-input-label-font-size         | font size of input label defualt is `0.8em`                                                   |
 | --jb-input-message-font-size       | font size of message we show under input                                                      |
 | --jb-input-message-error-color     | change color of error we show under input defualt is `red`                                    |
+| --jb-input-height                  | height of input defualt is 40px                                                               |
+| --jb-input-placeholder-color       | change placeholder color                                                                      |
+| --jb-input-placeholder-font-size   | change placeholder font-size                                                                  |
+| --jb-input-value-font-size         | input value font-size                                                                         |
+| --jb-input-value-color             | input value color                                                                             |

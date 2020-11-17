@@ -16,7 +16,7 @@
     .input-box {
         width: 100%;
         box-sizing: border-box;
-        height: 40px;
+        height: var(--jb-input-height , 40px) ;
         border: solid 1px var(--jb-input-border-color , #f7f6f6);
         background-color: var(--jb-input-bgcolor , #f7f6f6) ;
         border-bottom: solid var(--jb-input-border-botton-width , 3px) var(--jb-input-border-color , #f7f6f6);
@@ -94,13 +94,16 @@
             padding: 2px 12px 0 12px;
             display: block;
             font-family: inherit;
-            font-size: 1.1em;
-            color: #1f1735;
+            font-size: var( --jb-input-value-font-size , 1.1em);
+            color:var( --jb-input-value-color , #1f1735);
             margin: 0;
             border-radius: 0;
-
             &:focus {
                 outline: none;
+            }
+            &::placeholder {
+                color: var( --jb-input-placeholder-color , initial);
+                font-size: var( --jb-input-placeholder-font-size , 1.1em);
             }
         }
     }
