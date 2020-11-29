@@ -91,7 +91,7 @@
             box-sizing: border-box;
             height: 100%;
             background-color: transparent;
-            padding: 2px 12px 0 12px;
+            padding: var( --jb-input-input-padding , 2px 12px 0 12px);
             display: block;
             font-family: inherit;
             font-size: var( --jb-input-value-font-size , 1.1em);

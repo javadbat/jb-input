@@ -85,3 +85,4 @@ if you want to set a custom style to this web-component all you need is to set c
 | --jb-input-placeholder-font-size   | change placeholder font-size                                                                  |
 | --jb-input-value-font-size         | input value font-size                                                                         |
 | --jb-input-value-color             | input value color                                                                             |
+| --jb-input-input-padding           | set input inner padding default is `2px 12px 0 12px`                                          |
