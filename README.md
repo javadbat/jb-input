@@ -64,11 +64,12 @@ in `change` event we have detail object you can access it by `event.detail.isVal
 
 ### other attribute
 
-| atribute name  | description                                                                                   |
-| -------------  | -------------                                                                                 |
-| name           | name you want to set to actual input element `<jb-input name="username"></jb-input>`          |
-| message        | in botton of input we show small message for example "user name must be at least 5 char"      |
-| autocomplete   | set autocomplete directly into dom element in case you need it                                |
+| atribute name  | description                                                                                                         |
+| -------------  | -------------                                                                                                       |
+| name           | name you want to set to actual input element `<jb-input name="username"></jb-input>`                                |
+| message        | in botton of input we show small message for example "user name must be at least 5 char"                            |
+| autocomplete   | set autocomplete directly into dom element in case you need it                                                      |
+| direction      | set web-component direction defualt set is rtl but if you need ltr use `<jb-input direction="ltr"></jb-input>`      |
 
 ### set custome style
 
@@ -91,3 +92,4 @@ if you want to set a custom style to this web-component all you need is to set c
 | --jb-input-value-font-size         | input value font-size                                                                         |
 | --jb-input-value-color             | input value color                                                                             |
 | --jb-input-input-padding           | set input inner padding default is `2px 12px 0 12px`                                          |
+| --jb-input-input-text-align        | set input element text align for example if you have number Input and want to make it left    |
