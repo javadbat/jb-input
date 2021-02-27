@@ -1,16 +1,13 @@
 # jb-input
-## install
-```cmd
-npm install jb-input
-```
-```html
-<jb-input value="defualt value"></jb-input>
-```
+
 ## instructions
+
 ### install
+
 ```cmd
 npm i jb-input
 ```
+
 in one of your js in page
 ```js
 import 'jb-input';
