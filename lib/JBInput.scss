@@ -103,10 +103,7 @@
             color:var( --jb-input-value-color , #1f1735);
             margin: 0;
             border-radius: 0;
-            text-align: var( --jb-input-input-text-align , right);
-            :host([direction="ltr"]) & {
-                text-align: var( --jb-input-input-text-align , left);
-            }
+            text-align: var( --jb-input-input-text-align , initial);
             &:focus {
                 outline: none;
             }
