@@ -1,5 +1,19 @@
 # jb-input
 
+text input web component with this benefit:
+
+- easy to add custom regex or function validation.
+
+- multiple validation with different message.
+
+- support both RTL and LTR.
+
+- add label and message in UX frienly format.
+
+- customizable ui with css variable sp you can have multiple style in different scope of your app.
+
+sample: <https://codepen.io/javadbat/pen/dyNwddd>
+
 ## instructions
 
 ### install
@@ -8,19 +22,25 @@
 npm i jb-input
 ```
 
-in one of your js in page
+in one of your js in pag
+
 ```js
 import 'jb-input';
+
 ```
+
 in your html or jsx
+
 ```html
 <jb-input class="" label="لیبل" message="متن ثابت زیر کادر متن"></jb-input>
 ```
-```
+
 ### get/set value
 
 ```js
+//get value
 const inputValue = document.getElementByTagName('jb-input').value;
+//set value
 document.getElementByTagName('jb-input').value = "new string";
 ```
 
