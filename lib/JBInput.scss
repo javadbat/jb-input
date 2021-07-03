@@ -7,7 +7,7 @@
         margin: 4px 0px;
         display: block;
         font-size: var(--jb-input-label-font-size , 0.8em);
-        color: #1f1735;
+        color: var(--jb-input-label-color , #1f1735);
         &.--hide{
             display: none;
         }
@@ -20,7 +20,7 @@
         height: var(--jb-input-height , 40px) ;
         border: solid 1px var(--jb-input-border-color , #f7f6f6);
         background-color: var(--jb-input-bgcolor , #f7f6f6) ;
-        border-bottom: solid var(--jb-input-border-botton-width , 3px) var(--jb-input-border-color , #f7f6f6);
+        border-bottom: solid var(--jb-input-border-bottom-width , 3px) var(--jb-input-border-color , #f7f6f6);
         border-radius: var(--jb-input-border-radius , 16px);
         margin: 4px 0px;
         display: block;
