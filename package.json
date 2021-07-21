@@ -1,6 +1,7 @@
 {
   "name": "jb-input",
   "description": "input web component",
+  "type": "module",
   "author": {
 		"name": "mohammad javad bathaei",
 		"email": "javadbat@gmail.com"
@@ -11,7 +12,7 @@
     "input",
     "web component"
   ],
-  "version": "1.0.12",
+  "version": "1.0.14",
   "bugs": "https://github.com/javadbat/jb-input/issues",
   "license": "MIT",
   "files": [
