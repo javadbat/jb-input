@@ -1,27 +1,25 @@
-
 .jb-input-web-component {
     width: 100%;
-    margin: var(--jb-input-margin ,  12px 0);
+    margin: var(--jb-input-margin, 12px 0);
     label {
         width: 100%;
         margin: 4px 0px;
         display: block;
-        font-size: var(--jb-input-label-font-size , 0.8em);
-        color: var(--jb-input-label-color , #1f1735);
-        &.--hide{
+        font-size: var(--jb-input-label-font-size, 0.8em);
+        color: var(--jb-input-label-color, #1f1735);
+        &.--hide {
             display: none;
         }
     }
 
     .input-box {
-
         width: 100%;
         box-sizing: border-box;
-        height: var(--jb-input-height , 40px) ;
-        border: solid 1px var(--jb-input-border-color , #f7f6f6);
-        background-color: var(--jb-input-bgcolor , #f7f6f6) ;
-        border-bottom: solid var(--jb-input-border-bottom-width , 3px) var(--jb-input-border-color , #f7f6f6);
-        border-radius: var(--jb-input-border-radius , 16px);
+        height: var(--jb-input-height, 40px);
+        border: solid 1px var(--jb-input-border-color, #f7f6f6);
+        background-color: var(--jb-input-bgcolor, #f7f6f6);
+        border-bottom: solid var(--jb-input-border-bottom-width, 3px) var(--jb-input-border-color, #f7f6f6);
+        border-radius: var(--jb-input-border-radius, 16px);
         margin: 4px 0px;
         display: block;
         transition: ease 0.3s all;
@@ -29,9 +27,48 @@
         display: flex;
         justify-content: space-between;
         &:focus-within {
-            border-color: var(--jb-input-border-color-focus , #1e2832) ;
+            border-color: var(--jb-input-border-color-focus, #1e2832);
         }
-
+        &.--type-number{
+            //when input type is number
+            input {
+                width: calc(100% - 72px);
+            }
+            .number-control-wrapper{
+                .number-control-buttons{
+                    display: flex;
+                    .number-control-button{
+                        width: 36px;
+                        height: 100%;
+                        //background-color: red;
+                        text-align: center;
+                    }
+                    .increase-number-button{
+                        .increase-icon{
+                            stroke: #bbb;
+                            stroke-width: 14px;
+                        }
+                        &:hover{
+                            .increase-icon{
+                                stroke: #00b600;
+                            }
+                        }
+                    }
+                    .decrease-number-button{
+                        .decrease-icon{
+                            stroke: #bbb;
+                            stroke-width: 14px;
+                        }
+                        &:hover{
+                            .decrease-icon{
+                                stroke: #FF1026;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
         &.type-password {
             input {
                 width: calc(100% - 36px);
@@ -58,13 +95,13 @@
                             stroke: #00b600;
                             d: path("M 10 60 C 30 20 100 20 110 60");
                         }
-                        circle{
+                        circle {
                             opacity: 1;
                             transition: 0.2s 0.2s;
                             transform: translateX(8px);
                             :host([direction="ltr"]) & {
                                 transform: translateX(-8px);
-                             }
+                            }
                         }
                     }
 
@@ -77,7 +114,7 @@
                         transition: 0.3s;
                         d: path("M 0 60 C 40 100 80 100 120 60");
                     }
-                    circle{
+                    circle {
                         fill: #00b600;
                         opacity: 0;
                         transition: 0.3s 0s;
@@ -89,41 +126,54 @@
         .password-trigger {
             display: none;
         }
-
+        .number-control-buttons{
+            display: none;
+        }
         input {
             border: none;
             width: 100%;
             box-sizing: border-box;
             height: 100%;
             background-color: transparent;
-            padding: var( --jb-input-input-padding , 2px 12px 0 12px);
+            padding: var(--jb-input-input-padding, 2px 12px 0 12px);
             display: block;
             font-family: inherit;
-            font-size: var( --jb-input-value-font-size , 1.1em);
-            color:var( --jb-input-value-color , #1f1735);
+            font-size: var(--jb-input-value-font-size, 1.1em);
+            color: var(--jb-input-value-color, #1f1735);
             margin: 0;
             border-radius: 0;
-            text-align: var( --jb-input-input-text-align , initial);
+            text-align: var(--jb-input-input-text-align, initial);
             &:focus {
                 outline: none;
             }
             &::placeholder {
-                color: var( --jb-input-placeholder-color , initial);
-                font-size: var( --jb-input-placeholder-font-size , 1.1em);
+                color: var(--jb-input-placeholder-color, initial);
+                font-size: var(--jb-input-placeholder-font-size, 1.1em);
+            }
+            //remove number input arrow keys of browser
+            /* Chrome, Safari, Edge, Opera */
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            /* Firefox */
+            &[type="number"] {
+                -moz-appearance: textfield;
             }
         }
     }
-    .message-box{
-        font-size: var(--jb-input-message-font-size , 0.7em);
+    .message-box {
+        font-size: var(--jb-input-message-font-size, 0.7em);
         padding: 2px 8px;
         color: #929292;
-        display: var(--jb-input-message-box-display , block) ;
-        &:empty{
+        display: var(--jb-input-message-box-display, block);
+        &:empty {
             padding: 0;
         }
-        &.error{
-            color: var(--jb-input-message-error-color ,red);
+        &.error {
+            color: var(--jb-input-message-error-color, red);
         }
     }
-
 }
