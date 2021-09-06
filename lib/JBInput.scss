@@ -26,42 +26,55 @@
         overflow: hidden;
         display: flex;
         justify-content: space-between;
+        box-shadow: var(--jb-input-box-shadow, none);
         &:focus-within {
             border-color: var(--jb-input-border-color-focus, #1e2832);
+            box-shadow: var(--jb-input-box-shadow-focus, none);
         }
         &.--type-number{
             //when input type is number
             input {
-                width: calc(100% - 72px);
+                width: calc(100% - var(calc(--jb-input-number-button-width*2), 72px));
             }
             .number-control-wrapper{
                 .number-control-buttons{
                     display: flex;
+                    height: 100%;
                     .number-control-button{
-                        width: 36px;
+                        width: var(--jb-input-number-button-width, 36px);
                         height: 100%;
                         //background-color: red;
                         text-align: center;
                     }
                     .increase-number-button{
+                        background: var(--jb-input-increase-button-bg, transparent);
+                        border:var(--jb-input-increase-button-border, none);
+                        border-radius:var(--jb-input-increase-button-border-radius, 0);
                         .increase-icon{
-                            stroke: #bbb;
+                            stroke: var(--jb-input-increase-button-color, #bbb);
                             stroke-width: 14px;
+                            height: 100%;
+                            width: 100%;
                         }
                         &:hover{
                             .increase-icon{
-                                stroke: #00b600;
+                                stroke: var(--jb-input-increase-button-color-hover, #00b600);
                             }
                         }
                     }
                     .decrease-number-button{
+                        border:var(--jb-input-decrease-button-border, none);
+                        border-radius:var(--jb-input-decrease-button-border-radius, 0);
+                        background: var(--jb-input-decrease-button-bg, transparent);
                         .decrease-icon{
-                            stroke: #bbb;
+                            stroke: var(--jb-input-decrease-button-color, #bbb);
                             stroke-width: 14px;
+                            height: 100%;
+                            width: 100%;
                         }
                         &:hover{
                             .decrease-icon{
-                                stroke: #FF1026;
+                                stroke: var(--jb-input-decrease-button-color-hover, #FF1026);
                             }
                         }
                     }

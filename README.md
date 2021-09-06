@@ -111,3 +111,22 @@ if you want to set a custom style to this web-component all you need is to set c
 | --jb-input-value-color             | input value color                                                                             |
 | --jb-input-input-padding           | set input inner padding default is `2px 12px 0 12px`                                          |
 | --jb-input-input-text-align        | set input element text align for example if you have number Input and want to make it left    |
+| --jb-input-box-shadow              | set box shadow of input                                                                       |
+| --jb-input-box-shadow-focus        | set box shadow of input on focus                                                              |
+
+#### number input special style
+
+| css variable name                        | description                                                                                   |
+| -------------                            | -------------                                                                                 |
+| --jb-input-increase-button-color         | + button fill color                                                                           |
+| --jb-input-increase-button-color-hover   | + button fill color on hover                                                                  |
+| --jb-input-decrease-button-color         | - button fill color                                                                           |
+| --jb-input-decrease-button-color-hover   | - button fill color on hover                                                                  |
+| --jb-input-number-button-width           | number input width                                                                            |
+| --jb-input-number-button-height          | number input height                                                                           |
+| --jb-input-decrease-button-border        | decrease button border                                                                        |
+| --jb-input-increase-button-border        | increase button border                                                                        |
+| --jb-input-increase-button-border-radius | increase button border-radius                                                                 |
+| --jb-input-decrease-button-border-radius | decrease button border-radius                                                                 |
+| --jb-input-increase-button-bg            | increase button background color                                                              |
+| --jb-input-decrease-button-bg            | decrease button background color                                                              |
