@@ -20,6 +20,8 @@ sample: <https://codepen.io/javadbat/pen/dyNwddd>
 
 ### install
 
+#### using npm
+
 ```cmd
 npm i jb-input
 ```
@@ -35,6 +37,13 @@ in your html or jsx
 
 ```html
 <jb-input class="" label="لیبل" message="متن ثابت زیر کادر متن"></jb-input>
+```
+#### using cdn
+
+you can just add script tag to your html file and then use web component how ever you need
+
+```HTML
+<script src="https://unpkg.com/jb-input"></script>
 ```
 
 ### get/set value
@@ -80,6 +89,23 @@ you can set validation to your input:
 you can check is image input value meet your validation standad by `dom.triggerInputValidation(showError)`
 the `showError` parameter is optional and its defualt is true but you cant set it false so if value is invalid component dont react and show error to user and just return validation object.  
 in `change` event we have detail object you can access it by `event.detail.isValid` so you can see in new value is a valid value or not this way is really useful when you dont access to DOM directly like what we have in js frameworks.
+
+### number input extra feature
+
+if you set `type="number"` jb-input will add some feature for you for example your input will only get number chart and wont accept other string and we add 2 `+` & `-` button to the input so user can change number without keyboard by just tap on these buttons. you can also use Up and Down arrow keys too increase or decrease number value in your field.   
+jb-input will also let you control some aspect of user input too for example you can limit decimal precision or change increase/decrease step of `+` `-` button.   
+too achive this you must call one function and set value you need to change.
+
+```javascript
+    document.getElementByTagName('jb-input').setNumberFieldParameter({
+        //how many number you want to + or  - on user press buttons or use arrow keys defualt is 1
+        step:100,
+        // how many decimal input accept defualt is infinty
+        decimalPrecision:2,
+        // what char replaced to input if user paste some illeglal value defualt is '' (empty string)
+        invalidNumberReplacement:'0'
+    })
+```
 
 ### other attribute
 
