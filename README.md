@@ -12,6 +12,8 @@ text input web component with this benefit:
 
 - customizable ui with css variable sp you can have multiple style in different scope of your app.
 
+- custom display for password and number input.
+
 sample: <https://codepen.io/javadbat/pen/dyNwddd>
 
 ## instructions

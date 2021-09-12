@@ -9,10 +9,12 @@
   "keywords": [
     "jb",
     "jb-input",
+    "number input",
+    "password input",
     "input",
     "web component"
   ],
-  "version": "1.0.14",
+  "version": "1.1.14",
   "bugs": "https://github.com/javadbat/jb-input/issues",
   "license": "MIT",
   "files": [
