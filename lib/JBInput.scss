@@ -1,3 +1,6 @@
+:host(:focus), :host(:focus-visible){
+        outline: none;
+}
 .jb-input-web-component {
     width: 100%;
     margin: var(--jb-input-margin, 12px 0);
