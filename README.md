@@ -96,6 +96,10 @@ if you set `type="number"` jb-input will add some feature for you for example yo
 jb-input will also let you control some aspect of user input too for example you can limit decimal precision or change increase/decrease step of `+` `-` button.   
 too achive this you must call one function and set value you need to change.
 
+#### number input events
+
+click on `+` `-` button will call `onChange` event.
+
 ```javascript
     document.getElementByTagName('jb-input').setNumberFieldParameter({
         //how many number you want to + or  - on user press buttons or use arrow keys defualt is 1
