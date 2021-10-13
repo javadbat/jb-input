@@ -1,6 +1,9 @@
 <div class="jb-input-web-component">
     <label class="--hide"><span class="label-value"></span><span>:</span></label>
     <div class="input-box">
+        <div class="jb-input-start-section-wrapper">
+            <slot name="start-section"></slot>
+        </div>
         <input />
         <div class="password-trigger">
             <svg viewBox="0 0 120 120">
@@ -8,7 +11,9 @@
                 <circle cx="60" cy="60" r="20"></circle>
             </svg>
         </div>
-
+        <div class="jb-input-end-section-wrapper">
+            <slot name="end-section"></slot>
+        </div>
     </div>
     <div class="message-box"></div>
 </div>

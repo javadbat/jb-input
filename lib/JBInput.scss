@@ -24,10 +24,10 @@
         border-bottom: solid var(--jb-input-border-bottom-width, 3px) var(--jb-input-border-color, #f7f6f6);
         border-radius: var(--jb-input-border-radius, 16px);
         margin: 4px 0px;
-        display: block;
         transition: ease 0.3s all;
         overflow: hidden;
-        display: flex;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
         justify-content: space-between;
         box-shadow: var(--jb-input-box-shadow, none);
         &:focus-within {
@@ -37,7 +37,8 @@
         &.--type-number{
             //when input type is number
             input {
-                width: calc(100% - var(calc(--jb-input-number-button-width*2), 72px));
+               // width: calc(100% - var(calc(--jb-input-number-button-width*2), 72px));
+               width: 100%;
             }
             .number-control-wrapper{
                 .number-control-buttons{
@@ -86,10 +87,7 @@
             
         }
         &.type-password {
-            input {
-                width: calc(100% - 36px);
-            }
-
+            grid-template-columns: auto 1fr auto auto;
             .password-trigger {
                 display: block;
                 height: 28px;
