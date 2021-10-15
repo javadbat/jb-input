@@ -28,7 +28,6 @@
         overflow: hidden;
         display: grid;
         grid-template-columns: auto 1fr auto;
-        justify-content: space-between;
         box-shadow: var(--jb-input-box-shadow, none);
         &:focus-within {
             border-color: var(--jb-input-border-color-focus, #1e2832);
@@ -36,6 +35,7 @@
         }
         &.--type-number{
             //when input type is number
+            grid-template-columns: auto 1fr auto auto;
             input {
                // width: calc(100% - var(calc(--jb-input-number-button-width*2), 72px));
                width: 100%;
@@ -54,11 +54,14 @@
                         background: var(--jb-input-increase-button-bg, transparent);
                         border:var(--jb-input-increase-button-border, none);
                         border-radius:var(--jb-input-increase-button-border-radius, 0);
+                        box-sizing: border-box;
+                        
                         .increase-icon{
                             stroke: var(--jb-input-increase-button-color, #bbb);
                             stroke-width: 14px;
                             height: 100%;
                             width: 100%;
+                            display: block;
                         }
                         &:hover{
                             .increase-icon{
@@ -70,11 +73,13 @@
                         border:var(--jb-input-decrease-button-border, none);
                         border-radius:var(--jb-input-decrease-button-border-radius, 0);
                         background: var(--jb-input-decrease-button-bg, transparent);
+                        box-sizing: border-box;
                         .decrease-icon{
                             stroke: var(--jb-input-decrease-button-color, #bbb);
                             stroke-width: 14px;
                             height: 100%;
                             width: 100%;
+                            display: block;
                         }
                         &:hover{
                             .decrease-icon{
