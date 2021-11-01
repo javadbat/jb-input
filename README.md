@@ -135,7 +135,7 @@ if you want to set a custom style to this web-component all you need is to set c
 | --jb-input-bgcolor                 | background color of input                                                                     |
 | --jb-input-border-bottom-width     | border bottom thickness desualt is `3px`                                                      |
 | --jb-input-label-font-size         | font size of input label defualt is `0.8em`                                                   |
-| --jb-input-label-color             | change label color defualt is `#1f1735`
+| --jb-input-label-color             | change label color defualt is `#1f1735`                                                       |
 | --jb-input-message-font-size       | font size of message we show under input                                                      |
 | --jb-input-message-error-color     | change color of error we show under input defualt is `red`                                    |
 | --jb-input-height                  | height of input defualt is 40px                                                               |
