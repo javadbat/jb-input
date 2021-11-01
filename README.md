@@ -119,7 +119,8 @@ click on `+` `-` button will call `onChange` event.
 | message        | in botton of input we show small message for example "user name must be at least 5 char"                            |
 | autocomplete   | set autocomplete directly into dom element in case you need it                                                      |
 | direction      | set web-component direction defualt set is rtl but if you need ltr use `<jb-input direction="ltr"></jb-input>`      |
-| disabled       | disable the input | 
+| disabled       | disable the input                                                                                                   |
+| inputmode      | set input mode help mobile device to open proper keyboard for your input like `url`, `search` and `numeric`         |
 
 ### set custome style
 
