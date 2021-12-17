@@ -62,6 +62,8 @@ document.getElementByTagName('jb-input').addEventListener('change',(event)=>{con
 document.getElementByTagName('jb-input').addEventListener('keyup',(event)=>{console.log(event.target.value)});
 document.getElementByTagName('jb-input').addEventListener('keydown',(event)=>{console.log(event.target.value)});
 document.getElementByTagName('jb-input').addEventListener('keypress',(event)=>{console.log(event.target.value)});
+document.getElementByTagName('jb-input').addEventListener('input',(event)=>{console.log(event.target.value)});
+document.getElementByTagName('jb-input').addEventListener('beforeinput',(event)=>{console.log(event.target.value)});
 // when user press enter on keyboard(dispatched on onKeyup)
 document.getElementByTagName('jb-input').addEventListener('enter',(event)=>{console.log(event.target.value)});
 ```
