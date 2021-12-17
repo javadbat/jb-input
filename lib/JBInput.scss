@@ -162,6 +162,7 @@
             margin: 0;
             border-radius: 0;
             text-align: var(--jb-input-input-text-align, initial);
+            direction: var(--jb-input-input-direction, inherit);
             &:focus {
                 outline: none;
             }
