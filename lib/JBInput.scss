@@ -4,6 +4,9 @@
 .jb-input-web-component {
     width: 100%;
     margin: var(--jb-input-margin, 12px 0);
+    &:focus-visible{
+        outline: none;
+    }
     label {
         width: 100%;
         margin: 4px 0px;
