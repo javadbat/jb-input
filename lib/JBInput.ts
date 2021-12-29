@@ -1,29 +1,39 @@
-import { number } from 'prop-types';
 import HTML from './JBInput.html';
 import CSS from './JBInput.scss';
 import NumberInputButtonsHTML from './NumberInputButtons.html';
 import './inbox-element/inbox-element';
+import { ElementsObject, JBInputValidationItem, NumberFieldParameter, ValidationResult, ValidationResultItem, ValidationResultSummary } from './Types';
 class JBInputWebComponent extends HTMLElement {
     static get formAssociated() { return true; }
+    #value = '';
+    elements?: ElementsObject;
+    #validationList = [];
+    #disabled = false;
+    internals_?: ElementInternals;
+    numberFieldParameters: NumberFieldParameter | undefined;
+    validation?: ValidationResultSummary;
+    isPasswordvisible: boolean | undefined;
+    increaseNumber?: () => void;
+    decreaseNumber?: () => void;
     get value() {
-        return this._value;
+        return this.#value;
     }
-    set value(value) {
+    set value(value: string) {
         const standardedValue = this.standardValue(value);
-        this._value = standardedValue;
+        this.#value = standardedValue;
+        //comment for typescript problem
         if (this.internals_ && typeof this.internals_.setFormValue == "function") {
             this.internals_.setFormValue(standardedValue);
         }
-        this.elements.input.value = standardedValue;
+        this.elements!.input.value = standardedValue;
     }
     get validationList() {
-        return this._validationList;
+        return this.#validationList;
     }
     set validationList(value) {
-        this._validationList = value;
+        this.#validationList = value;
         this.triggerInputValidation(false);
     }
-    #disabled
     constructor() {
         super();
         if (typeof this.attachInternals == "function") {
@@ -40,25 +50,28 @@ class JBInputWebComponent extends HTMLElement {
 
     }
     callOnLoadEvent() {
-        var event = new CustomEvent('load', { bubbles: true, composed: true });
+        const event = new CustomEvent('load', { bubbles: true, composed: true });
         this.dispatchEvent(event);
     }
     callOnInitEvent() {
-        var event = new CustomEvent('init', { bubbles: true, composed: true });
+        const event = new CustomEvent('init', { bubbles: true, composed: true });
         this.dispatchEvent(event);
     }
     initWebComponent() {
-        this._shadowRoot = this.attachShadow({
+        const shadowRoot = this.attachShadow({
             mode: 'open',
             delegatesFocus: true,
         });
         const html = `<style>${CSS}</style>` + '\n' + HTML;
         const element = document.createElement('template');
         element.innerHTML = html;
-        this._shadowRoot.appendChild(element.content.cloneNode(true));
+        shadowRoot.appendChild(element.content.cloneNode(true));
         this.elements = {
-            input: this._shadowRoot.querySelector('.input-box input'),
-            inputBox: this.shadowRoot.querySelector('.input-box')
+            input: shadowRoot.querySelector('.input-box input')!,
+            inputBox: shadowRoot.querySelector('.input-box')!,
+            label: shadowRoot.querySelector('label .label-value')!,
+            messageBox:shadowRoot.querySelector('.message-box')!,
+            passwordTrigger:shadowRoot.querySelector('.password-trigger')!,
         };
         this.registerEventListener();
     }
@@ -68,7 +81,7 @@ class JBInputWebComponent extends HTMLElement {
      * @param {String} valueString 
      * @return {String} standard value
      */
-    standardValue(valueString) {
+    standardValue(valueString: string) {
         let standardedValue = valueString;
         if (this.getAttribute('type') == "number") {
             standardedValue = this.standardValueForNumberInput(`${standardedValue}`);
@@ -80,12 +93,12 @@ class JBInputWebComponent extends HTMLElement {
      * @param {String} valueString 
      * @return {String} standard value
      */
-    standardValueForNumberInput(valueString) {
+    standardValueForNumberInput(valueString: string) {
         //if our input type is number and user want to set it to new value we do nececcery logic here
-        let value = parseFloat(valueString);
+        const value: number = parseFloat(valueString);
         if (isNaN(value)) {
             //we change nothing
-            valueString = this.numberFieldParameters.invalidNumberReplacement;
+            valueString = this.numberFieldParameters!.invalidNumberReplacement;
         }
         //TODO: add max and min checker to prevent bigger value assignment
         // if(value> this.numberFieldParameters.maxValue){
@@ -96,24 +109,27 @@ class JBInputWebComponent extends HTMLElement {
         // }
         const decimalNums = valueString.split('.')[1];
         const decimalPrecisionCount = decimalNums ? decimalNums.length : 0;
-        if (!(this.numberFieldParameters.decimalPrecision === null || this.numberFieldParameters.decimalPrecision == undefined) && decimalPrecisionCount && decimalPrecisionCount > this.numberFieldParameters.decimalPrecision) {
+        if (!(this.numberFieldParameters!.decimalPrecision === null || this.numberFieldParameters!.decimalPrecision == undefined) && decimalPrecisionCount && decimalPrecisionCount > this.numberFieldParameters!.decimalPrecision) {
             // truncate extra decimal
-            const checkRegex = new RegExp(`^-?\\d+(?:\\.\\d{0,${this.numberFieldParameters.decimalPrecision}})?`);
-            valueString = valueString.match(checkRegex)[0];
+            const checkRegex = new RegExp(`^-?\\d+(?:\\.\\d{0,${this.numberFieldParameters!.decimalPrecision}})?`);
+            const match = valueString.match(checkRegex);
+            if (match && match[0]) {
+                valueString = match[0];
+            }
         }
         return valueString;
     }
     registerEventListener() {
-        this.elements.input.addEventListener('change', this.onInputChange.bind(this));
-        this.elements.input.addEventListener('beforeinput', this.onInputBeforeInput.bind(this));
-        this.elements.input.addEventListener('input', this.onInputInput.bind(this));
-        this.elements.input.addEventListener('keypress', this.onInputKeyPress.bind(this));
-        this.elements.input.addEventListener('keyup', this.onInputKeyup.bind(this));
-        this.elements.input.addEventListener('keydown', this.onInputKeyDown.bind(this));
+        this.elements!.input.addEventListener('change', (e) => this.onInputChange((e)));
+        this.elements!.input.addEventListener('beforeinput', this.onInputBeforeInput.bind(this));
+        this.elements!.input.addEventListener('input', (e) => this.onInputInput((e as unknown as InputEvent)));
+        this.elements!.input.addEventListener('keypress', this.onInputKeyPress.bind(this));
+        this.elements!.input.addEventListener('keyup', this.onInputKeyup.bind(this));
+        this.elements!.input.addEventListener('keydown', this.onInputKeyDown.bind(this));
     }
     initProp() {
         this.#disabled = false;
-        this._validationList = [];
+        this.#validationList = [];
         this.value = this.getAttribute('value') || '';
         this.validation = {
             isValid: null,
@@ -135,22 +151,22 @@ class JBInputWebComponent extends HTMLElement {
     static get observedAttributes() {
         return ['label', 'type', 'message', 'value', 'name', 'autocomplete', 'placeholder', 'disabled', 'inputmode'];
     }
-    attributeChangedCallback(name, oldValue, newValue) {
+    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
         // do something when an attribute has changed
         this.onAttributeChange(name, newValue);
     }
-    onAttributeChange(name, value) {
+    onAttributeChange(name: string, value: string) {
         switch (name) {
             case 'label':
-                this._shadowRoot.querySelector('label .label-value').innerHTML = value;
+                this.elements!.label.innerHTML = value;
                 if (value == null || value == undefined || value == "") {
-                    this._shadowRoot.querySelector('label').classList.add('--hide');
+                    this.elements!.label.classList.add('--hide');
                 } else {
-                    this._shadowRoot.querySelector('label').classList.remove('--hide');
+                    this.elements!.label.classList.remove('--hide');
                 }
                 break;
             case 'type':
-                this.elements.input.setAttribute('type', value);
+                this.elements!.input.setAttribute('type', value);
                 if (value == "password") {
                     this.initPassword();
                 }
@@ -160,64 +176,65 @@ class JBInputWebComponent extends HTMLElement {
 
                 break;
             case 'message':
-                this._shadowRoot.querySelector('.message-box').innerHTML = value;
+                this.elements!.messageBox.innerHTML = value;
                 break;
             case 'value':
                 this.value = value;
                 break;
             case 'name':
-                this.elements.input.setAttribute('name', value);
+                this.elements!.input.setAttribute('name', value);
                 break;
             case 'autocomplete':
-                this.elements.input.setAttribute('autocomplete', value);
+                this.elements!.input.setAttribute('autocomplete', value);
                 break;
             case 'placeholder':
-                this.elements.input.placeholder = value;
+                this.elements!.input.placeholder = value;
                 break;
             case 'disabled':
                 if (value == '' || value === "true") {
                     this.#disabled = true;
-                    this.elements.input.setAttribute('disabled', 'true');
+                    this.elements!.input.setAttribute('disabled', 'true');
                 } else if (value == "false") {
                     this.#disabled = false;
-                    this.elements.input.removeAttribute('disabled');
+                    this.elements!.input.removeAttribute('disabled');
                 }
                 break;
             case 'inputmode':
-                this.elements.input.setAttribute("inputmode", value);
+                this.elements!.input.setAttribute("inputmode", value);
 
         }
 
     }
     initPassword() {
-        this.elements.inputBox.classList.add('type-password');
+        this.elements!.inputBox.classList.add('type-password');
         this.isPasswordvisible = false;
-        this._shadowRoot.querySelector('.password-trigger').addEventListener('click', this.onPasswordTriggerClicked.bind(this));
+        this.elements!.passwordTrigger.addEventListener('click', this.onPasswordTriggerClicked.bind(this));
     }
     /**
      * @public
      * change number input config base on developer need
-     * @param {*} numberConfig 
+     * @param {NumberFieldParameter} numberFieldParameters 
      */
-    setNumberFieldParameter({ step, decimalPrecision, invalidNumberReplacement }) {
-        if (step && !isNaN(step)) {
-            this.numberFieldParameters.step = step;
+    setNumberFieldParameter(numberFieldParameters: NumberFieldParameter) {
+        if (numberFieldParameters.step && !isNaN(numberFieldParameters.step)) {
+            this.numberFieldParameters!.step = numberFieldParameters.step;
         }
-        if (decimalPrecision && !isNaN(decimalPrecision)) {
-            this.numberFieldParameters.decimalPrecision = decimalPrecision;
+        if (numberFieldParameters.decimalPrecision && !isNaN(numberFieldParameters.decimalPrecision)) {
+            this.numberFieldParameters!.decimalPrecision = numberFieldParameters.decimalPrecision;
         }
-        if (invalidNumberReplacement) {
-            this.numberFieldParameters.invalidNumberReplacement = invalidNumberReplacement;
+        if (numberFieldParameters.invalidNumberReplacement) {
+            this.numberFieldParameters!.invalidNumberReplacement = numberFieldParameters.invalidNumberReplacement;
         }
     }
     onPasswordTriggerClicked() {
         this.isPasswordvisible = !this.isPasswordvisible;
-        const textField = this.elements.input;
+        const textField = this.elements!.input;
+        const passwordTriggerSVG = this.elements!.passwordTrigger.querySelector('svg')!;
         if (this.isPasswordvisible) {
-            this._shadowRoot.querySelector('.password-trigger svg').classList.add('password-visible');
+            passwordTriggerSVG.classList.add('password-visible');
             textField.setAttribute('type', 'text');
         } else {
-            this._shadowRoot.querySelector('.password-trigger svg').classList.remove('password-visible');
+            passwordTriggerSVG.classList.remove('password-visible');
             textField.setAttribute('type', 'password');
         }
     }
@@ -225,16 +242,16 @@ class JBInputWebComponent extends HTMLElement {
      * 
      * @param {KeyboardEvent} e 
      */
-    onInputKeyDown(e) {
+    onInputKeyDown(e: KeyboardEvent) {
         //handle up and down on number key
         if (this.getAttribute('type') == "number") {
             const key = e.key;
             if (key == "ArrowUp") {
-                this.increaseNumber();
+                this.increaseNumber!();
                 e.preventDefault();
             }
             if (key == "ArrowDown") {
-                this.decreaseNumber();
+                this.decreaseNumber!();
                 e.preventDefault();
             }
             //debugger;
@@ -253,12 +270,25 @@ class JBInputWebComponent extends HTMLElement {
         const event = new KeyboardEvent("keydown", keyDownnInitObj);
         this.dispatchEvent(event);
     }
-    onInputKeyPress(e) {
-        //TODO: raise keypress event
-        const event = new CustomEvent('keypress');
+    onInputKeyPress(e: KeyboardEvent) {
+        const keyPressInitObj: KeyboardEventInit = {
+            key: e.key,
+            keyCode: e.keyCode,
+            code: e.code,
+            ctrlKey: e.ctrlKey,
+            shiftKey: e.shiftKey,
+            altKey: e.altKey,
+            charCode: e.charCode,
+            which: e.which,
+            isComposing: e.isComposing,
+            cancelable: e.cancelable,
+            bubbles: e.bubbles,
+            composed: e.composed,
+        };
+        const event = new KeyboardEvent('keypress', keyPressInitObj);
         this.dispatchEvent(event);
     }
-    onInputKeyup(e) {
+    onInputKeyup(e: KeyboardEvent) {
         const keyUpInitObj = {
             key: e.key,
             keyCode: e.keyCode,
@@ -283,11 +313,11 @@ class JBInputWebComponent extends HTMLElement {
      * 
      * @param {InputEvent} e 
      */
-    onInputInput(e) {
-        const inputText = e.target.value;
+    onInputInput(e: InputEvent) {
+        const inputText = (e.target as HTMLInputElement).value;
         this.value = inputText;
         this.triggerInputValidation(false);
-        const eventInitDict = {
+        const eventInitDict: InputEventInit = {
             bubbles: e.bubbles,
             cancelable: e.cancelable,
             composed: e.composed,
@@ -297,17 +327,17 @@ class JBInputWebComponent extends HTMLElement {
             dataTransfer: e.dataTransfer,
             view: e.view,
             detail: e.detail,
-            key: e.key,
+            targetRanges: e.getTargetRanges(),
         };
         const event = new InputEvent('input', eventInitDict);
         this.dispatchEvent(event);
-       
+
     }
     /**
     * 
     * @param {InputEvent} e 
     */
-    onInputBeforeInput(e) {
+    onInputBeforeInput(e: InputEvent) {
         const eventInitDict = {
             bubbles: e.bubbles,
             cancelable: e.cancelable,
@@ -318,16 +348,16 @@ class JBInputWebComponent extends HTMLElement {
             dataTransfer: e.dataTransfer,
             view: e.view,
             detail: e.detail,
-            key: e.key,
+            targetRanges: e.getTargetRanges(),
         };
         const event = new InputEvent('beforeinput', eventInitDict);
         this.dispatchEvent(event);
-        if(event.defaultPrevented){
+        if (event.defaultPrevented) {
             e.preventDefault();
         }
     }
-    onInputChange(e) {
-        const inputText = e.target.value;
+    onInputChange(e:Event): void {
+        const inputText = (e.target as HTMLInputElement).value;
         this.triggerInputValidation(true);
         //here is the rare  time we update _value directly becuase we want trigger event that may read value directly from dom
         this.value = inputText;
@@ -346,7 +376,7 @@ class JBInputWebComponent extends HTMLElement {
     triggerInputValidation(showError = true) {
         // this method is for use out of component  for example if user click on submit button and developer want to check if all fields are valid
         //takeAction determine if we want to show user error in web component difualtManner or developer will handle it by himself
-        const inputText = this.elements.input.value;
+        const inputText = this.elements!.input.value;
 
         const validationResult = this.checkInputValidation(inputText);
         this.validation = {
@@ -354,18 +384,18 @@ class JBInputWebComponent extends HTMLElement {
             message: null
         };
         if (!validationResult.isAllValid) {
-            const firstFault = validationResult.validationList.find(x => !x.isValid);
+            const firstFault = validationResult.validationList.find(x => !x.isValid)!;
             this.validation.message = firstFault.message;
             if (showError == true) {
-                this.showValidationError(firstFault.message);
+                this.showValidationError(firstFault.message!);
             }
         } else {
             this.clearValidationError();
         }
         return validationResult;
     }
-    checkInputValidation(value) {
-        const validationResult = {
+    checkInputValidation(value:string) {
+        const validationResult:ValidationResult = {
             validationList: [],
             isAllValid: true
         };
@@ -378,8 +408,8 @@ class JBInputWebComponent extends HTMLElement {
         });
         return validationResult;
     }
-    checkValidation(text, validation) {
-        var testRes;
+    checkValidation(text: string, validation: JBInputValidationItem): ValidationResultItem{
+        let testRes;
         if (validation.validator instanceof RegExp) {
             testRes = validation.validator.test(text);
             validation.validator.lastIndex = 0;
@@ -402,24 +432,24 @@ class JBInputWebComponent extends HTMLElement {
             validation: validation
         };
     }
-    showValidationError(error) {
-        this._shadowRoot.querySelector('.message-box').innerHTML = error;
-        this._shadowRoot.querySelector('.message-box').classList.add('error');
+    showValidationError(error:string) {
+        this.elements!.messageBox.innerHTML = error;
+        this.elements!.messageBox.classList.add('error');
     }
     clearValidationError() {
         const text = this.getAttribute('message') || '';
-        this._shadowRoot.querySelector('.message-box').innerHTML = text;
-        this._shadowRoot.querySelector('.message-box').classList.remove('error');
+        this.elements!.messageBox.innerHTML = text;
+        this.elements!.messageBox.classList.remove('error');
     }
     /**
      * @public
      */
     focus() {
         //public method
-        this.elements.input.focus();
+        this.elements!.input.focus();
     }
     initNumberField() {
-        const addFloatNumber = (num1, num2) => {
+        const addFloatNumber = (num1:number, num2:number) => {
             const prec1 = `${num1}`.split('.')[1];
             const prec2 = `${num2}`.split('.')[1];
             const zarib1 = prec1 ? Math.pow(10, prec1.length + 1) : 1;
@@ -433,25 +463,25 @@ class JBInputWebComponent extends HTMLElement {
         this.increaseNumber = () => {
             const currentNumber = parseFloat(this.value);
             if (isNaN(currentNumber)) { return; }
-            const newNumber = addFloatNumber(currentNumber, this.numberFieldParameters.step);
-            this.value = newNumber;
+            const newNumber = addFloatNumber(currentNumber, this.numberFieldParameters!.step);
+            this.value = `${newNumber}`;
             this.dispatchOnChangeEvent();
         };
         this.decreaseNumber = () => {
             const currentNumber = parseFloat(this.value);
             if (isNaN(currentNumber)) { return; }
-            const newNumber = addFloatNumber(currentNumber, (-1 * this.numberFieldParameters.step));
-            this.value = newNumber;
+            const newNumber = addFloatNumber(currentNumber, (-1 * this.numberFieldParameters!.step));
+            this.value = `${newNumber}`;
             this.dispatchOnChangeEvent();
         };
         //if user set type="number" attribute
-        this.elements.inputBox.classList.add('--type-number');
+        this.elements!.inputBox.classList.add('--type-number');
         const buttonsElement = document.createElement('div');
         buttonsElement.classList.add("number-control-wrapper");
         buttonsElement.innerHTML = NumberInputButtonsHTML;
-        buttonsElement.querySelector('.increase-number-button').addEventListener('click', this.increaseNumber.bind(this));
-        buttonsElement.querySelector('.decrease-number-button').addEventListener('click', this.decreaseNumber.bind(this));
-        this.elements.inputBox.appendChild(buttonsElement);
+        buttonsElement.querySelector('.increase-number-button')!.addEventListener('click', this.increaseNumber.bind(this));
+        buttonsElement.querySelector('.decrease-number-button')!.addEventListener('click', this.decreaseNumber.bind(this));
+        this.elements!.inputBox.appendChild(buttonsElement);
     }
 }
 const myElementNotExists = !customElements.get('jb-input');
