@@ -7,7 +7,7 @@ export class JBInputWebComponent extends HTMLElement {
     static get formAssociated() { return true; }
     #value = '';
     elements?: ElementsObject;
-    #validationList = [];
+    #validationList: JBInputValidationItem[] = [];
     #disabled = false;
     internals_?: ElementInternals;
     numberFieldParameters: NumberFieldParameter | undefined;
@@ -15,7 +15,7 @@ export class JBInputWebComponent extends HTMLElement {
     isPasswordvisible: boolean | undefined;
     increaseNumber?: () => void;
     decreaseNumber?: () => void;
-    get value() {
+    get value(): string {
         return this.#value;
     }
     set value(value: string) {
@@ -27,10 +27,10 @@ export class JBInputWebComponent extends HTMLElement {
         }
         this.elements!.input.value = standardedValue;
     }
-    get validationList() {
+    get validationList(): JBInputValidationItem[] {
         return this.#validationList;
     }
-    set validationList(value) {
+    set validationList(value: JBInputValidationItem[]) {
         this.#validationList = value;
         this.triggerInputValidation(false);
     }
@@ -42,22 +42,22 @@ export class JBInputWebComponent extends HTMLElement {
         }
         this.initWebComponent();
     }
-    connectedCallback() {
+    connectedCallback(): void {
         // standard web component event that called when all of dom is binded
         this.callOnLoadEvent();
         this.initProp();
         this.callOnInitEvent();
 
     }
-    callOnLoadEvent() {
+    callOnLoadEvent(): void {
         const event = new CustomEvent('load', { bubbles: true, composed: true });
         this.dispatchEvent(event);
     }
-    callOnInitEvent() {
+    callOnInitEvent(): void {
         const event = new CustomEvent('init', { bubbles: true, composed: true });
         this.dispatchEvent(event);
     }
-    initWebComponent() {
+    initWebComponent(): void {
         const shadowRoot = this.attachShadow({
             mode: 'open',
             delegatesFocus: true,
@@ -70,8 +70,8 @@ export class JBInputWebComponent extends HTMLElement {
             input: shadowRoot.querySelector('.input-box input')!,
             inputBox: shadowRoot.querySelector('.input-box')!,
             label: shadowRoot.querySelector('label .label-value')!,
-            messageBox:shadowRoot.querySelector('.message-box')!,
-            passwordTrigger:shadowRoot.querySelector('.password-trigger')!,
+            messageBox: shadowRoot.querySelector('.message-box')!,
+            passwordTrigger: shadowRoot.querySelector('.password-trigger')!,
         };
         this.registerEventListener();
     }
@@ -81,7 +81,7 @@ export class JBInputWebComponent extends HTMLElement {
      * @param {String} valueString 
      * @return {String} standard value
      */
-    standardValue(valueString: string) {
+    standardValue(valueString: string): string {
         let standardedValue = valueString;
         if (this.getAttribute('type') == "number") {
             standardedValue = this.standardValueForNumberInput(`${standardedValue}`);
@@ -93,7 +93,7 @@ export class JBInputWebComponent extends HTMLElement {
      * @param {String} valueString 
      * @return {String} standard value
      */
-    standardValueForNumberInput(valueString: string) {
+    standardValueForNumberInput(valueString: string): string {
         //if our input type is number and user want to set it to new value we do nececcery logic here
         const value: number = parseFloat(valueString);
         if (isNaN(value)) {
@@ -119,7 +119,7 @@ export class JBInputWebComponent extends HTMLElement {
         }
         return valueString;
     }
-    registerEventListener() {
+    registerEventListener(): void {
         this.elements!.input.addEventListener('change', (e) => this.onInputChange((e)));
         this.elements!.input.addEventListener('beforeinput', this.onInputBeforeInput.bind(this));
         this.elements!.input.addEventListener('input', (e) => this.onInputInput((e as unknown as InputEvent)));
@@ -148,14 +148,14 @@ export class JBInputWebComponent extends HTMLElement {
             invalidNumberReplacement: ''
         };
     }
-    static get observedAttributes() {
+    static get observedAttributes(): string[] {
         return ['label', 'type', 'message', 'value', 'name', 'autocomplete', 'placeholder', 'disabled', 'inputmode'];
     }
-    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
         // do something when an attribute has changed
         this.onAttributeChange(name, newValue);
     }
-    onAttributeChange(name: string, value: string) {
+    onAttributeChange(name: string, value: string): void {
         switch (name) {
             case 'label':
                 this.elements!.label.innerHTML = value;
@@ -205,7 +205,7 @@ export class JBInputWebComponent extends HTMLElement {
         }
 
     }
-    initPassword() {
+    initPassword(): void {
         this.elements!.inputBox.classList.add('type-password');
         this.isPasswordvisible = false;
         this.elements!.passwordTrigger.addEventListener('click', this.onPasswordTriggerClicked.bind(this));
@@ -215,7 +215,7 @@ export class JBInputWebComponent extends HTMLElement {
      * change number input config base on developer need
      * @param {NumberFieldParameter} numberFieldParameters 
      */
-    setNumberFieldParameter(numberFieldParameters: NumberFieldParameter) {
+    setNumberFieldParameter(numberFieldParameters: NumberFieldParameter): void {
         if (numberFieldParameters.step && !isNaN(numberFieldParameters.step)) {
             this.numberFieldParameters!.step = numberFieldParameters.step;
         }
@@ -226,7 +226,7 @@ export class JBInputWebComponent extends HTMLElement {
             this.numberFieldParameters!.invalidNumberReplacement = numberFieldParameters.invalidNumberReplacement;
         }
     }
-    onPasswordTriggerClicked() {
+    onPasswordTriggerClicked(): void {
         this.isPasswordvisible = !this.isPasswordvisible;
         const textField = this.elements!.input;
         const passwordTriggerSVG = this.elements!.passwordTrigger.querySelector('svg')!;
@@ -242,7 +242,7 @@ export class JBInputWebComponent extends HTMLElement {
      * 
      * @param {KeyboardEvent} e 
      */
-    onInputKeyDown(e: KeyboardEvent) {
+    onInputKeyDown(e: KeyboardEvent): void {
         //handle up and down on number key
         if (this.getAttribute('type') == "number") {
             const key = e.key;
@@ -270,7 +270,7 @@ export class JBInputWebComponent extends HTMLElement {
         const event = new KeyboardEvent("keydown", keyDownnInitObj);
         this.dispatchEvent(event);
     }
-    onInputKeyPress(e: KeyboardEvent) {
+    onInputKeyPress(e: KeyboardEvent): void {
         const keyPressInitObj: KeyboardEventInit = {
             key: e.key,
             keyCode: e.keyCode,
@@ -288,7 +288,7 @@ export class JBInputWebComponent extends HTMLElement {
         const event = new KeyboardEvent('keypress', keyPressInitObj);
         this.dispatchEvent(event);
     }
-    onInputKeyup(e: KeyboardEvent) {
+    onInputKeyup(e: KeyboardEvent): void {
         const keyUpInitObj = {
             key: e.key,
             keyCode: e.keyCode,
@@ -305,7 +305,7 @@ export class JBInputWebComponent extends HTMLElement {
             this.onInputEnter();
         }
     }
-    onInputEnter() {
+    onInputEnter(): void {
         const event = new CustomEvent('enter');
         this.dispatchEvent(event);
     }
@@ -313,7 +313,7 @@ export class JBInputWebComponent extends HTMLElement {
      * 
      * @param {InputEvent} e 
      */
-    onInputInput(e: InputEvent) {
+    onInputInput(e: InputEvent): void {
         const inputText = (e.target as HTMLInputElement).value;
         this.value = inputText;
         this.triggerInputValidation(false);
@@ -337,7 +337,7 @@ export class JBInputWebComponent extends HTMLElement {
     * 
     * @param {InputEvent} e 
     */
-    onInputBeforeInput(e: InputEvent) {
+    onInputBeforeInput(e: InputEvent): void {
         const eventInitDict = {
             bubbles: e.bubbles,
             cancelable: e.cancelable,
@@ -356,14 +356,14 @@ export class JBInputWebComponent extends HTMLElement {
             e.preventDefault();
         }
     }
-    onInputChange(e:Event): void {
+    onInputChange(e: Event): void {
         const inputText = (e.target as HTMLInputElement).value;
         this.triggerInputValidation(true);
         //here is the rare  time we update _value directly becuase we want trigger event that may read value directly from dom
         this.value = inputText;
         this.dispatchOnChangeEvent();
     }
-    dispatchOnChangeEvent() {
+    dispatchOnChangeEvent():void{
         const validationObject = this.checkInputValidation(this.value);
         const event = new CustomEvent('change', {
             detail: {
@@ -373,7 +373,7 @@ export class JBInputWebComponent extends HTMLElement {
         });
         this.dispatchEvent(event);
     }
-    triggerInputValidation(showError = true) {
+    triggerInputValidation(showError = true):ValidationResult{
         // this method is for use out of component  for example if user click on submit button and developer want to check if all fields are valid
         //takeAction determine if we want to show user error in web component difualtManner or developer will handle it by himself
         const inputText = this.elements!.input.value;
@@ -394,8 +394,8 @@ export class JBInputWebComponent extends HTMLElement {
         }
         return validationResult;
     }
-    checkInputValidation(value:string) {
-        const validationResult:ValidationResult = {
+    checkInputValidation(value: string) {
+        const validationResult: ValidationResult = {
             validationList: [],
             isAllValid: true
         };
@@ -408,7 +408,7 @@ export class JBInputWebComponent extends HTMLElement {
         });
         return validationResult;
     }
-    checkValidation(text: string, validation: JBInputValidationItem): ValidationResultItem{
+    checkValidation(text: string, validation: JBInputValidationItem): ValidationResultItem {
         let testRes;
         if (validation.validator instanceof RegExp) {
             testRes = validation.validator.test(text);
@@ -432,7 +432,7 @@ export class JBInputWebComponent extends HTMLElement {
             validation: validation
         };
     }
-    showValidationError(error:string) {
+    showValidationError(error: string) {
         this.elements!.messageBox.innerHTML = error;
         this.elements!.messageBox.classList.add('error');
     }
@@ -449,7 +449,7 @@ export class JBInputWebComponent extends HTMLElement {
         this.elements!.input.focus();
     }
     initNumberField() {
-        const addFloatNumber = (num1:number, num2:number) => {
+        const addFloatNumber = (num1: number, num2: number) => {
             const prec1 = `${num1}`.split('.')[1];
             const prec2 = `${num2}`.split('.')[1];
             const zarib1 = prec1 ? Math.pow(10, prec1.length + 1) : 1;
