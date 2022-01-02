@@ -3,7 +3,7 @@ import CSS from './JBInput.scss';
 import NumberInputButtonsHTML from './NumberInputButtons.html';
 import './inbox-element/inbox-element';
 import { ElementsObject, JBInputValidationItem, NumberFieldParameter, ValidationResult, ValidationResultItem, ValidationResultSummary } from './Types';
-class JBInputWebComponent extends HTMLElement {
+export class JBInputWebComponent extends HTMLElement {
     static get formAssociated() { return true; }
     #value = '';
     elements?: ElementsObject;
