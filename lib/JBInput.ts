@@ -69,7 +69,8 @@ export class JBInputWebComponent extends HTMLElement {
         this.elements = {
             input: shadowRoot.querySelector('.input-box input')!,
             inputBox: shadowRoot.querySelector('.input-box')!,
-            label: shadowRoot.querySelector('label .label-value')!,
+            label: shadowRoot.querySelector('label')!,
+            labelValue: shadowRoot.querySelector('label .label-value')!,
             messageBox: shadowRoot.querySelector('.message-box')!,
             passwordTrigger: shadowRoot.querySelector('.password-trigger')!,
         };
@@ -158,7 +159,7 @@ export class JBInputWebComponent extends HTMLElement {
     onAttributeChange(name: string, value: string): void {
         switch (name) {
             case 'label':
-                this.elements!.label.innerHTML = value;
+                this.elements!.labelValue.innerHTML = value;
                 if (value == null || value == undefined || value == "") {
                     this.elements!.label.classList.add('--hide');
                 } else {

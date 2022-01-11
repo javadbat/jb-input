@@ -2,6 +2,7 @@ export type ElementsObject = {
     input: HTMLInputElement;
     inputBox: HTMLDivElement;
     label: HTMLLabelElement;
+    labelValue: HTMLSpanElement;
     messageBox: HTMLDivElement;
     passwordTrigger: HTMLDivElement;
     [key: string]: HTMLElement;
