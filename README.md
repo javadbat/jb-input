@@ -176,12 +176,12 @@ for better result i suggest you use `jb-input-inbox-element` tag but its optiona
 example:
 
 ```HTML
-<JBInput>
+<jb-input>
     <jb-input-inbox-element slot="end-section">
         <div>after</div>
     </jb-input-inbox-element>
     <jb-input-inbox-element slot="start-section">
         <div>before</div>
     </jb-input-inbox-element>
-</JBInput>
+</jb-input>
 ```
