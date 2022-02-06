@@ -79,7 +79,7 @@ export class JBInputWebComponent extends HTMLElement {
 
     /**
      * this function will get user inputed or pasted text and convert it to standard one base on developer config
-     * @param {String} valueString 
+     * @param {String | number} valueString 
      * @return {String} standard value
      */
     standardValue(valueString: string | number): JBInputStandardValueObject {
