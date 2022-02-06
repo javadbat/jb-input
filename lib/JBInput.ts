@@ -82,7 +82,18 @@ export class JBInputWebComponent extends HTMLElement {
      * @param {String} valueString 
      * @return {String} standard value
      */
-    standardValue(valueString: string): JBInputStandardValueObject {
+    standardValue(valueString: string | number): JBInputStandardValueObject {
+        if(typeof valueString !== "string"){
+            if(typeof valueString === "number"){
+                if(!isNaN(valueString)){
+                    valueString = `${valueString}`;
+                }else{
+                    valueString = '';
+                }
+            }else{
+                valueString = '';
+            }
+        }
         let standardedValue:JBInputStandardValueObject = {
             displayValue:valueString,
             value:valueString
@@ -123,7 +134,8 @@ export class JBInputWebComponent extends HTMLElement {
         // if(value< this.numberFieldParameters.minValue){
         //     return `${this.numberFieldParameters.minValue}`;
         // }
-        const decimalNums = valueString.split('.')[1];
+        const[integerNums, decimalNums] = valueString.split('.');
+        
         const decimalPrecisionCount = decimalNums ? decimalNums.length : 0;
         if (!(this.numberFieldParameters!.decimalPrecision === null || this.numberFieldParameters!.decimalPrecision == undefined) && decimalPrecisionCount && decimalPrecisionCount > this.numberFieldParameters!.decimalPrecision) {
             // truncate extra decimal
@@ -132,6 +144,11 @@ export class JBInputWebComponent extends HTMLElement {
             if (match && match[0]) {
                 valueString = match[0];
             }
+        }
+        // check for negative value
+        if(this.numberFieldParameters && this.numberFieldParameters.acceptNegative == false && integerNums.startsWith('-')){
+            valueString = '0';
+            console.error('negative number is not allowed change numberFieldParameters.acceptNegative to true to allow negative numbers');
         }
         const standardValueObject: JBInputStandardValueObject = {
             displayValue: valueString,
