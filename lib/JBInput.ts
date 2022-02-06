@@ -2,11 +2,11 @@ import HTML from './JBInput.html';
 import CSS from './JBInput.scss';
 import NumberInputButtonsHTML from './NumberInputButtons.html';
 import './inbox-element/inbox-element';
-import { ElementsObject, JBInputValidationItem, NumberFieldParameter, ValidationResult, ValidationResultItem, ValidationResultSummary } from './Types';
+import { ElementsObject, JBInputStandardValueObject, JBInputValidationItem, NumberFieldParameter, NumberFieldParameterInput, ValidationResult, ValidationResultItem, ValidationResultSummary } from './Types';
 export class JBInputWebComponent extends HTMLElement {
     static get formAssociated() { return true; }
     #value = '';
-    elements?: ElementsObject;
+    elements!: ElementsObject;
     #validationList: JBInputValidationItem[] = [];
     #disabled = false;
     internals_?: ElementInternals;
@@ -20,19 +20,19 @@ export class JBInputWebComponent extends HTMLElement {
     }
     set value(value: string) {
         const standardedValue = this.standardValue(value);
-        this.#value = standardedValue;
+        this.#value = standardedValue.value;
         //comment for typescript problem
         if (this.internals_ && typeof this.internals_.setFormValue == "function") {
-            this.internals_.setFormValue(standardedValue);
+            this.internals_.setFormValue(standardedValue.value);
         }
-        this.elements!.input.value = standardedValue;
+        this.elements.input.value = standardedValue.displayValue;
     }
     get validationList(): JBInputValidationItem[] {
         return this.#validationList;
     }
     set validationList(value: JBInputValidationItem[]) {
         this.#validationList = value;
-        this.triggerInputValidation(false);
+        this.checkValidity(false);
     }
     constructor() {
         super();
@@ -82,19 +82,34 @@ export class JBInputWebComponent extends HTMLElement {
      * @param {String} valueString 
      * @return {String} standard value
      */
-    standardValue(valueString: string): string {
-        let standardedValue = valueString;
+    standardValue(valueString: string): JBInputStandardValueObject {
+        let standardedValue:JBInputStandardValueObject = {
+            displayValue:valueString,
+            value:valueString
+        };
         if (this.getAttribute('type') == "number") {
-            standardedValue = this.standardValueForNumberInput(`${standardedValue}`);
+            standardedValue = this.standardValueForNumberInput(valueString);
         }
         return standardedValue;
     }
     /**
      * 
-     * @param {String} valueString 
+     * @param {String} inputValueString 
      * @return {String} standard value
      */
-    standardValueForNumberInput(valueString: string): string {
+    standardValueForNumberInput(inputValueString: string): JBInputStandardValueObject {
+        if(inputValueString == '-' && this.numberFieldParameters!.acceptNegative == true){
+            //if user type - and we accept negative number we let user to continue typing
+            return {
+                displayValue:inputValueString,
+                value:inputValueString
+            };
+        }
+        let valueString = inputValueString;
+        //if  comma separator is used we need to remove it
+        if(this.numberFieldParameters && this.numberFieldParameters.useThousandSeparator){
+            valueString = valueString.replace(new RegExp(`${this.numberFieldParameters.thousandSeparator}`,'g'), '');
+        }
         //if our input type is number and user want to set it to new value we do nececcery logic here
         const value: number = parseFloat(valueString);
         if (isNaN(value)) {
@@ -118,15 +133,23 @@ export class JBInputWebComponent extends HTMLElement {
                 valueString = match[0];
             }
         }
-        return valueString;
+        const standardValueObject: JBInputStandardValueObject = {
+            displayValue: valueString,
+            value: valueString,
+        };
+        // add thousand separator comma
+        if(this.numberFieldParameters && this.numberFieldParameters.useThousandSeparator){
+            standardValueObject.displayValue = valueString.replace(/\B(?=(\d{3})+(?!\d))/g, this.numberFieldParameters.thousandSeparator);
+        }
+        return standardValueObject;
     }
     registerEventListener(): void {
-        this.elements!.input.addEventListener('change', (e) => this.onInputChange((e)));
-        this.elements!.input.addEventListener('beforeinput', this.onInputBeforeInput.bind(this));
-        this.elements!.input.addEventListener('input', (e) => this.onInputInput((e as unknown as InputEvent)));
-        this.elements!.input.addEventListener('keypress', this.onInputKeyPress.bind(this));
-        this.elements!.input.addEventListener('keyup', this.onInputKeyup.bind(this));
-        this.elements!.input.addEventListener('keydown', this.onInputKeyDown.bind(this));
+        this.elements.input.addEventListener('change', (e) => this.onInputChange((e)));
+        this.elements.input.addEventListener('beforeinput', this.onInputBeforeInput.bind(this));
+        this.elements.input.addEventListener('input', (e) => this.onInputInput((e as unknown as InputEvent)));
+        this.elements.input.addEventListener('keypress', this.onInputKeyPress.bind(this));
+        this.elements.input.addEventListener('keyup', this.onInputKeyup.bind(this));
+        this.elements.input.addEventListener('keydown', this.onInputKeyDown.bind(this));
     }
     initProp() {
         this.#disabled = false;
@@ -146,7 +169,12 @@ export class JBInputWebComponent extends HTMLElement {
             //how many decimal  place we accept
             decimalPrecision: null,
             //if user type or paste something not a number, this char will be filled the replacement in most cases will be '0'
-            invalidNumberReplacement: ''
+            invalidNumberReplacement: '',
+            //for money and big number seperate with a comma
+            useThousandSeparator: false,
+            thousandSeparator:',',
+            acceptNegative: true,
+            
         };
     }
     static get observedAttributes(): string[] {
@@ -159,64 +187,70 @@ export class JBInputWebComponent extends HTMLElement {
     onAttributeChange(name: string, value: string): void {
         switch (name) {
             case 'label':
-                this.elements!.labelValue.innerHTML = value;
+                this.elements.labelValue.innerHTML = value;
                 if (value == null || value == undefined || value == "") {
-                    this.elements!.label.classList.add('--hide');
+                    this.elements.label.classList.add('--hide');
                 } else {
-                    this.elements!.label.classList.remove('--hide');
+                    this.elements.label.classList.remove('--hide');
                 }
                 break;
             case 'type':
-                this.elements!.input.setAttribute('type', value);
+                if(value !=='number'){
+                    //we handle number manually
+                    this.elements.input.setAttribute('type', value);
+                }
                 if (value == "password") {
                     this.initPassword();
                 }
                 if (value == "number") {
+                    if(this.getAttribute('inputmode') == null){
+                        this.setAttribute('inputmode', 'numeric');
+                    }
                     this.initNumberField();
                 }
 
                 break;
             case 'message':
-                this.elements!.messageBox.innerHTML = value;
+                this.elements.messageBox.innerHTML = value;
                 break;
             case 'value':
                 this.value = value;
                 break;
             case 'name':
-                this.elements!.input.setAttribute('name', value);
+                this.elements.input.setAttribute('name', value);
                 break;
             case 'autocomplete':
-                this.elements!.input.setAttribute('autocomplete', value);
+                this.elements.input.setAttribute('autocomplete', value);
                 break;
             case 'placeholder':
-                this.elements!.input.placeholder = value;
+                this.elements.input.placeholder = value;
                 break;
             case 'disabled':
                 if (value == '' || value === "true") {
                     this.#disabled = true;
-                    this.elements!.input.setAttribute('disabled', 'true');
+                    this.elements.input.setAttribute('disabled', 'true');
                 } else if (value == "false") {
                     this.#disabled = false;
-                    this.elements!.input.removeAttribute('disabled');
+                    this.elements.input.removeAttribute('disabled');
                 }
                 break;
             case 'inputmode':
-                this.elements!.input.setAttribute("inputmode", value);
+                this.elements.input.setAttribute("inputmode", value);
 
         }
 
     }
     initPassword(): void {
-        this.elements!.inputBox.classList.add('type-password');
+        this.elements.inputBox.classList.add('type-password');
         this.isPasswordvisible = false;
-        this.elements!.passwordTrigger.addEventListener('click', this.onPasswordTriggerClicked.bind(this));
+        this.elements.passwordTrigger.addEventListener('click', this.onPasswordTriggerClicked.bind(this));
     }
     /**
      * @public
      * change number input config base on developer need
-     * @param {NumberFieldParameter} numberFieldParameters 
+     * @param {NumberFieldParameterInput} numberFieldParameters 
      */
-    setNumberFieldParameter(numberFieldParameters: NumberFieldParameter): void {
+    setNumberFieldParameter(numberFieldParameters: NumberFieldParameterInput): void {
         if (numberFieldParameters.step && !isNaN(numberFieldParameters.step)) {
             this.numberFieldParameters!.step = numberFieldParameters.step;
         }
@@ -226,11 +260,20 @@ export class JBInputWebComponent extends HTMLElement {
         if (numberFieldParameters.invalidNumberReplacement) {
             this.numberFieldParameters!.invalidNumberReplacement = numberFieldParameters.invalidNumberReplacement;
         }
+        if(typeof numberFieldParameters.useThousandSeparator == 'boolean'){
+            this.numberFieldParameters!.useThousandSeparator = numberFieldParameters.useThousandSeparator;
+        }
+        if(typeof numberFieldParameters.thousandSeparator == 'string'){
+            this.numberFieldParameters!.thousandSeparator = numberFieldParameters.thousandSeparator;
+        }
+        if(typeof numberFieldParameters.acceptNegative == 'boolean'){
+            this.numberFieldParameters!.acceptNegative = numberFieldParameters.acceptNegative;
+        }
     }
     onPasswordTriggerClicked(): void {
         this.isPasswordvisible = !this.isPasswordvisible;
-        const textField = this.elements!.input;
-        const passwordTriggerSVG = this.elements!.passwordTrigger.querySelector('svg')!;
+        const textField = this.elements.input;
+        const passwordTriggerSVG = this.elements.passwordTrigger.querySelector('svg')!;
         if (this.isPasswordvisible) {
             passwordTriggerSVG.classList.add('password-visible');
             textField.setAttribute('type', 'text');
@@ -255,7 +298,6 @@ export class JBInputWebComponent extends HTMLElement {
                 this.decreaseNumber!();
                 e.preventDefault();
             }
-            //debugger;
         }
         //trigger componnet event
         const keyDownnInitObj = {
@@ -317,7 +359,11 @@ export class JBInputWebComponent extends HTMLElement {
     onInputInput(e: InputEvent): void {
         const inputText = (e.target as HTMLInputElement).value;
         this.value = inputText;
-        this.triggerInputValidation(false);
+        this.checkValidity(false);
+        this.dispatchOnInputEvent(e);
+
+    }
+    dispatchOnInputEvent(e: InputEvent): void {
         const eventInitDict: InputEventInit = {
             bubbles: e.bubbles,
             cancelable: e.cancelable,
@@ -332,13 +378,45 @@ export class JBInputWebComponent extends HTMLElement {
         };
         const event = new InputEvent('input', eventInitDict);
         this.dispatchEvent(event);
-
+    }
+    /**
+     * check if string value is a number
+     * @param {string} value 
+     * @return {boolean}
+     */
+    private isStringisNumber(value: string | null): boolean {
+        if( value == null || value == undefined ||value.trim().length == 0){
+            return false;
+        }else{
+            return !isNaN(Number(value));
+        }
     }
     /**
     * 
     * @param {InputEvent} e 
     */
     onInputBeforeInput(e: InputEvent): void {
+        const endCarretPos = (e.target as HTMLInputElement).selectionEnd || 0;
+        const startCarretPos = (e.target as HTMLInputElement).selectionStart || 0;
+        let isPreventDefault = false;
+        // we check number input type field and prevent non number values
+        if(this.getAttribute('type') == 'number' && e.inputType !== 'deleteContentBackward' && !this.isStringisNumber(e.data)){
+            isPreventDefault = true;
+            // we made exception for . char if its valid by user
+            if(e.data == '.' && this.numberFieldParameters!.decimalPrecision !== 0 && this.value.indexOf('.') == -1 && !(endCarretPos == 0 || startCarretPos == 0) && !(this.numberFieldParameters!.decimalPrecision !== null && this.value.substring(endCarretPos).length > this.numberFieldParameters!.decimalPrecision)){
+                isPreventDefault = false;
+            }
+            //for '-' char we check if negetive number is allowed
+            if(this.numberFieldParameters && this.numberFieldParameters.acceptNegative && e.data == '-' && (startCarretPos == 0 || endCarretPos == 0)){
+                isPreventDefault = false;
+            }
+        }
+        if(isPreventDefault){
+            e.preventDefault();
+        }
+        this.dispatchBeforeInputEvent(e);
+    }
+    private dispatchBeforeInputEvent(e: InputEvent): boolean {
         const eventInitDict = {
             bubbles: e.bubbles,
             cancelable: e.cancelable,
@@ -356,10 +434,11 @@ export class JBInputWebComponent extends HTMLElement {
         if (event.defaultPrevented) {
             e.preventDefault();
         }
+        return event.defaultPrevented;
     }
     onInputChange(e: Event): void {
         const inputText = (e.target as HTMLInputElement).value;
-        this.triggerInputValidation(true);
+        this.checkValidity(true);
         //here is the rare  time we update _value directly becuase we want trigger event that may read value directly from dom
         this.value = inputText;
         this.dispatchOnChangeEvent();
@@ -374,10 +453,16 @@ export class JBInputWebComponent extends HTMLElement {
         });
         this.dispatchEvent(event);
     }
-    triggerInputValidation(showError = true):ValidationResult{
+    /**
+     * check if input validation list is fullfilled or not
+     * @param {boolean} showError indicate whether show error or not
+     * @return {ValidationResult} 
+     */
+    checkValidity(showError = true):ValidationResult{
+    
         // this method is for use out of component  for example if user click on submit button and developer want to check if all fields are valid
         //takeAction determine if we want to show user error in web component difualtManner or developer will handle it by himself
-        const inputText = this.elements!.input.value;
+        const inputText = this.elements.input.value;
 
         const validationResult = this.checkInputValidation(inputText);
         this.validation = {
@@ -394,6 +479,14 @@ export class JBInputWebComponent extends HTMLElement {
             this.clearValidationError();
         }
         return validationResult;
+    }
+    /**
+     * @deprecated use checkValidity instead it will be removed in future version
+     * @param {boolean} showError indicate whether show error or not
+     * @return {ValidationResult} 
+     */
+    triggerInputValidation(showError = true):ValidationResult{
+        return this.checkValidity(showError);
     }
     checkInputValidation(value: string) {
         const validationResult: ValidationResult = {
@@ -434,20 +527,20 @@ export class JBInputWebComponent extends HTMLElement {
         };
     }
     showValidationError(error: string) {
-        this.elements!.messageBox.innerHTML = error;
-        this.elements!.messageBox.classList.add('error');
+        this.elements.messageBox.innerHTML = error;
+        this.elements.messageBox.classList.add('error');
     }
     clearValidationError() {
         const text = this.getAttribute('message') || '';
-        this.elements!.messageBox.innerHTML = text;
-        this.elements!.messageBox.classList.remove('error');
+        this.elements.messageBox.innerHTML = text;
+        this.elements.messageBox.classList.remove('error');
     }
     /**
      * @public
      */
     focus() {
         //public method
-        this.elements!.input.focus();
+        this.elements.input.focus();
     }
     initNumberField() {
         const addFloatNumber = (num1: number, num2: number) => {
@@ -471,18 +564,21 @@ export class JBInputWebComponent extends HTMLElement {
         this.decreaseNumber = () => {
             const currentNumber = parseFloat(this.value);
             if (isNaN(currentNumber)) { return; }
-            const newNumber = addFloatNumber(currentNumber, (-1 * this.numberFieldParameters!.step));
+            let newNumber = addFloatNumber(currentNumber, (-1 * this.numberFieldParameters!.step));
+            if(newNumber < 0 && !this.numberFieldParameters!.acceptNegative){
+                newNumber = 0;
+            }
             this.value = `${newNumber}`;
             this.dispatchOnChangeEvent();
         };
         //if user set type="number" attribute
-        this.elements!.inputBox.classList.add('--type-number');
+        this.elements.inputBox.classList.add('--type-number');
         const buttonsElement = document.createElement('div');
         buttonsElement.classList.add("number-control-wrapper");
         buttonsElement.innerHTML = NumberInputButtonsHTML;
         buttonsElement.querySelector('.increase-number-button')!.addEventListener('click', this.increaseNumber.bind(this));
         buttonsElement.querySelector('.decrease-number-button')!.addEventListener('click', this.decreaseNumber.bind(this));
-        this.elements!.inputBox.appendChild(buttonsElement);
+        this.elements.inputBox.appendChild(buttonsElement);
     }
 }
 const myElementNotExists = !customElements.get('jb-input');
