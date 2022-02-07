@@ -12,7 +12,9 @@ text input web component with this benefit:
 
 - customizable ui with css variable sp you can have multiple style in different scope of your app.
 
-- custom display for password and number input.
+- custom display for password input with show and hide trigger button.
+
+- number input with thousand separator (1,000,000) and  +- button with keyboard support for up and down value with customizable step and preventable negative value. 
 
 sample: <https://codepen.io/javadbat/pen/dyNwddd>
 
