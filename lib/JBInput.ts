@@ -88,10 +88,10 @@ export class JBInputWebComponent extends HTMLElement {
                 if(!isNaN(valueString)){
                     valueString = `${valueString}`;
                 }else{
-                    valueString = '';
+                    valueString = this.numberFieldParameters?this.numberFieldParameters.invalidNumberReplacement:'';
                 }
             }else{
-                valueString = '';
+                valueString = this.numberFieldParameters?this.numberFieldParameters.invalidNumberReplacement:'';
             }
         }
         let standardedValue:JBInputStandardValueObject = {
@@ -145,9 +145,16 @@ export class JBInputWebComponent extends HTMLElement {
                 valueString = match[0];
             }
         }
+        //remove start zero when number is more than one digit 065 => 65
+        if(integerNums.startsWith('0') && integerNums.length > 1){
+            valueString = valueString.substring(1);
+        }
+        if( integerNums.startsWith('-') && integerNums.charAt(1) == '0' && integerNums.length > 2){
+            valueString = '-'+valueString.substring(2);
+        }
         // check for negative value
         if(this.numberFieldParameters && this.numberFieldParameters.acceptNegative == false && integerNums.startsWith('-')){
-            valueString = '0';
+            valueString = this.numberFieldParameters!.invalidNumberReplacement;
             console.error('negative number is not allowed change numberFieldParameters.acceptNegative to true to allow negative numbers');
         }
         const standardValueObject: JBInputStandardValueObject = {
