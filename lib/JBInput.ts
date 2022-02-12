@@ -293,6 +293,7 @@ export class JBInputWebComponent extends HTMLElement {
         if(typeof numberFieldParameters.acceptNegative == 'boolean'){
             this.numberFieldParameters!.acceptNegative = numberFieldParameters.acceptNegative;
         }
+        this.value = `${this.value}`;
     }
     onPasswordTriggerClicked(): void {
         this.isPasswordvisible = !this.isPasswordvisible;
@@ -603,6 +604,7 @@ export class JBInputWebComponent extends HTMLElement {
         buttonsElement.querySelector('.increase-number-button')!.addEventListener('click', this.increaseNumber.bind(this));
         buttonsElement.querySelector('.decrease-number-button')!.addEventListener('click', this.decreaseNumber.bind(this));
         this.elements.inputBox.appendChild(buttonsElement);
+        this.value = `${this.value}`;
     }
 }
 const myElementNotExists = !customElements.get('jb-input');
