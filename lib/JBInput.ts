@@ -137,7 +137,7 @@ export class JBInputWebComponent extends HTMLElement {
         const[integerNums, decimalNums] = valueString.split('.');
         
         const decimalPrecisionCount = decimalNums ? decimalNums.length : 0;
-        if (!(this.numberFieldParameters!.decimalPrecision === null || this.numberFieldParameters!.decimalPrecision == undefined) && decimalPrecisionCount && decimalPrecisionCount > this.numberFieldParameters!.decimalPrecision) {
+        if (this.numberFieldParameters && !(this.numberFieldParameters.decimalPrecision === null || this.numberFieldParameters.decimalPrecision == undefined) && decimalPrecisionCount && decimalPrecisionCount > this.numberFieldParameters.decimalPrecision) {
             // truncate extra decimal
             const checkRegex = new RegExp(`^-?\\d+(?:\\.\\d{0,${this.numberFieldParameters!.decimalPrecision}})?`);
             const match = valueString.match(checkRegex);
@@ -278,19 +278,19 @@ export class JBInputWebComponent extends HTMLElement {
         if (numberFieldParameters.step && !isNaN(numberFieldParameters.step)) {
             this.numberFieldParameters!.step = numberFieldParameters.step;
         }
-        if (numberFieldParameters.decimalPrecision && !isNaN(numberFieldParameters.decimalPrecision)) {
+        if (numberFieldParameters && numberFieldParameters.decimalPrecision && !isNaN(numberFieldParameters.decimalPrecision)) {
             this.numberFieldParameters!.decimalPrecision = numberFieldParameters.decimalPrecision;
         }
-        if (numberFieldParameters.invalidNumberReplacement) {
+        if (numberFieldParameters && numberFieldParameters.invalidNumberReplacement) {
             this.numberFieldParameters!.invalidNumberReplacement = numberFieldParameters.invalidNumberReplacement;
         }
-        if(typeof numberFieldParameters.useThousandSeparator == 'boolean'){
+        if(numberFieldParameters && typeof numberFieldParameters.useThousandSeparator == 'boolean'){
             this.numberFieldParameters!.useThousandSeparator = numberFieldParameters.useThousandSeparator;
         }
-        if(typeof numberFieldParameters.thousandSeparator == 'string'){
+        if(numberFieldParameters && typeof numberFieldParameters.thousandSeparator == 'string'){
             this.numberFieldParameters!.thousandSeparator = numberFieldParameters.thousandSeparator;
         }
-        if(typeof numberFieldParameters.acceptNegative == 'boolean'){
+        if(numberFieldParameters && typeof numberFieldParameters.acceptNegative == 'boolean'){
             this.numberFieldParameters!.acceptNegative = numberFieldParameters.acceptNegative;
         }
         this.value = `${this.value}`;
