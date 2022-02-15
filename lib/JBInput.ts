@@ -582,15 +582,17 @@ export class JBInputWebComponent extends HTMLElement {
         this.increaseNumber = () => {
             const currentNumber = parseFloat(this.value);
             if (isNaN(currentNumber)) { return; }
-            const newNumber = addFloatNumber(currentNumber, this.numberFieldParameters!.step);
+            const step = this.numberFieldParameters?this.numberFieldParameters.step:1;
+            const newNumber = addFloatNumber(currentNumber, step);
             this.value = `${newNumber}`;
             this.dispatchOnChangeEvent();
         };
         this.decreaseNumber = () => {
             const currentNumber = parseFloat(this.value);
             if (isNaN(currentNumber)) { return; }
-            let newNumber = addFloatNumber(currentNumber, (-1 * this.numberFieldParameters!.step));
-            if(newNumber < 0 && !this.numberFieldParameters!.acceptNegative){
+            const step = this.numberFieldParameters?this.numberFieldParameters.step:1;
+            let newNumber = addFloatNumber(currentNumber, (-1 * step));
+            if(newNumber < 0 && !(this.numberFieldParameters && this.numberFieldParameters.acceptNegative)){
                 newNumber = 0;
             }
             this.value = `${newNumber}`;
