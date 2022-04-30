@@ -278,7 +278,7 @@ export class JBInputWebComponent extends HTMLElement {
         if (numberFieldParameters.step && !isNaN(numberFieldParameters.step)) {
             this.numberFieldParameters!.step = numberFieldParameters.step;
         }
-        if (numberFieldParameters && numberFieldParameters.decimalPrecision && !isNaN(numberFieldParameters.decimalPrecision)) {
+        if (numberFieldParameters && numberFieldParameters.decimalPrecision !== null && numberFieldParameters.decimalPrecision !== undefined && !isNaN(numberFieldParameters.decimalPrecision)) {
             this.numberFieldParameters!.decimalPrecision = numberFieldParameters.decimalPrecision;
         }
         if (numberFieldParameters && numberFieldParameters.invalidNumberReplacement) {
