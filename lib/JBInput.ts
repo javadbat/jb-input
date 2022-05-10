@@ -10,7 +10,22 @@ export class JBInputWebComponent extends HTMLElement {
     #validationList: JBInputValidationItem[] = [];
     #disabled = false;
     internals_?: ElementInternals;
-    numberFieldParameters: NumberFieldParameter | undefined;
+    numberFieldParameters: NumberFieldParameter = {
+        //if input type is number we use this step to change value on +- clicks
+        step: 1,
+        //TODO: add min and max limit on type
+        // maxValue:20,
+        // minValue:10,
+        //how many decimal  place we accept
+        decimalPrecision: null,
+        //if user type or paste something not a number, this char will be filled the replacement in most cases will be '0'
+        invalidNumberReplacement: '',
+        //for money and big number seperate with a comma
+        useThousandSeparator: false,
+        thousandSeparator:',',
+        acceptNegative: true,
+        
+    };
     validation?: ValidationResultSummary;
     isPasswordvisible: boolean | undefined;
     increaseNumber?: () => void;
@@ -182,23 +197,6 @@ export class JBInputWebComponent extends HTMLElement {
         this.validation = {
             isValid: null,
             message: null
-        };
-        //our config when user use type="number" and want more config
-        this.numberFieldParameters = {
-            //if input type is number we use this step to change value on +- clicks
-            step: 1,
-            //TODO: add min and max limit on type
-            // maxValue:20,
-            // minValue:10,
-            //how many decimal  place we accept
-            decimalPrecision: null,
-            //if user type or paste something not a number, this char will be filled the replacement in most cases will be '0'
-            invalidNumberReplacement: '',
-            //for money and big number seperate with a comma
-            useThousandSeparator: false,
-            thousandSeparator:',',
-            acceptNegative: true,
-            
         };
     }
     static get observedAttributes(): string[] {
