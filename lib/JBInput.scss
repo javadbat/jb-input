@@ -190,7 +190,7 @@
     .message-box {
         font-size: var(--jb-input-message-font-size, 0.7em);
         padding: 2px 8px;
-        color: #929292;
+        color: var(--jb-input-message-color, #929292);
         display: var(--jb-input-message-box-display, block);
         &:empty {
             padding: 0;
