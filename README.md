@@ -159,7 +159,9 @@ if you want to set a custom style to this web-component all you need is to set c
 | --jb-input-input-direction         | set input element direction to other than inherited value from it's parent element            |
 | --jb-input-box-shadow              | set box shadow of input                                                                       |
 | --jb-input-box-shadow-focus        | set box shadow of input on focus                                                              |
-
+| --jb-input-border-width            | border width  default is `1px`                                                                |
+| --jb-input-label-margin            | label margin default is `0`                                                                   |
+| --jb-input-label-font-weight       | label font weight default is `300`                                                            |
 #### number input special style
 
 | css variable name                        | description                                                                                   |

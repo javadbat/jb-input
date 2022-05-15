@@ -14,7 +14,7 @@
     "input",
     "web component"
   ],
-  "version": "2.2.7",
+  "version": "2.2.8",
   "bugs": "https://github.com/javadbat/jb-input/issues",
   "license": "MIT",
   "files": [
