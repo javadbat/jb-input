@@ -36,6 +36,8 @@
         box-shadow: var(--jb-input-box-shadow, none);
         &:focus-within {
             border-color: var(--jb-input-border-color-focus, #1e2832);
+            border-width: var(--jb-input-border-width-focus, var(--jb-input-border-width, 1px));
+            border-bottom-width: var(--jb-input-border-bottom-width-focus, var(--jb-input-border-bottom-width, 3px));
             box-shadow: var(--jb-input-box-shadow-focus, none);
         }
         &.--type-number{
