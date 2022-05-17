@@ -13,9 +13,8 @@ export class JBInputWebComponent extends HTMLElement {
     numberFieldParameters: NumberFieldParameter = {
         //if input type is number we use this step to change value on +- clicks
         step: 1,
-        //TODO: add min and max limit on type
-        // maxValue:20,
-        // minValue:10,
+        maxValue:null,
+        minValue:null,
         //how many decimal  place we accept
         decimalPrecision: null,
         //if user type or paste something not a number, this char will be filled the replacement in most cases will be '0'
@@ -137,18 +136,20 @@ export class JBInputWebComponent extends HTMLElement {
             valueString = valueString.replace(new RegExp(`${this.numberFieldParameters.thousandSeparator}`,'g'), '');
         }
         //if our input type is number and user want to set it to new value we do nececcery logic here
-        const value: number = parseFloat(valueString);
+        let value: number = parseFloat(valueString);
         if (isNaN(value)) {
             //we change nothing
             valueString = this.numberFieldParameters!.invalidNumberReplacement;
         }
-        //TODO: add max and min checker to prevent bigger value assignment
-        // if(value> this.numberFieldParameters.maxValue){
-        //     return `${this.numberFieldParameters.maxValue}`;
-        // }
-        // if(value< this.numberFieldParameters.minValue){
-        //     return `${this.numberFieldParameters.minValue}`;
-        // }
+        //add max and min checker to prevent bigger value assignment
+        if(this.numberFieldParameters.maxValue && value> this.numberFieldParameters.maxValue){
+            value = this.numberFieldParameters.maxValue;
+            valueString = `${this.numberFieldParameters.maxValue}`;
+        }
+        if(this.numberFieldParameters.minValue && value< this.numberFieldParameters.minValue){
+            value = this.numberFieldParameters.minValue;
+            valueString = `${this.numberFieldParameters.minValue}`;
+        }
         const[integerNums, decimalNums] = valueString.split('.');
         
         const decimalPrecisionCount = decimalNums ? decimalNums.length : 0;
@@ -290,6 +291,12 @@ export class JBInputWebComponent extends HTMLElement {
         }
         if(numberFieldParameters && typeof numberFieldParameters.acceptNegative == 'boolean'){
             this.numberFieldParameters!.acceptNegative = numberFieldParameters.acceptNegative;
+        }
+        if(numberFieldParameters && typeof numberFieldParameters.maxValue == 'number'){
+            this.numberFieldParameters.maxValue = numberFieldParameters.maxValue;
+        }
+        if(numberFieldParameters && typeof numberFieldParameters.minValue == 'number'){
+            this.numberFieldParameters.minValue = numberFieldParameters.minValue;
         }
         this.value = `${this.value}`;
     }

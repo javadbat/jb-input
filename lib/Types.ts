@@ -14,6 +14,8 @@ export type NumberFieldParameter = {
     useThousandSeparator:boolean;
     thousandSeparator:string;
     acceptNegative:boolean;
+    maxValue:number | null;
+    minValue:number | null;
 }
 type Paritial<T> = {
     [P in keyof T]?: T[P];

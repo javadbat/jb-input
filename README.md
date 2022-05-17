@@ -118,6 +118,10 @@ click on `+` `-` button will call `onChange` event.
         thousandSeparator:',',
         //can input accept negativenumber or not
         acceptNegative:true,
+        // max number value user can input. if user input bigger number it will be set to max
+        maxValue: 1000,
+        //min number value user can input. if user input smaller number it will be set to this value.
+        minValue:1
     })
 ```
 
