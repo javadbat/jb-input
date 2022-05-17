@@ -14,7 +14,9 @@ text input web component with this benefit:
 
 - custom display for password input with show and hide trigger button.
 
-- number input with thousand separator (1,000,000) and  +- button with keyboard support for up and down value with customizable step and preventable negative value. 
+- number input with thousand separator (1,000,000) and  +- button with keyboard support for up and down value with customizable step and preventable negative value.
+
+- number input will accept persian number char and convert them to english char
 
 sample: <https://codepen.io/javadbat/pen/dyNwddd>
 

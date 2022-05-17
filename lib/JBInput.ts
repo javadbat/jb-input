@@ -136,10 +136,16 @@ export class JBInputWebComponent extends HTMLElement {
             valueString = valueString.replace(new RegExp(`${this.numberFieldParameters.thousandSeparator}`,'g'), '');
         }
         //if our input type is number and user want to set it to new value we do nececcery logic here
-        let value: number = parseFloat(valueString);
+        let value = Number(valueString);
         if (isNaN(value)) {
-            //we change nothing
-            valueString = this.numberFieldParameters!.invalidNumberReplacement;
+            //replace arabic and persian number
+            valueString = valueString.replace(/\u06F0/g, '0').replace(/\u06F1/g, '1').replace(/\u06F2/g, '2').replace(/\u06F3/g, '3').replace(/\u06F4/g, '4').replace(/\u06F5/g, '5').replace(/\u06F6/g, '6').replace(/\u06F7/g, '7').replace(/\u06F8/g, '8').replace(/\u06F9/g, '9');
+            value = parseFloat(valueString);
+            //if invalidity is not for persian number
+            if(isNaN(value)){
+                //we change nothing
+                valueString = this.numberFieldParameters!.invalidNumberReplacement;
+            }
         }
         //add max and min checker to prevent bigger value assignment
         if(this.numberFieldParameters.maxValue && value> this.numberFieldParameters.maxValue){
@@ -387,8 +393,16 @@ export class JBInputWebComponent extends HTMLElement {
      * @param {InputEvent} e 
      */
     onInputInput(e: InputEvent): void {
+        const endCarretPos = (e.target as HTMLInputElement).selectionEnd || 0;
+        const startCarretPos = (e.target as HTMLInputElement).selectionStart || 0;
         const inputText = (e.target as HTMLInputElement).value;
+        //to standard value again
         this.value = inputText;
+        //if user type in middle of text we will return the carret position to the middle of text becuse this.value = inputText will move carret to end
+        if(endCarretPos != inputText.length){
+            (e.target as HTMLInputElement).setSelectionRange(endCarretPos, endCarretPos);
+        }
+        //e.target.setSelectionRange(startCarretPos + e.data, endCarretPos);
         this.checkValidity(false);
         this.dispatchOnInputEvent(e);
 
@@ -418,7 +432,12 @@ export class JBInputWebComponent extends HTMLElement {
         if( value == null || value == undefined ||value.trim().length == 0){
             return false;
         }else{
-            return !isNaN(Number(value));
+            let isNumber = !isNaN(Number(value));
+            if(!isNumber){
+                const replacedNumberValue = value.replace(/\u06F0/g, '0').replace(/\u06F1/g, '1').replace(/\u06F2/g, '2').replace(/\u06F3/g, '3').replace(/\u06F4/g, '4').replace(/\u06F5/g, '5').replace(/\u06F6/g, '6').replace(/\u06F7/g, '7').replace(/\u06F8/g, '8').replace(/\u06F9/g, '9');
+                isNumber = !isNaN(Number(replacedNumberValue));
+            }
+            return isNumber;
         }
     }
     /**
