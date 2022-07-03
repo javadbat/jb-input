@@ -258,7 +258,7 @@ export class JBInputWebComponent extends HTMLElement {
                 if (value == '' || value === "true") {
                     this.#disabled = true;
                     this.elements.input.setAttribute('disabled', 'true');
-                } else if (value == "false") {
+                } else if (value == "false" || value == null || value == undefined) {
                     this.#disabled = false;
                     this.elements.input.removeAttribute('disabled');
                 }
