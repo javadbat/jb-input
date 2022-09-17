@@ -47,7 +47,7 @@ in your html or jsx
 you can just add script tag to your html file and then use web component how ever you need
 
 ```HTML
-<script src="https://cdn.skypack.dev/jb-input"></script>
+<script src="https://unpkg.com/jb-input/dist/JBInput.umd.js"></script>
 ```
 
 ### get/set value
