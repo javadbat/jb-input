@@ -144,18 +144,19 @@ in some cases in your project you need to change defualt style of web-component 
 if you want to set a custom style to this web-component all you need is to set css variable in parent scope of web-component 
 | css variable name                  | description                                                                                   |
 | -------------                      | -------------                                                                                 |
-| --jb-input-margin                  | web-component margin defualt is `0 12px`                                                      |
-| --jb-input-border-radius           | web-component border-radius defualt is `16px`                                                 |
+| --jb-input-margin                  | web-component margin default is `0 12px`                                                      |
+| --jb-input-border-radius           | web-component border-radius default is `16px`                                                 |
 | --jb-input-border-color            | border color of select in normal mode                                                         |
 | --jb-input-border-color-focus      | border color of select in normal mode                                                         |
 | --jb-input-bgcolor                 | background color of input                                                                     |
-| --jb-input-border-bottom-width     | border bottom thickness desualt is `3px`                                                      |
-| --jb-input-label-font-size         | font size of input label defualt is `0.8em`                                                   |
-| --jb-input-label-color             | change label color defualt is `#1f1735`                                                       |
+| --jb-input-border-bottom-width     | border bottom thickness default is `3px`                                                      |
+| --jb-input-label-font-size         | font size of input label default is `0.8em`                                                   |
+| --jb-input-label-color             | change label color default is `#1f1735`                                                       |
+| --jb-input-label-margin            | change label margin default is `0 4px`                                                        |
 | --jb-input-message-font-size       | font size of message we show under input                                                      |
 | --jb-input-message-color           | set under box message color defualt is `#929292`                                              |
-| --jb-input-message-error-color     | change color of error we show under input defualt is `red`                                    |
-| --jb-input-height                  | height of input defualt is 40px                                                               |
+| --jb-input-message-error-color     | change color of error we show under input default is `red`                                    |
+| --jb-input-height                  | height of input default is 40px                                                               |
 | --jb-input-placeholder-color       | change placeholder color                                                                      |
 | --jb-input-placeholder-font-size   | change placeholder font-size                                                                  |
 | --jb-input-value-font-size         | input value font-size                                                                         |
