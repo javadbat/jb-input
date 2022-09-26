@@ -8,7 +8,7 @@ text input web component with this benefit:
 
 - support both RTL and LTR.
 
-- add label and message in UX frienly format.
+- add label and message in UX friendly format.
 
 - customizable ui with css variable sp you can have multiple style in different scope of your app.
 
