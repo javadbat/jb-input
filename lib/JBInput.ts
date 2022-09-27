@@ -23,7 +23,7 @@ export class JBInputWebComponent extends HTMLElement {
         useThousandSeparator: false,
         thousandSeparator:',',
         acceptNegative: true,
-        
+        showButtons:true,
     };
     validation?: ValidationResultSummary;
     isPasswordvisible: boolean | undefined;
@@ -303,6 +303,13 @@ export class JBInputWebComponent extends HTMLElement {
         }
         if(numberFieldParameters && typeof numberFieldParameters.minValue == 'number'){
             this.numberFieldParameters.minValue = numberFieldParameters.minValue;
+        }
+        if(numberFieldParameters && numberFieldParameters.showButtons !== undefined){
+            if(numberFieldParameters.showButtons === false){
+                this.removeNumberInputButtons();
+            }else{
+                this.addNumberInputButtons();
+            }
         }
         this.value = `${this.value}`;
     }
@@ -631,6 +638,14 @@ export class JBInputWebComponent extends HTMLElement {
         buttonsElement.querySelector('.decrease-number-button')!.addEventListener('click', this.decreaseNumber.bind(this));
         this.elements.inputBox.appendChild(buttonsElement);
         this.value = `${this.value}`;
+    }
+    removeNumberInputButtons(){
+        //when user want number input but without any + - button
+        this.elements.inputBox.classList.add('--without-number-button');
+    }
+    addNumberInputButtons(){
+        //when user want number input but without any + - button
+        this.elements.inputBox.classList.remove('--without-number-button');
     }
 }
 const myElementNotExists = !customElements.get('jb-input');
