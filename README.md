@@ -166,6 +166,7 @@ if you want to set a custom style to this web-component all you need is to set c
 | --jb-input-input-padding           | set input inner padding default is `2px 12px 0 12px`                                          |
 | --jb-input-input-text-align        | set input element text align for example if you have number Input and want to make it left    |
 | --jb-input-input-direction         | set input element direction to other than inherited value from it's parent element            |
+| --jb-input-input-font-weight       | set input value font-weight default is `initial` (browser setting)                            |
 | --jb-input-box-shadow              | set box shadow of input                                                                       |
 | --jb-input-box-shadow-focus        | set box shadow of input on focus                                                              |
 | --jb-input-border-width            | border width  default is `1px`                                                                |
