@@ -3,6 +3,7 @@ import CSS from './JBInput.scss';
 import NumberInputButtonsHTML from './NumberInputButtons.html';
 import './inbox-element/inbox-element';
 import { ElementsObject, JBInputStandardValueObject, JBInputValidationItem, NumberFieldParameter, NumberFieldParameterInput, ValidationResult, ValidationResultItem, ValidationResultSummary } from './Types';
+import { standardValueForNumberInput } from './utils';
 export class JBInputWebComponent extends HTMLElement {
     static get formAssociated() { return true; }
     #value = '';
@@ -24,6 +25,8 @@ export class JBInputWebComponent extends HTMLElement {
         thousandSeparator:',',
         acceptNegative: true,
         showButtons:true,
+        //will show persian number even if user type en number but value will be passed as en number
+        showPersianNumber:false,
     };
     validation?: ValidationResultSummary;
     isPasswordvisible: boolean | undefined;
@@ -117,77 +120,8 @@ export class JBInputWebComponent extends HTMLElement {
         }
         return standardedValue;
     }
-    /**
-     * 
-     * @param {String} inputValueString 
-     * @return {String} standard value
-     */
     standardValueForNumberInput(inputValueString: string): JBInputStandardValueObject {
-        if(inputValueString == '-' && this.numberFieldParameters!.acceptNegative == true){
-            //if user type - and we accept negative number we let user to continue typing
-            return {
-                displayValue:inputValueString,
-                value:inputValueString
-            };
-        }
-        let valueString = inputValueString;
-        //if  comma separator is used we need to remove it
-        if(this.numberFieldParameters && this.numberFieldParameters.useThousandSeparator){
-            valueString = valueString.replace(new RegExp(`${this.numberFieldParameters.thousandSeparator}`,'g'), '');
-        }
-        //if our input type is number and user want to set it to new value we do nececcery logic here
-        let value = Number(valueString);
-        if (isNaN(value)) {
-            //replace arabic and persian number
-            valueString = valueString.replace(/\u06F0/g, '0').replace(/\u06F1/g, '1').replace(/\u06F2/g, '2').replace(/\u06F3/g, '3').replace(/\u06F4/g, '4').replace(/\u06F5/g, '5').replace(/\u06F6/g, '6').replace(/\u06F7/g, '7').replace(/\u06F8/g, '8').replace(/\u06F9/g, '9');
-            value = parseFloat(valueString);
-            //if invalidity is not for persian number
-            if(isNaN(value)){
-                //we change nothing
-                valueString = this.numberFieldParameters!.invalidNumberReplacement;
-            }
-        }
-        //add max and min checker to prevent bigger value assignment
-        if(this.numberFieldParameters.maxValue && value> this.numberFieldParameters.maxValue){
-            value = this.numberFieldParameters.maxValue;
-            valueString = `${this.numberFieldParameters.maxValue}`;
-        }
-        if(this.numberFieldParameters.minValue && value< this.numberFieldParameters.minValue){
-            value = this.numberFieldParameters.minValue;
-            valueString = `${this.numberFieldParameters.minValue}`;
-        }
-        const[integerNums, decimalNums] = valueString.split('.');
-        
-        const decimalPrecisionCount = decimalNums ? decimalNums.length : 0;
-        if (this.numberFieldParameters && !(this.numberFieldParameters.decimalPrecision === null || this.numberFieldParameters.decimalPrecision == undefined) && decimalPrecisionCount && decimalPrecisionCount > this.numberFieldParameters.decimalPrecision) {
-            // truncate extra decimal
-            const checkRegex = new RegExp(`^-?\\d+(?:\\.\\d{0,${this.numberFieldParameters!.decimalPrecision}})?`);
-            const match = valueString.match(checkRegex);
-            if (match && match[0]) {
-                valueString = match[0];
-            }
-        }
-        //remove start zero when number is more than one digit 065 => 65
-        if(integerNums.startsWith('0') && integerNums.length > 1){
-            valueString = valueString.substring(1);
-        }
-        if( integerNums.startsWith('-') && integerNums.charAt(1) == '0' && integerNums.length > 2){
-            valueString = '-'+valueString.substring(2);
-        }
-        // check for negative value
-        if(this.numberFieldParameters && this.numberFieldParameters.acceptNegative == false && integerNums.startsWith('-')){
-            valueString = this.numberFieldParameters!.invalidNumberReplacement;
-            console.error('negative number is not allowed change numberFieldParameters.acceptNegative to true to allow negative numbers');
-        }
-        const standardValueObject: JBInputStandardValueObject = {
-            displayValue: valueString,
-            value: valueString,
-        };
-        // add thousand separator comma
-        if(this.numberFieldParameters && this.numberFieldParameters.useThousandSeparator){
-            standardValueObject.displayValue = valueString.replace(/\B(?=(\d{3})+(?!\d))/g, this.numberFieldParameters.thousandSeparator);
-        }
-        return standardValueObject;
+        return standardValueForNumberInput(inputValueString,this.numberFieldParameters);
     }
     registerEventListener(): void {
         this.elements.input.addEventListener('change', (e) => this.onInputChange((e)));
@@ -310,6 +244,9 @@ export class JBInputWebComponent extends HTMLElement {
             }else{
                 this.addNumberInputButtons();
             }
+        }
+        if(numberFieldParameters && typeof numberFieldParameters.showPersianNumber == "boolean"){
+            this.numberFieldParameters.showPersianNumber = numberFieldParameters.showPersianNumber;
         }
         this.value = `${this.value}`;
     }

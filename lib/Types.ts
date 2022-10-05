@@ -17,6 +17,7 @@ export type NumberFieldParameter = {
     maxValue:number | null;
     minValue:number | null;
     showButtons:boolean;
+    showPersianNumber:boolean;
 }
 type Paritial<T> = {
     [P in keyof T]?: T[P];

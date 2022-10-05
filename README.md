@@ -126,6 +126,9 @@ click on `+` `-` button will call `onChange` event.
         minValue:1,
         //show + and - button in input so touch user can change the value more easily
         showButtons:true,
+        // will show persian number instead of english number in output but orginal input value remain in english
+        //if true and user type 123 and see ۱۲۳ but inpudDom.value will be 123
+        showPersianNumber:false,
     })
 ```
 
