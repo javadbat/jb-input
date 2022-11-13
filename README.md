@@ -209,3 +209,9 @@ example:
     </jb-input-inbox-element>
 </jb-input>
 ```
+
+#### number input inbox element style
+
+| css variable name                        | description                                                                                   |
+| -------------                            | -------------                                                                                 |
+| --jb-input-box-indicator-padding         | padding of jb-input-inbox-element, the value default is `8px16px`                             |
