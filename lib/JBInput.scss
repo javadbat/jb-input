@@ -4,7 +4,7 @@
 }
 .jb-input-web-component {
     width: 100%;
-    margin: var(--jb-input-margin, 12px 0);
+    margin: var(--jb-input-margin, 0 0);
     &:focus-visible {
         outline: none;
     }

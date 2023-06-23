@@ -149,7 +149,7 @@ in some cases in your project you need to change defualt style of web-component 
 if you want to set a custom style to this web-component all you need is to set css variable in parent scope of web-component 
 | css variable name                  | description                                                                                   |
 | -------------                      | -------------                                                                                 |
-| --jb-input-margin                  | web-component margin default is `0 12px`                                                      |
+| --jb-input-margin                  | web-component margin default is `0 0`                                                      |
 | --jb-input-border-radius           | web-component border-radius default is `16px`                                                 |
 | --jb-input-border-color            | border color of select in normal mode                                                         |
 | --jb-input-border-color-focus      | border color of select in normal mode                                                         |

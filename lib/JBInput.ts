@@ -4,6 +4,7 @@ import NumberInputButtonsHTML from './NumberInputButtons.html';
 import './inbox-element/inbox-element';
 import { ElementsObject, JBInputStandardValueObject, JBInputValidationItem, NumberFieldParameter, NumberFieldParameterInput, ValidationResult, ValidationResultItem, ValidationResultSummary } from './Types';
 import { standardValueForNumberInput } from './utils';
+
 export class JBInputWebComponent extends HTMLElement {
     static get formAssociated() { return true; }
     #value = '';
