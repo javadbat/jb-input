@@ -475,7 +475,7 @@ export class JBInputWebComponent extends HTMLElement {
         return validationResult;
     }
     /**
-     * @deprecated use checkValidity instead it will be removed in future version
+     * @description check validation of input
      * @param {boolean} showError indicate whether show error or not
      * @return {ValidationResult} 
      */

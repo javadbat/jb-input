@@ -92,7 +92,7 @@ you can set validation to your input:
 
 ### check validation
 
-you can check is image input value meet your validation standad by `dom.checkValidity(showError)`
+you can check is image input value meet your validation standad by `dom.triggerInputValidation(showError)`
 the `showError` parameter is optional and its defualt is true but you cant set it false so if value is invalid component dont react and show error to user and just return validation object.  
 in `change` event we have detail object you can access it by `event.detail.isValid` so you can see in new value is a valid value or not this way is really useful when you dont access to DOM directly like what we have in js frameworks.
 
