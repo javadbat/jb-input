@@ -408,9 +408,9 @@ export class JBInputWebComponent extends HTMLElement {
         if(isPreventDefault){
             e.preventDefault();
         }
-        this.dispatchBeforeInputEvent(e);
+        this.#dispatchBeforeInputEvent(e);
     }
-    private dispatchBeforeInputEvent(e: InputEvent): boolean {
+    #dispatchBeforeInputEvent(e: InputEvent): boolean {
         const eventInitDict = {
             bubbles: e.bubbles,
             cancelable: e.cancelable,
