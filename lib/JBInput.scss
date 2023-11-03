@@ -199,6 +199,13 @@
                 -moz-appearance: textfield;
             }
         }
+        .jb-input-start-section-wrapper{
+            display: flex;
+            height: 100%;
+            width: auto;
+            align-items: center;
+            justify-content: center;
+        }
     }
     .message-box {
         font-size: var(--jb-input-message-font-size, 0.7em);
