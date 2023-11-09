@@ -172,7 +172,7 @@
             padding: var(--jb-input-input-padding, 2px 12px 0 12px);
             display: block;
             font-family: inherit;
-            font-size: var(--jb-input-value-font-size, 1.1em);
+            font-size: var(--jb-input-value-font-size, 1.1rem);
             color: var(--jb-input-value-color, #1f1735);
             margin: 0;
             border-radius: 0;
@@ -184,7 +184,7 @@
             }
             &::placeholder {
                 color: var(--jb-input-placeholder-color, initial);
-                font-size: var(--jb-input-placeholder-font-size, 1.1em);
+                font-size: var(--jb-input-placeholder-font-size, 1.1rem);
             }
             //remove number input arrow keys of browser
             /* Chrome, Safari, Edge, Opera */
@@ -208,7 +208,7 @@
         }
     }
     .message-box {
-        font-size: var(--jb-input-message-font-size, 0.7em);
+        font-size: var(--jb-input-message-font-size, 0.7rem);
         padding: 2px 8px;
         color: var(--jb-input-message-color, #929292);
         display: var(--jb-input-message-box-display, block);
