@@ -31,7 +31,7 @@
         border-radius: var(--jb-input-border-radius, 16px);
         margin: 4px 0px;
         transition: ease 0.3s all;
-        overflow: hidden;
+        overflow: var(--jb-input-box-overflow, hidden);
         display: grid;
         grid-template-columns: auto 1fr auto;
         box-shadow: var(--jb-input-box-shadow, none);
