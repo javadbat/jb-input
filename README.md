@@ -1,6 +1,6 @@
 # jb-input
 
-text input web component with this benefit:
+text input web component with these benefit:
 
 - easy to add custom regex or function validation.
 
