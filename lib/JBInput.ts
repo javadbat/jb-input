@@ -2,15 +2,15 @@ import HTML from "./JBInput.html";
 import CSS from "./JBInput.scss";
 import NumberInputButtonsHTML from "./NumberInputButtons.html";
 import "./inbox-element/inbox-element.js";
-import {
-    ElementsObject,
-    JBInputStandardValueObject,
-    JBInputValidationItem,
-    NumberFieldParameter,
-    NumberFieldParameterInput,
-    ValidationResult,
-    ValidationResultItem,
-    ValidationResultSummary,
+import { 
+  type ElementsObject,
+  type JBInputStandardValueObject,
+  type JBInputValidationItem,
+  type NumberFieldParameter,
+  type NumberFieldParameterInput,
+  type ValidationResult,
+  type ValidationResultItem,
+  type ValidationResultSummary,
 } from "./Types";
 import { standardValueForNumberInput } from "./utils";
 
