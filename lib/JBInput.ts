@@ -151,8 +151,8 @@ export class JBInputWebComponent extends HTMLElement {
       "beforeinput",
       this.onInputBeforeInput.bind(this)
     );
-    this.elements.input.addEventListener("input", (e:InputEvent) =>
-      this.onInputInput(e as unknown as InputEvent)
+    this.elements.input.addEventListener("input", (e) =>
+      this.onInputInput(e as InputEvent)
     );
     this.elements.input.addEventListener(
       "keypress",

@@ -1,9 +1,6 @@
 {
-    "compilerOptions": {
-      "rootDir": "./lib",
-      "outDir": "./dist",  // because you want example to compile in place
-    },
-    "references": [   // declare the dependencies
-      { "path": "../tsconfig.json" }  
+  "extends":"../tsconfig.json",
+  "exclude": [
+    "dist"
     ]
 }
