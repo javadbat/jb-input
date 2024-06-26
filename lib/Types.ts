@@ -23,23 +23,6 @@ type Paritial<T> = {
     [P in keyof T]?: T[P];
 }
 export type NumberFieldParameterInput = Paritial<NumberFieldParameter>;
-export type ValidationResultSummary = {
-    isValid:boolean | null;
-    message:string | null;
-}
-export type ValidationResultItem = {
-    isValid:boolean | null;
-    message:string | null;
-    validation:JBInputValidationItem;
-}
-export type ValidationResult = {
-    validationList:ValidationResultItem[];
-    isAllValid:boolean;
-}
-export type JBInputValidationItem = {
-    validator: RegExp | ((value:string)=>boolean);
-    message:string;
-}
 export type JBInputStandardValueObject = {
     value:string;
     displayValue:string;

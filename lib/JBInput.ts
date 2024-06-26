@@ -2,15 +2,13 @@ import HTML from "./JBInput.html";
 import CSS from "./JBInput.scss";
 import NumberInputButtonsHTML from "./NumberInputButtons.html";
 import "./inbox-element/inbox-element.js";
+import {ValidationItem,ValidationResult,ValidationResultItem,ValidationResultSummary} from '../../../common/scripts/validation/validation-helper-types';
+import {ValidationHelper} from '../../../common/scripts/validation/validation-helper';
 import { 
   type ElementsObject,
   type JBInputStandardValueObject,
-  type JBInputValidationItem,
   type NumberFieldParameter,
   type NumberFieldParameterInput,
-  type ValidationResult,
-  type ValidationResultItem,
-  type ValidationResultSummary,
 } from "./Types";
 import { standardValueForNumberInput } from "./utils";
 
@@ -20,7 +18,7 @@ export class JBInputWebComponent extends HTMLElement {
   }
   #value = "";
   elements!: ElementsObject;
-  #validationList: JBInputValidationItem[] = [];
+  
   #disabled = false;
   internals_?: ElementInternals;
   numberFieldParameters: NumberFieldParameter = {
@@ -32,7 +30,7 @@ export class JBInputWebComponent extends HTMLElement {
     decimalPrecision: null,
     //if user type or paste something not a number, this char will be filled the replacement in most cases will be '0'
     invalidNumberReplacement: "",
-    //for money and big number seperate with a comma
+    //for money and big number separate with a comma
     useThousandSeparator: false,
     thousandSeparator: ",",
     acceptNegative: true,
@@ -40,28 +38,28 @@ export class JBInputWebComponent extends HTMLElement {
     //will show persian number even if user type en number but value will be passed as en number
     showPersianNumber: false,
   };
-  validation?: ValidationResultSummary;
-  isPasswordvisible: boolean | undefined;
+  #validation = new ValidationHelper(this.showValidationError.bind(this),this.clearValidationError.bind(this),()=>this.elements.input.value);
+  isPasswordVisible: boolean | undefined;
   increaseNumber?: () => void;
   decreaseNumber?: () => void;
   get value(): string {
     return this.#value;
   }
   set value(value: string) {
-    const standardedValue = this.standardValue(value);
-    this.#value = standardedValue.value;
+    const standardValue = this.standardValue(value);
+    this.#value = standardValue.value;
     //comment for typescript problem
     if (this.internals_ && typeof this.internals_.setFormValue == "function") {
-      this.internals_.setFormValue(standardedValue.value);
+      this.internals_.setFormValue(standardValue.value);
     }
-    this.elements.input.value = standardedValue.displayValue;
+    this.elements.input.value = standardValue.displayValue;
   }
-  get validationList(): JBInputValidationItem[] {
-    return this.#validationList;
+  get validationList(): ValidationItem[] {
+    return this.#validation.validationList;
   }
-  set validationList(value: JBInputValidationItem[]) {
-    this.#validationList = value;
-    this.checkValidity(false);
+  set validationList(value: ValidationItem[]) {
+    this.#validation.validationList = value;
+    this.#validation.checkValidity(false);
   }
   constructor() {
     super();
@@ -166,12 +164,7 @@ export class JBInputWebComponent extends HTMLElement {
   }
   initProp() {
     this.#disabled = false;
-    this.#validationList = [];
     this.value = this.getAttribute("value") || "";
-    this.validation = {
-      isValid: null,
-      message: null,
-    };
   }
   static get observedAttributes(): string[] {
     return [
@@ -250,7 +243,7 @@ export class JBInputWebComponent extends HTMLElement {
   }
   initPassword(): void {
     this.elements.inputBox.classList.add("type-password");
-    this.isPasswordvisible = false;
+    this.isPasswordVisible = false;
     this.elements.passwordTrigger.addEventListener(
       "click",
       this.onPasswordTriggerClicked.bind(this)
@@ -336,11 +329,11 @@ export class JBInputWebComponent extends HTMLElement {
     this.value = `${this.value}`;
   }
   onPasswordTriggerClicked(): void {
-    this.isPasswordvisible = !this.isPasswordvisible;
+    this.isPasswordVisible = !this.isPasswordVisible;
     const textField = this.elements.input;
     const passwordTriggerSVG =
       this.elements.passwordTrigger.querySelector("svg")!;
-    if (this.isPasswordvisible) {
+    if (this.isPasswordVisible) {
       passwordTriggerSVG.classList.add("password-visible");
       textField.setAttribute("type", "text");
     } else {
@@ -423,20 +416,20 @@ export class JBInputWebComponent extends HTMLElement {
    * @param {InputEvent} e
    */
   onInputInput(e: InputEvent): void {
-    const endCarretPos = (e.target as HTMLInputElement).selectionEnd || 0;
-    const startCarretPos = (e.target as HTMLInputElement).selectionStart || 0;
+    const endCaretPos = (e.target as HTMLInputElement).selectionEnd || 0;
+    const startCaretPos = (e.target as HTMLInputElement).selectionStart || 0;
     const inputText = (e.target as HTMLInputElement).value;
     //to standard value again
     this.value = inputText;
-    //if user type in middle of text we will return the carret position to the middle of text becuse this.value = inputText will move carret to end
-    if (endCarretPos != inputText.length) {
+    //if user type in middle of text we will return the caret position to the middle of text because this.value = inputText will move caret to end
+    if (endCaretPos != inputText.length) {
       (e.target as HTMLInputElement).setSelectionRange(
-        endCarretPos,
-        endCarretPos
+        endCaretPos,
+        endCaretPos
       );
     }
-    //e.target.setSelectionRange(startCarretPos + e.data, endCarretPos);
-    this.checkValidity(false);
+    //e.target.setSelectionRange(startCaretPos + e.data, endCaretPos);
+    this.#validation.checkValidity(false);
     this.dispatchOnInputEvent(e);
   }
   dispatchOnInputEvent(e: InputEvent): void {
@@ -460,7 +453,7 @@ export class JBInputWebComponent extends HTMLElement {
    * @param {string} value
    * @return {boolean}
    */
-  private isStringisNumber(value: string | null): boolean {
+  private isStringIsNumber(value: string | null): boolean {
     if (value == null || value == undefined || value.trim().length == 0) {
       return false;
     } else {
@@ -494,7 +487,7 @@ export class JBInputWebComponent extends HTMLElement {
     if (
       this.getAttribute("type") == "number" &&
       e.inputType !== "deleteContentBackward" &&
-      !this.isStringisNumber(e.data)
+      !this.isStringIsNumber(e.data)
     ) {
       isPreventDefault = true;
       // we made exception for . char if its valid by user
@@ -548,13 +541,13 @@ export class JBInputWebComponent extends HTMLElement {
   }
   onInputChange(e: Event): void {
     const inputText = (e.target as HTMLInputElement).value;
-    this.checkValidity(true);
-    //here is the rare  time we update _value directly becuase we want trigger event that may read value directly from dom
+    this.#validation.checkValidity(true);
+    //here is the rare  time we update _value directly because we want trigger event that may read value directly from dom
     this.value = inputText;
     this.dispatchOnChangeEvent();
   }
   dispatchOnChangeEvent(): void {
-    const validationObject = this.checkInputValidation(this.value);
+    const validationObject = this.#validation.checkInputValidation(this.value);
     const event = new CustomEvent("change", {
       detail: {
         isValid: validationObject.isAllValid,
@@ -563,78 +556,10 @@ export class JBInputWebComponent extends HTMLElement {
     });
     this.dispatchEvent(event);
   }
-  /**
-   * check if input validation list is fullfilled or not
-   * @param {boolean} showError indicate whether show error or not
-   * @return {ValidationResult}
-   */
-  checkValidity(showError = true): ValidationResult {
-    // this method is for use out of component  for example if user click on submit button and developer want to check if all fields are valid
-    //takeAction determine if we want to show user error in web component difualtManner or developer will handle it by himself
-    const inputText = this.elements.input.value;
-
-    const validationResult = this.checkInputValidation(inputText);
-    this.validation = {
-      isValid: validationResult.isAllValid,
-      message: null,
-    };
-    if (!validationResult.isAllValid) {
-      const firstFault = validationResult.validationList.find(
-        (x) => !x.isValid
-      )!;
-      this.validation.message = firstFault.message;
-      if (showError == true) {
-        this.showValidationError(firstFault.message!);
-      }
-    } else {
-      this.clearValidationError();
-    }
-    return validationResult;
-  }
   triggerInputValidation(showError = true): ValidationResult {
-    return this.checkValidity(showError);
+    return this.#validation.checkValidity(showError);
   }
-  checkInputValidation(value: string) {
-    const validationResult: ValidationResult = {
-      validationList: [],
-      isAllValid: true,
-    };
-    this.validationList.forEach((validation) => {
-      const res = this.checkValidation(value, validation);
-      validationResult.validationList.push(res);
-      if (!res.isValid) {
-        validationResult.isAllValid = false;
-      }
-    });
-    return validationResult;
-  }
-  checkValidation(
-    text: string,
-    validation: JBInputValidationItem
-  ): ValidationResultItem {
-    let testRes;
-    if (validation.validator instanceof RegExp) {
-      testRes = validation.validator.test(text);
-      validation.validator.lastIndex = 0;
-    }
 
-    if (typeof validation.validator == "function") {
-      testRes = validation.validator(text);
-    }
-
-    if (!testRes) {
-      return {
-        isValid: false,
-        message: validation.message,
-        validation: validation,
-      };
-    }
-    return {
-      isValid: true,
-      message: "",
-      validation: validation,
-    };
-  }
   showValidationError(error: string) {
     this.elements.messageBox.innerHTML = error;
     this.elements.messageBox.classList.add("error");

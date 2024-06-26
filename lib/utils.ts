@@ -1,4 +1,4 @@
-import { enToFaDigits } from "../../../common/js/PersianHelper";
+import { enToFaDigits } from "../../../common/scripts/PersianHelper";
 import { JBInputStandardValueObject, NumberFieldParameter } from "./Types";
 
 export function standardValueForNumberInput(inputValueString:string, numberFieldParameters:NumberFieldParameter):JBInputStandardValueObject{
