@@ -2,7 +2,8 @@ import HTML from "./JBInput.html";
 import CSS from "./JBInput.scss";
 import NumberInputButtonsHTML from "./NumberInputButtons.html";
 import "./inbox-element/inbox-element.js";
-import {ValidationItem,ValidationResult,ValidationResultItem,ValidationResultSummary} from '../../../common/scripts/validation/validation-helper-types';
+import {ValidationItem,ValidationResult,ValidationResultItem, ValidationResultSummary} from '../../../common/scripts/validation/validation-helper-types';
+export {ValidationItem, ValidationResultItem, ValidationResultSummary};
 import {ValidationHelper} from '../../../common/scripts/validation/validation-helper';
 import { 
   type ElementsObject,
@@ -11,7 +12,7 @@ import {
   type NumberFieldParameterInput,
 } from "./Types";
 import { standardValueForNumberInput } from "./utils";
-
+export type JBInputValidationValue = string;
 export class JBInputWebComponent extends HTMLElement {
   static get formAssociated() {
     return true;
@@ -38,7 +39,10 @@ export class JBInputWebComponent extends HTMLElement {
     //will show persian number even if user type en number but value will be passed as en number
     showPersianNumber: false,
   };
-  #validation = new ValidationHelper(this.showValidationError.bind(this),this.clearValidationError.bind(this),()=>this.elements.input.value);
+  #validation = new ValidationHelper<JBInputValidationValue>(this.#showValidationError.bind(this),this.#clearValidationError.bind(this),()=>this.elements.input.value);
+  get validation(){
+    return this.#validation;
+  }
   isPasswordVisible: boolean | undefined;
   increaseNumber?: () => void;
   decreaseNumber?: () => void;
@@ -53,13 +57,6 @@ export class JBInputWebComponent extends HTMLElement {
       this.internals_.setFormValue(standardValue.value);
     }
     this.elements.input.value = standardValue.displayValue;
-  }
-  get validationList(): ValidationItem[] {
-    return this.#validation.validationList;
-  }
-  set validationList(value: ValidationItem[]) {
-    this.#validation.validationList = value;
-    this.#validation.checkValidity(false);
   }
   constructor() {
     super();
@@ -124,14 +121,14 @@ export class JBInputWebComponent extends HTMLElement {
           : "";
       }
     }
-    let standardedValue: JBInputStandardValueObject = {
+    let standardValue: JBInputStandardValueObject = {
       displayValue: valueString,
       value: valueString,
     };
     if (this.getAttribute("type") == "number") {
-      standardedValue = this.standardValueForNumberInput(valueString.toString());
+      standardValue = this.standardValueForNumberInput(valueString.toString());
     }
-    return standardedValue;
+    return standardValue;
   }
   standardValueForNumberInput(
     inputValueString: string
@@ -358,8 +355,8 @@ export class JBInputWebComponent extends HTMLElement {
         e.preventDefault();
       }
     }
-    //trigger componnet event
-    const keyDownnInitObj = {
+    //trigger component event
+    const keyDownInitObj = {
       key: e.key,
       keyCode: e.keyCode,
       code: e.code,
@@ -369,7 +366,7 @@ export class JBInputWebComponent extends HTMLElement {
       charCode: e.charCode,
       which: e.which,
     };
-    const event = new KeyboardEvent("keydown", keyDownnInitObj);
+    const event = new KeyboardEvent("keydown", keyDownInitObj);
     this.dispatchEvent(event);
   }
   onInputKeyPress(e: KeyboardEvent): void {
@@ -541,13 +538,12 @@ export class JBInputWebComponent extends HTMLElement {
   }
   onInputChange(e: Event): void {
     const inputText = (e.target as HTMLInputElement).value;
-    this.#validation.checkValidity(true);
+    const validationResult = this.#validation.checkValidity(true);
     //here is the rare  time we update _value directly because we want trigger event that may read value directly from dom
     this.value = inputText;
-    this.dispatchOnChangeEvent();
+    this.#dispatchOnChangeEvent(validationResult);
   }
-  dispatchOnChangeEvent(): void {
-    const validationObject = this.#validation.checkInputValidation(this.value);
+  #dispatchOnChangeEvent(validationObject:ValidationResult<JBInputValidationValue>): void {
     const event = new CustomEvent("change", {
       detail: {
         isValid: validationObject.isAllValid,
@@ -556,15 +552,18 @@ export class JBInputWebComponent extends HTMLElement {
     });
     this.dispatchEvent(event);
   }
-  triggerInputValidation(showError = true): ValidationResult {
+  /**
+   * @deprecated 
+   */
+  triggerInputValidation(showError = true): ValidationResult<JBInputValidationValue>{
     return this.#validation.checkValidity(showError);
   }
 
-  showValidationError(error: string) {
+  #showValidationError(error: string) {
     this.elements.messageBox.innerHTML = error;
     this.elements.messageBox.classList.add("error");
   }
-  clearValidationError() {
+  #clearValidationError() {
     const text = this.getAttribute("message") || "";
     this.elements.messageBox.innerHTML = text;
     this.elements.messageBox.classList.remove("error");
@@ -598,7 +597,8 @@ export class JBInputWebComponent extends HTMLElement {
         : 1;
       const newNumber = addFloatNumber(currentNumber, step);
       this.value = `${newNumber}`;
-      this.dispatchOnChangeEvent();
+      const validationResult = this.#validation.checkValidity(true);
+      this.#dispatchOnChangeEvent(validationResult);
     };
     this.decreaseNumber = () => {
       const currentNumber = parseFloat(this.value);
@@ -619,7 +619,8 @@ export class JBInputWebComponent extends HTMLElement {
         newNumber = 0;
       }
       this.value = `${newNumber}`;
-      this.dispatchOnChangeEvent();
+      const validationResult = this.validation.checkValidity(true);
+      this.#dispatchOnChangeEvent(validationResult);
     };
     //if user set type="number" attribute
     this.elements.inputBox.classList.add("--type-number");
