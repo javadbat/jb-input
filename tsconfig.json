@@ -4,9 +4,9 @@
     },
     "include": [
         "../global.d.ts",
-        "../../common/scripts/**/*.ts",
         "lib/**/*.ts",
         "lib/**/*.js",
+        "../../common/scripts/**/*.ts",
     ],
     "exclude": [
         "node_modules",

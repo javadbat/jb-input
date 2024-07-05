@@ -1,2 +1,2 @@
-import './dist/JBInput.js';
-export {JBInputWebComponent} from './dist/JBInput.js';
+import './dist/jb-input.js';
+export {JBInputWebComponent} from './dist/jb-input.js';

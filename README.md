@@ -77,24 +77,47 @@ document.getElementByTagName('jb-input').addEventListener('enter',(event)=>{cons
 you can set validation to your input:
 
 ```js
-    titleInput.validationList = [
+//you have 2 ways: 
+//1- set list directly 
+    titleInput.validation.list = [
         {
             validator: /.{3}/g,
             message: 'عنوان حداقل باید سه کاکتر طول داشته باشد'
         },
         #you can use function as a validator too
         {
-            validator: (inputedText)=>{return inputedText == "سلام"},
+            validator: (inputtedText)=>{return inputtedText == "سلام"},
             message: 'شما تنها میتوانید عبارت سلام را وارد کنید'
         },
-    ]
+    ];
+//2- pass a function that returns the validation list so on each validation process we execute your callback function and get the needed validation list
+const result = document.getElementByTagName('jb-input').validation.addValidationListGetter(getterFunction)
 ```
 
 ### check validation
 
-you can check is image input value meet your validation standad by `dom.triggerInputValidation(showError)`
-the `showError` parameter is optional and its defualt is true but you cant set it false so if value is invalid component dont react and show error to user and just return validation object.  
-in `change` event we have detail object you can access it by `event.detail.isValid` so you can see in new value is a valid value or not this way is really useful when you dont access to DOM directly like what we have in js frameworks.
+like any other jb design system ypo can access validation by `validation` property:
+```js
+//access validation module
+document.getElementByTagName('jb-input').validation
+// check if input pass all the validations. showError is a boolean that determine your intent to show error to user on invalid status.
+const result = document.getElementByTagName('jb-input').validation.checkValidity(showError)
+
+```
+### intercept user input
+
+I don't recommend this in most cases but sometimes you need to change what user input in the text field or prevent user from typing or paste the wrong value into the field in this scenario we have a tools to let you do this. to doing so just register a interceptor function like this:
+```ts
+this.validation.addStandardValueCallback((inputtedString:string, oldValue:JBInputValue, prevResult:JBInputValue):JBInputValue=>{
+    //here you can check new string, old value and  the value object that return by previous StandardValueCallback if you register multiple callback to modify value 
+    return {
+        // the value we return as dom.value
+        value:string,
+        //the value we ser into the input box that final user see
+        displayValue:string
+    }
+});
+```
 
 ### number input extra feature
 
