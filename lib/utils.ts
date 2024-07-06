@@ -1,7 +1,7 @@
 import { enToFaDigits } from "../../../common/scripts/persian-helper";
-import { JBInputStandardValueObject, NumberFieldParameter } from "./types";
+import { JBInputValue, NumberFieldParameter } from "./types";
 
-export function standardValueForNumberInput(inputValueString:string, numberFieldParameters:NumberFieldParameter):JBInputStandardValueObject{
+export function standardValueForNumberInput(inputValueString:string, numberFieldParameters:NumberFieldParameter):JBInputValue{
   if(inputValueString == '-' && numberFieldParameters!.acceptNegative == true){
     //if user type - and we accept negative number we let user to continue typing
     return {
@@ -58,7 +58,7 @@ export function standardValueForNumberInput(inputValueString:string, numberField
     valueString = numberFieldParameters!.invalidNumberReplacement;
     console.error('negative number is not allowed change numberFieldParameters.acceptNegative to true to allow negative numbers');
   }
-  const standardValueObject: JBInputStandardValueObject = {
+  const standardValueObject: JBInputValue = {
     displayValue: valueString,
     value: valueString,
   };
