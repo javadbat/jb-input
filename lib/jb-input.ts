@@ -12,7 +12,7 @@ import {
   type NumberFieldParameterInput,
   StandardValueCallbackFunc,
   ValidationValue,
-} from "./types";
+} from "./types1";
 import { standardValueForNumberInput } from "./utils";
 
 export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue> {
