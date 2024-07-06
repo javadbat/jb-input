@@ -1,5 +1,5 @@
 import { enToFaDigits } from "../../../common/scripts/persian-helper";
-import { JBInputStandardValueObject, NumberFieldParameter } from "./types1";
+import { JBInputStandardValueObject, NumberFieldParameter } from "./types";
 
 export function standardValueForNumberInput(inputValueString:string, numberFieldParameters:NumberFieldParameter):JBInputStandardValueObject{
   if(inputValueString == '-' && numberFieldParameters!.acceptNegative == true){
