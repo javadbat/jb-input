@@ -195,15 +195,12 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       "inputmode",
     ];
   }
-  attributeChangedCallback(
-    name: string,
-    oldValue: string,
-    newValue: string
-  ): void {
+  //please do not add any other functionality in this func because it may override by enstatite d component
+  attributeChangedCallback(name: string,oldValue: string,newValue: string): void {
     // do something when an attribute has changed
     this.onAttributeChange(name, newValue);
   }
-  onAttributeChange(name: string, value: string): void {
+  protected onAttributeChange(name: string, value: string): void {
     switch (name) {
       case "label":
         this.elements.labelValue.innerHTML = value;

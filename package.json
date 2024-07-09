@@ -25,6 +25,13 @@
   ],
   "main": "index.js",
   "types": "./dist/web-component/jb-input/lib/jb-input.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": ["./dist/web-component/jb-input/lib/jb-input.d.ts"],
+      "types":["./dist/web-component/jb-input/lib/types.d.ts"], 
+      "types/validation":["./dist/common/scripts/validation/validation-helper-types.d.ts"]
+    }
+  },
   "repository": {
 		"type": "git",
 		"url": "git@github.com:javadbat/jb-input.git"

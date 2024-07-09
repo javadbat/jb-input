@@ -1,3 +1,5 @@
+import { type JBInputWebComponent } from "./jb-input";
+
 export type ElementsObject = {
     input: HTMLInputElement;
     inputBox: HTMLDivElement;
@@ -24,9 +26,9 @@ export type NumberFieldParameter = {
  * @param prevResult result of prev callback function it maybe useful in some cases when user add chain of value standard
  */
 export type StandardValueCallbackFunc = (inputtedString:string, oldValue:JBInputValue, prevResult:JBInputValue)=>JBInputValue
-type Partial<T> = {
-    [P in keyof T]?: T[P];
-}
+// type Partial<T> = {
+//     [P in keyof T]?: T[P];
+// }
 export type NumberFieldParameterInput = Partial<NumberFieldParameter>;
 export type JBInputValue = {
     // the value we return as dom.value
@@ -40,4 +42,7 @@ declare global {
     interface ElementInternals{
         setFormValue(value:string):void;
     }
+}
+export type JBInputEventType<T> = T & {
+    target: JBInputWebComponent
 }
