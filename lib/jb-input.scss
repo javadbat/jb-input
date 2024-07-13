@@ -42,70 +42,7 @@
             box-shadow: var(--jb-input-box-shadow-focus, none);
         }
 
-        &.--type-number {
-            &.--without-number-button{
-                .number-control-wrapper{
-                    display: none;
-                }
-            }
-            &:not(.--without-number-button) {
-                //when input type is number and user doesnt disable + - buttons
-                grid-template-columns: auto 1fr auto auto;
-                input {
-                    // width: calc(100% - var(calc(--jb-input-number-button-width*2), 72px));
-                    width: 100%;
-                }
-                .number-control-wrapper {
-                    .number-control-buttons {
-                        display: flex;
-                        height: 100%;
-                        .number-control-button {
-                            width: var(--jb-input-number-button-width, 36px);
-                            height: 100%;
-                            //background-color: red;
-                            text-align: center;
-                        }
-                        .increase-number-button {
-                            background: var(--jb-input-increase-button-bg, transparent);
-                            border: var(--jb-input-increase-button-border, none);
-                            border-radius: var(--jb-input-increase-button-border-radius, 0);
-                            box-sizing: border-box;
 
-                            .increase-icon {
-                                stroke: var(--jb-input-increase-button-color, #bbb);
-                                stroke-width: 14px;
-                                height: 100%;
-                                width: 100%;
-                                display: block;
-                            }
-                            &:hover {
-                                .increase-icon {
-                                    stroke: var(--jb-input-increase-button-color-hover, #00b600);
-                                }
-                            }
-                        }
-                        .decrease-number-button {
-                            border: var(--jb-input-decrease-button-border, none);
-                            border-radius: var(--jb-input-decrease-button-border-radius, 0);
-                            background: var(--jb-input-decrease-button-bg, transparent);
-                            box-sizing: border-box;
-                            .decrease-icon {
-                                stroke: var(--jb-input-decrease-button-color, #bbb);
-                                stroke-width: 14px;
-                                height: 100%;
-                                width: 100%;
-                                display: block;
-                            }
-                            &:hover {
-                                .decrease-icon {
-                                    stroke: var(--jb-input-decrease-button-color-hover, #ff1026);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
         &.type-password {
             grid-template-columns: auto 1fr auto auto;
             .password-trigger {
