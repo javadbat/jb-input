@@ -172,6 +172,7 @@ if you want to set a custom style to this web-component all you need is to set c
 | --jb-input-label-margin            | label margin default is `0`                                                                   |
 | --jb-input-label-font-weight       | label font weight default is `300`                                                            |
 | --jb-input-box-overflow            | input box overflow default is `hidden`                                                        |
+
 #### number input special style
 
 | css variable name                        | description                                                                                   |
