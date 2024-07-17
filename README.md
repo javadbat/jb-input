@@ -82,7 +82,7 @@ you can set validation to your input:
     titleInput.validation.list = [
         {
             validator: /.{3}/g,
-            message: 'عنوان حداقل باید سه کاکتر طول داشته باشد'
+            message: 'عنوان حداقل باید سه کارکتر طول داشته باشد'
         },
         #you can use function as a validator too
         {
@@ -119,41 +119,14 @@ this.validation.addStandardValueCallback((inputtedString:string, oldValue:JBInpu
 });
 ```
 
-### number input extra feature
-
-if you set `type="number"` jb-input will add some feature for you for example your input will only get number chart and wont accept other string and we add 2 `+` & `-` button to the input so user can change number without keyboard by just tap on these buttons. you can also use Up and Down arrow keys too increase or decrease number value in your field.   
-jb-input will also let you control some aspect of user input too for example you can limit decimal precision or change increase/decrease step of `+` `-` button.   
-too achive this you must call one function and set value you need to change.
-
-#### number input events
-
-click on `+` `-` button will call `onChange` event.
-
-```javascript
-    document.getElementByTagName('jb-input').setNumberFieldParameter({
-        //how many number you want to + or  - on user press buttons or use arrow keys defualt is 1
-        step:100,
-        // how many decimal input accept defualt is infinty
-        decimalPrecision:2,
-        // what char replaced to input if user paste some illeglal value defualt is '' (empty string)
-        invalidNumberReplacement:'0',
-        // separate every 3 number with comma like 1000000 => 1,000,000
-        useThousandSeparator:false,
-        // which char we use to separate thousand number
-        thousandSeparator:',',
-        //can input accept negativenumber or not
-        acceptNegative:true,
-        // max number value user can input. if user input bigger number it will be set to max
-        maxValue: 1000,
-        //min number value user can input. if user input smaller number it will be set to this value.
-        minValue:1,
-        //show + and - button in input so touch user can change the value more easily
-        showButtons:true,
-        // will show persian number instead of english number in output but orginal input value remain in english
-        //if true and user type 123 and see ۱۲۳ but inpudDom.value will be 123
-        showPersianNumber:false,
-    })
-```
+### custom inputs
+if you want something more than just simple input please check this components that use jb-input but add extra validation and input check layer for better user experience:   
+- [jb-number-input](https://github.com/javadbat/jb-number-input) for input number
+- [jb-payment-input](https://github.com/javadbat/jb-payment-input) for input bank card number and SHABA number
+- [jb-date-input](https://github.com/javadbat/jb-date-input) for input date value
+- [jb-national-input](https://github.com/javadbat/jb-national-input) for input national ID (کد ملی) value
+- [jb-mobile-input](https://github.com/javadbat/jb-mobile-input) for input mobile value
+- [jb-time-input](https://github.com/javadbat/jb-time-input) for input time value
 
 ### other attribute
 
@@ -166,7 +139,7 @@ click on `+` `-` button will call `onChange` event.
 | disabled       | disable the input                                                                                                   |
 | inputmode      | set input mode help mobile device to open proper keyboard for your input like `url`, `search` and `numeric`         |
 
-### set custome style
+### set custom style
 
 in some cases in your project you need to change defualt style of web-component for example you need zero margin or different border-radius and etc.    
 if you want to set a custom style to this web-component all you need is to set css variable in parent scope of web-component 
@@ -220,7 +193,7 @@ if you want to set a custom style to this web-component all you need is to set c
 
 in jb-input you can put icon or any other custom html DOM in input box. to doing so you just have to plae custom DOM in `jb-input` tag and add `slot="start-section"` or `slot="end-section"` to place it before or after input field.
 for better result i suggest you use `jb-input-inbox-element` tag but its optional and you can use your own custom tag too.
-`jb-input-inbox-element` will add some style to make sure your icon will place in center and will not overflow nad make your job easier if you want more controll you can skip it and use your own tag.
+`jb-input-inbox-element` will add some style to make sure your icon will place in center and will not overflow nad make your job easier if you want more control you can skip it and use your own tag.
 example:
 
 ```HTML
@@ -233,9 +206,3 @@ example:
     </jb-input-inbox-element>
 </jb-input>
 ```
-
-#### number input inbox element style
-
-| css variable name                        | description                                                                                   |
-| -------------                            | -------------                                                                                 |
-| --jb-input-box-indicator-padding         | padding of jb-input-inbox-element, the value default is `8px16px`                             |
