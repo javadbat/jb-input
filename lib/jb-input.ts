@@ -1,9 +1,9 @@
 import CSS from "./jb-input.scss";
 import "./inbox-element/inbox-element.js";
-import {ValidationItem,ValidationResult,ValidationResultItem, ValidationResultSummary,WithValidation} from '../../../common/scripts/validation/validation-helper-types';
-export {ValidationItem, ValidationResultItem, ValidationResultSummary};
-import {ValidationHelper} from '../../../common/scripts/validation/validation-helper';
-import { 
+import { ValidationItem, ValidationResult, ValidationResultItem, ValidationResultSummary, WithValidation } from '../../../common/scripts/validation/validation-helper-types';
+export { ValidationItem, ValidationResultItem, ValidationResultSummary };
+import { ValidationHelper } from '../../../common/scripts/validation/validation-helper';
+import {
   type ElementsObject,
   type JBInputValue,
   StandardValueCallbackFunc,
@@ -15,16 +15,16 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   static get formAssociated() {
     return true;
   }
-  #value:JBInputValue = {
-    displayValue:"",
-    value:""
+  #value: JBInputValue = {
+    displayValue: "",
+    value: ""
   };
   elements!: ElementsObject;
-  
+
   #disabled = false;
   internals_?: ElementInternals;
-  #validation = new ValidationHelper<ValidationValue>(this.showValidationError.bind(this),this.clearValidationError.bind(this),()=>this.#value,()=>this.#value.displayValue,()=>[]);
-  get validation(){
+  #validation = new ValidationHelper<ValidationValue>(this.showValidationError.bind(this), this.clearValidationError.bind(this), () => this.#value, () => this.#value.displayValue, () => []);
+  get validation() {
     return this.#validation;
   }
   get value(): string {
@@ -35,11 +35,11 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     //do not write any logic or task here this function will be overrides by other inputs like mobile input or payment input 
     this.#setValue(value);
   }
-  #setValue(value: string){
+  #setValue(value: string) {
     const standardValue = this.standardValue(value);
     this.#setValueByObject(standardValue);
   }
-  #setValueByObject(valueOnj:JBInputValue){
+  #setValueByObject(valueOnj: JBInputValue) {
     this.#value = valueOnj;
     //comment for typescript problem
     if (this.internals_ && typeof this.internals_.setFormValue == "function") {
@@ -81,21 +81,21 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       label: shadowRoot.querySelector("label")!,
       labelValue: shadowRoot.querySelector("label .label-value")!,
       messageBox: shadowRoot.querySelector(".message-box")!,
-      slots:{
-        startSection:shadowRoot.querySelector(".jb-input-start-section-wrapper slot")!,
-        endSection:shadowRoot.querySelector(".jb-input-end-section-wrapper slot")!
+      slots: {
+        startSection: shadowRoot.querySelector(".jb-input-start-section-wrapper slot")!,
+        endSection: shadowRoot.querySelector(".jb-input-end-section-wrapper slot")!
       }
     };
     this.#registerEventListener();
   }
-  #render(){
+  #render() {
     const html = `<style>${CSS}</style>` + "\n" + renderHTML();
     const element = document.createElement("template");
     element.innerHTML = html;
     this.shadowRoot.appendChild(element.content.cloneNode(true));
   }
-  #standardValueCallbacks:StandardValueCallbackFunc[] = []
-  addStandardValueCallback(func:StandardValueCallbackFunc){
+  #standardValueCallbacks: StandardValueCallbackFunc[] = []
+  addStandardValueCallback(func: StandardValueCallbackFunc) {
     this.#standardValueCallbacks.push(func);
   }
   /**
@@ -106,20 +106,20 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       displayValue: valueString.toString(),
       value: valueString.toString(),
     };
-    standardValue = this.#standardValueCallbacks.reduce((acc,func)=>{
-      const res = func(valueString.toString(),this.#value,acc);
+    standardValue = this.#standardValueCallbacks.reduce((acc, func) => {
+      const res = func(valueString.toString(), this.#value, acc);
       return res;
-    },standardValue);
+    }, standardValue);
     return standardValue;
   }
 
   #registerEventListener(): void {
-    this.elements.input.addEventListener("change", (e:Event) =>this.#onInputChange(e));
-    this.elements.input.addEventListener("beforeinput",this.#onInputBeforeInput.bind(this));
-    this.elements.input.addEventListener("input", (e) =>this.#onInputInput(e as InputEvent));
-    this.elements.input.addEventListener("keypress",this.#onInputKeyPress.bind(this));
+    this.elements.input.addEventListener("change", (e: Event) => this.#onInputChange(e));
+    this.elements.input.addEventListener("beforeinput", this.#onInputBeforeInput.bind(this));
+    this.elements.input.addEventListener("input", (e) => this.#onInputInput(e as InputEvent));
+    this.elements.input.addEventListener("keypress", this.#onInputKeyPress.bind(this));
     this.elements.input.addEventListener("keyup", this.#onInputKeyup.bind(this));
-    this.elements.input.addEventListener("keydown",this.#onInputKeyDown.bind(this));
+    this.elements.input.addEventListener("keydown", this.#onInputKeyDown.bind(this));
   }
   initProp() {
     this.#disabled = false;
@@ -139,7 +139,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     ];
   }
   //please do not add any other functionality in this func because it may override by enstatite d component
-  attributeChangedCallback(name: string,oldValue: string,newValue: string): void {
+  attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
     // do something when an attribute has changed
     this.onAttributeChange(name, newValue);
   }
@@ -195,9 +195,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #onInputKeyDown(e: KeyboardEvent): void {
     this.#dispatchKeydownEvent(e);
   }
-  #dispatchKeydownEvent(e: KeyboardEvent){
+  #dispatchKeydownEvent(e: KeyboardEvent) {
     //trigger component event
-    const keyDownInitObj:KeyboardEventInit = {
+    const keyDownInitObj: KeyboardEventInit = {
       key: e.key,
       keyCode: e.keyCode,
       code: e.code,
@@ -206,19 +206,21 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       altKey: e.altKey,
       charCode: e.charCode,
       which: e.which,
-      //TODO: make event cancelable
-      cancelable:false,
-      bubbles:e.bubbles,
-      composed:e.composed,
-      detail:e.detail,
-      isComposing:e.isComposing,
-      location:e.location,
-      metaKey:e.metaKey,
-      repeat:e.repeat,
-      view:e.view
+      cancelable: true,
+      bubbles: e.bubbles,
+      composed: e.composed,
+      detail: e.detail,
+      isComposing: e.isComposing,
+      location: e.location,
+      metaKey: e.metaKey,
+      repeat: e.repeat,
+      view: e.view
     };
     const event = new KeyboardEvent("keydown", keyDownInitObj);
-    this.dispatchEvent(event);
+    const isPrevented = !this.dispatchEvent(event);
+    if(isPrevented){
+      e.preventDefault();
+    }
   }
   #onInputKeyPress(e: KeyboardEvent): void {
     const keyPressInitObj: KeyboardEventInit = {
@@ -267,14 +269,16 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const endCaretPos = (e.target as HTMLInputElement).selectionEnd || 0;
     const startCaretPos = (e.target as HTMLInputElement).selectionStart || 0;
     const inputText = (e.target as HTMLInputElement).value;
+    const target = (e.target as HTMLInputElement);
     //to standard value again
     this.value = inputText;
     //if user type in middle of text we will return the caret position to the middle of text because this.value = inputText will move caret to end
     if (endCaretPos != inputText.length) {
-      (e.target as HTMLInputElement).setSelectionRange(
-        endCaretPos,
-        endCaretPos
-      );
+      //because number input does not support setSelectionRange
+      if (!['number'].includes(this.getAttribute('type'))) {
+        target.setSelectionRange(endCaretPos,endCaretPos);
+      }
+
     }
     //e.target.setSelectionRange(startCaretPos + e.data, endCaretPos);
     this.#validation.checkValidity(false);
@@ -301,7 +305,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.#dispatchBeforeInputEvent(e);
   }
   #dispatchBeforeInputEvent(e: InputEvent): boolean {
-    const eventInitDict:InputEventInit = {
+    const eventInitDict: InputEventInit = {
       bubbles: e.bubbles,
       cancelable: e.cancelable,
       composed: e.composed,
@@ -327,20 +331,20 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.value = inputText;
     this.#validation.checkValidity(true);
     const isCanceled = this.#dispatchOnChangeEvent(e);
-    if(isCanceled){
+    if (isCanceled) {
       this.#value = oldValue;
       e.preventDefault();
     }
   }
   #dispatchOnChangeEvent(e: Event): boolean {
-    const eventInit:EventInit = {
+    const eventInit: EventInit = {
       bubbles: e.bubbles,
-      cancelable:e.cancelable,
-      composed:e.composed
+      cancelable: e.cancelable,
+      composed: e.composed
     };
-    const event = new Event("change",eventInit);
+    const event = new Event("change", eventInit);
     this.dispatchEvent(event);
-    if(event.defaultPrevented){
+    if (event.defaultPrevented) {
       return true;
     }
     return false;
@@ -348,7 +352,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   /**
    * @deprecated 
    */
-  triggerInputValidation(showError = true): ValidationResult<ValidationValue>{
+  triggerInputValidation(showError = true): ValidationResult<ValidationValue> {
     return this.#validation.checkValidity(showError);
   }
 
