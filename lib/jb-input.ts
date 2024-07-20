@@ -1,4 +1,3 @@
-import HTML from "./jb-input.html";
 import CSS from "./jb-input.scss";
 import "./inbox-element/inbox-element.js";
 import {ValidationItem,ValidationResult,ValidationResultItem, ValidationResultSummary,WithValidation} from '../../../common/scripts/validation/validation-helper-types';
@@ -10,6 +9,7 @@ import {
   StandardValueCallbackFunc,
   ValidationValue,
 } from "./types";
+import { renderHTML } from "./render";
 
 export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue> {
   static get formAssociated() {
@@ -27,7 +27,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   get validation(){
     return this.#validation;
   }
-  isPasswordVisible: boolean | undefined;
   get value(): string {
     //do not write any logic or task here this function will be overrides by other inputs like mobile input or payment input 
     return this.#value.value;
@@ -57,7 +56,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.#initWebComponent();
   }
   connectedCallback(): void {
-    // standard web component event that called when all of dom is binded
+    // standard web component event that called when all of dom is banded
     this.#callOnLoadEvent();
     this.initProp();
     this.#callOnInitEvent();
@@ -75,19 +74,25 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       mode: "open",
       delegatesFocus: true,
     });
-    const html = `<style>${CSS}</style>` + "\n" + HTML;
-    const element = document.createElement("template");
-    element.innerHTML = html;
-    shadowRoot.appendChild(element.content.cloneNode(true));
+    this.#render();
     this.elements = {
       input: shadowRoot.querySelector(".input-box input")!,
       inputBox: shadowRoot.querySelector(".input-box")!,
       label: shadowRoot.querySelector("label")!,
       labelValue: shadowRoot.querySelector("label .label-value")!,
       messageBox: shadowRoot.querySelector(".message-box")!,
-      passwordTrigger: shadowRoot.querySelector(".password-trigger")!,
+      slots:{
+        startSection:shadowRoot.querySelector(".jb-input-start-section-wrapper slot")!,
+        endSection:shadowRoot.querySelector(".jb-input-end-section-wrapper slot")!
+      }
     };
     this.#registerEventListener();
+  }
+  #render(){
+    const html = `<style>${CSS}</style>` + "\n" + renderHTML();
+    const element = document.createElement("template");
+    element.innerHTML = html;
+    this.shadowRoot.appendChild(element.content.cloneNode(true));
   }
   #standardValueCallbacks:StandardValueCallbackFunc[] = []
   addStandardValueCallback(func:StandardValueCallbackFunc){
@@ -150,9 +155,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         break;
       case "type":
         this.elements.input.setAttribute("type", value);
-        if (value == "password") {
-          this.initPassword();
-        }
         if (value == "number") {
           if (this.getAttribute("inputmode") == null) {
             this.setAttribute("inputmode", "numeric");
@@ -187,28 +189,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         this.elements.input.setAttribute("inputmode", value);
     }
   }
-  initPassword(): void {
-    this.elements.inputBox.classList.add("type-password");
-    this.isPasswordVisible = false;
-    this.elements.passwordTrigger.addEventListener(
-      "click",
-      this.onPasswordTriggerClicked.bind(this)
-    );
-  }
 
-  onPasswordTriggerClicked(): void {
-    this.isPasswordVisible = !this.isPasswordVisible;
-    const textField = this.elements.input;
-    const passwordTriggerSVG =
-      this.elements.passwordTrigger.querySelector("svg")!;
-    if (this.isPasswordVisible) {
-      passwordTriggerSVG.classList.add("password-visible");
-      textField.setAttribute("type", "text");
-    } else {
-      passwordTriggerSVG.classList.remove("password-visible");
-      textField.setAttribute("type", "password");
-    }
-  }
+
+
   #onInputKeyDown(e: KeyboardEvent): void {
     this.#dispatchKeydownEvent(e);
   }

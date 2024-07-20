@@ -6,8 +6,10 @@ export type ElementsObject = {
     label: HTMLLabelElement;
     labelValue: HTMLSpanElement;
     messageBox: HTMLDivElement;
-    passwordTrigger: HTMLDivElement;
-    [key: string]: HTMLElement;
+    slots:{
+        startSection:HTMLSlotElement;
+        endSection:HTMLSlotElement;
+    };
 };
 /**
  * @description this function used by derived input component so they can make different between display value and value value.
