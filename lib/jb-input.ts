@@ -1,5 +1,4 @@
 import CSS from "./jb-input.scss";
-import "./inbox-element/inbox-element.js";
 import { ValidationItem, ValidationResult, ValidationResultItem, ValidationResultSummary, WithValidation } from '../../../common/scripts/validation/validation-helper-types';
 export { ValidationItem, ValidationResultItem, ValidationResultSummary };
 import { ValidationHelper } from '../../../common/scripts/validation/validation-helper';
