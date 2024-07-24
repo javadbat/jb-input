@@ -84,10 +84,20 @@ you can set validation to your input:
             validator: /.{3}/g,
             message: 'عنوان حداقل باید سه کارکتر طول داشته باشد'
         },
-        #you can use function as a validator too
+    //you can use function as a validator too
         {
-            validator: (inputtedText)=>{return inputtedText == "سلام"},
+            validator: ({displayValue,value})=>{return value == "سلام"},
             message: 'شما تنها میتوانید عبارت سلام را وارد کنید'
+        },
+    //you can also return string in validator if you want custom error message in some edge cases
+        {
+            validator: ({displayValue,value})=>{
+               if(value.includes("*")){
+                return 'you cant write * in your text'
+               }
+               return true;
+            },
+            message: 'default error when return false'
         },
     ];
 //2- pass a function that returns the validation list so on each validation process we execute your callback function and get the needed validation list
@@ -197,7 +207,7 @@ example:
 
 ```HTML
 <jb-input>
-        <div slot="end-section">after</div>
-        <div slot="start-section">before</div>
+    <div slot="end-section">after</div>
+    <div slot="start-section">before</div>
 </jb-input>
 ```
