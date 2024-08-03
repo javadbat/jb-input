@@ -211,3 +211,7 @@ example:
     <div slot="start-section">before</div>
 </jb-input>
 ```
+## Other Related Docs:
+
+- see [All JB Design system Component List](https://github.com/javadbat/design-system/blob/master/docs/component-list.md) for more components
+- use [Contribution Guide](https://github.com/javadbat/design-system/blob/master/docs/contribution-guide.md) if yo want to contribute in this component.
