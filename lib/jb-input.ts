@@ -371,6 +371,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     //public method
     this.elements.input.focus();
   }
+  setSelectionRange(start:number|null,end:number|null,direction?:"forward" | "backward" | "none"){
+    this.elements.input.setSelectionRange(start,end,direction);
+  }
 }
 const myElementNotExists = !customElements.get("jb-input");
 if (myElementNotExists) {
