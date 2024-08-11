@@ -19,7 +19,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     value: ""
   };
   elements!: ElementsObject;
-
   #disabled = false;
   internals_?: ElementInternals;
   #validation = new ValidationHelper<ValidationValue>(this.showValidationError.bind(this), this.clearValidationError.bind(this), () => this.#value, () => this.#value.displayValue, () => []);
@@ -46,6 +45,26 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     }
     this.elements.input.value = valueOnj.displayValue;
   }
+  //selection input behavior
+  get selectionStart():number{
+    return this.elements.input.selectionStart;
+  }
+  set selectionStart(value:number){
+    this.elements.input.selectionStart = value;
+  }
+  get selectionEnd():number{
+    return this.elements.input.selectionEnd;
+  }
+  set selectionEnd(value:number){
+    this.elements.input.selectionEnd = value;
+  }
+  get selectionDirection():"forward" | "backward" | "none"{
+    return this.elements.input.selectionDirection;
+  }
+  set selectionDirection(value:"forward" | "backward" | "none"){
+    this.elements.input.selectionDirection = value;
+  }
+  // end of selection input behavior
   constructor() {
     super();
     if (typeof this.attachInternals == "function") {
@@ -195,6 +214,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.#dispatchKeydownEvent(e);
   }
   #dispatchKeydownEvent(e: KeyboardEvent) {
+    e.stopPropagation();
     //trigger component event
     const keyDownInitObj: KeyboardEventInit = {
       key: e.key,
@@ -222,6 +242,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     }
   }
   #onInputKeyPress(e: KeyboardEvent): void {
+    e.stopPropagation();
     const keyPressInitObj: KeyboardEventInit = {
       key: e.key,
       keyCode: e.keyCode,
@@ -240,6 +261,13 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.dispatchEvent(event);
   }
   #onInputKeyup(e: KeyboardEvent): void {
+    this.#dispatchKeyupEvent(e);
+    if (e.keyCode == 13) {
+      this.#onInputEnter();
+    }
+  }
+  #dispatchKeyupEvent(e:KeyboardEvent){
+    e.stopPropagation();
     const keyUpInitObj = {
       key: e.key,
       keyCode: e.keyCode,
@@ -252,9 +280,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     };
     const event = new KeyboardEvent("keyup", keyUpInitObj);
     this.dispatchEvent(event);
-    if (e.keyCode == 13) {
-      this.#onInputEnter();
-    }
   }
   #onInputEnter(): void {
     const event = new KeyboardEvent("enter");
@@ -284,6 +309,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.#dispatchOnInputEvent(e);
   }
   #dispatchOnInputEvent(e: InputEvent): void {
+    e.stopPropagation();
     const eventInitDict: InputEventInit = {
       bubbles: e.bubbles,
       cancelable: e.cancelable,
@@ -304,6 +330,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.#dispatchBeforeInputEvent(e);
   }
   #dispatchBeforeInputEvent(e: InputEvent): boolean {
+    e.stopPropagation();
     const eventInitDict: InputEventInit = {
       bubbles: e.bubbles,
       cancelable: e.cancelable,
@@ -336,6 +363,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     }
   }
   #dispatchOnChangeEvent(e: Event): boolean {
+    e.stopPropagation();
     const eventInit: EventInit = {
       bubbles: e.bubbles,
       cancelable: e.cancelable,
