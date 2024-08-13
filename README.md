@@ -183,23 +183,6 @@ if you want to set a custom style to this web-component all you need is to set c
 | --jb-input-label-font-weight       | label font weight default is `300`                                                            |
 | --jb-input-box-overflow            | input box overflow default is `hidden`                                                        |
 
-#### number input special style
-
-| css variable name                        | description                                                                                   |
-| -------------                            | -------------                                                                                 |
-| --jb-input-increase-button-color         | + button fill color                                                                           |
-| --jb-input-increase-button-color-hover   | + button fill color on hover                                                                  |
-| --jb-input-decrease-button-color         | - button fill color                                                                           |
-| --jb-input-decrease-button-color-hover   | - button fill color on hover                                                                  |
-| --jb-input-number-button-width           | number input width                                                                            |
-| --jb-input-number-button-height          | number input height                                                                           |
-| --jb-input-decrease-button-border        | decrease button border                                                                        |
-| --jb-input-increase-button-border        | increase button border                                                                        |
-| --jb-input-increase-button-border-radius | increase button border-radius                                                                 |
-| --jb-input-decrease-button-border-radius | decrease button border-radius                                                                 |
-| --jb-input-increase-button-bg            | increase button background color                                                              |
-| --jb-input-decrease-button-bg            | decrease button background color                                                              |
-
 ## add custom element in input box
 
 in jb-input you can put icon or any other custom html DOM in input box. to doing so you just have to plae custom DOM in `jb-input` tag and add `slot="start-section"` or `slot="end-section"` to place it before or after input field.
@@ -214,4 +197,5 @@ example:
 ## Other Related Docs:
 
 - see [All JB Design system Component List](https://github.com/javadbat/design-system/blob/master/docs/component-list.md) for more components
+
 - use [Contribution Guide](https://github.com/javadbat/design-system/blob/master/docs/contribution-guide.md) if yo want to contribute in this component.

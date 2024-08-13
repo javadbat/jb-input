@@ -1,7 +1,6 @@
 import CSS from "./jb-input.scss";
-import { ValidationItem, ValidationResult, ValidationResultItem, ValidationResultSummary, WithValidation } from '../../../common/scripts/validation/validation-helper-types';
-export { ValidationItem, ValidationResultItem, ValidationResultSummary };
-import { ValidationHelper } from '../../../common/scripts/validation/validation-helper';
+import { ValidationResult, WithValidation } from 'jb-validation/types';
+import { ValidationHelper } from 'jb-validation';
 import {
   type ElementsObject,
   type JBInputValue,
@@ -24,6 +23,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #validation = new ValidationHelper<ValidationValue>(this.showValidationError.bind(this), this.clearValidationError.bind(this), () => this.#value, () => this.#value.displayValue, () => []);
   get validation() {
     return this.#validation;
+  }
+  get displayValue(){
+    return this.#value.displayValue;
   }
   get value(): string {
     //do not write any logic or task here this function will be overrides by other inputs like mobile input or payment input 
