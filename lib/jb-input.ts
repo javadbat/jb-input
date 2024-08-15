@@ -20,11 +20,23 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   elements!: ElementsObject;
   #disabled = false;
   internals_?: ElementInternals;
+  /**
+ * @description will determine if component trigger jb-validation mechanism automatically on user event or it just let user-developer handle validation mechanism by himself
+ */
+  get isAutoValidationDisabled(): boolean {
+    //currently we only support disable-validation in attribute and only in initiate time but later we can add support for change of this 
+    return this.getAttribute('disable-auto-validation') === '' || this.getAttribute('disable-auto-validation') === 'true' ? true : false;
+  }
+  #checkValidity(showError:boolean){
+    if(!this.isAutoValidationDisabled){
+      return this.#validation.checkValidity(showError);
+    }
+  }
   #validation = new ValidationHelper<ValidationValue>(this.showValidationError.bind(this), this.clearValidationError.bind(this), () => this.#value, () => this.#value.displayValue, () => []);
   get validation() {
     return this.#validation;
   }
-  get displayValue(){
+  get displayValue() {
     return this.#value.displayValue;
   }
   get value(): string {
@@ -48,22 +60,22 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.input.value = valueOnj.displayValue;
   }
   //selection input behavior
-  get selectionStart():number{
+  get selectionStart(): number {
     return this.elements.input.selectionStart;
   }
-  set selectionStart(value:number){
+  set selectionStart(value: number) {
     this.elements.input.selectionStart = value;
   }
-  get selectionEnd():number{
+  get selectionEnd(): number {
     return this.elements.input.selectionEnd;
   }
-  set selectionEnd(value:number){
+  set selectionEnd(value: number) {
     this.elements.input.selectionEnd = value;
   }
-  get selectionDirection():"forward" | "backward" | "none"{
+  get selectionDirection(): "forward" | "backward" | "none" {
     return this.elements.input.selectionDirection;
   }
-  set selectionDirection(value:"forward" | "backward" | "none"){
+  set selectionDirection(value: "forward" | "backward" | "none") {
     this.elements.input.selectionDirection = value;
   }
   // end of selection input behavior
@@ -156,6 +168,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       "placeholder",
       "disabled",
       "inputmode",
+      'disable-auto-validation',
     ];
   }
   //please do not add any other functionality in this func because it may override by enstatite d component
@@ -211,7 +224,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
 
 
-
   #onInputKeyDown(e: KeyboardEvent): void {
     this.#dispatchKeydownEvent(e);
   }
@@ -239,7 +251,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     };
     const event = new KeyboardEvent("keydown", keyDownInitObj);
     const isPrevented = !this.dispatchEvent(event);
-    if(isPrevented){
+    if (isPrevented) {
       e.preventDefault();
     }
   }
@@ -268,7 +280,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       this.#onInputEnter();
     }
   }
-  #dispatchKeyupEvent(e:KeyboardEvent){
+  #dispatchKeyupEvent(e: KeyboardEvent) {
     e.stopPropagation();
     const keyUpInitObj = {
       key: e.key,
@@ -302,12 +314,12 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     if (endCaretPos != inputText.length) {
       //because number input does not support setSelectionRange
       if (!['number'].includes(this.getAttribute('type'))) {
-        target.setSelectionRange(endCaretPos,endCaretPos);
+        target.setSelectionRange(endCaretPos, endCaretPos);
       }
 
     }
     //e.target.setSelectionRange(startCaretPos + e.data, endCaretPos);
-    this.#validation.checkValidity(false);
+    this.#checkValidity(false);
     this.#dispatchOnInputEvent(e);
   }
   #dispatchOnInputEvent(e: InputEvent): void {
@@ -357,7 +369,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     //here is the rare  time we update value directly because we want trigger event that may read value directly from dom
     const oldValue = this.#value;
     this.value = inputText;
-    this.#validation.checkValidity(true);
+    this.#checkValidity(true);
     const isCanceled = this.#dispatchOnChangeEvent(e);
     if (isCanceled) {
       this.#value = oldValue;
@@ -378,12 +390,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     }
     return false;
   }
-  /**
-   * @deprecated 
-   */
-  triggerInputValidation(showError = true): ValidationResult<ValidationValue> {
-    return this.#validation.checkValidity(showError);
-  }
 
   showValidationError(error: string) {
     this.elements.messageBox.innerHTML = error;
@@ -401,8 +407,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     //public method
     this.elements.input.focus();
   }
-  setSelectionRange(start:number|null,end:number|null,direction?:"forward" | "backward" | "none"){
-    this.elements.input.setSelectionRange(start,end,direction);
+  setSelectionRange(start: number | null, end: number | null, direction?: "forward" | "backward" | "none") {
+    this.elements.input.setSelectionRange(start, end, direction);
   }
 }
 const myElementNotExists = !customElements.get("jb-input");
