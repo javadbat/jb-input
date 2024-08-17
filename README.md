@@ -74,7 +74,8 @@ document.getElementByTagName('jb-input').addEventListener('enter',(event)=>{cons
 
 ### set validation
 
-you can set validation to your input:
+jb-input use [jb-validation](https://github.com/javadbat/jb-validation) inside to handle validation so for more information you can read it's documentation.  
+for simple usage you can set validation to your input:
 
 ```js
 //you have 2 ways: 
