@@ -22,7 +22,7 @@ text input web component with these benefit:
 
 - number input will accept persian number char and convert them to english char
 
-sample: <https://codepen.io/javadbat/pen/dyNwddd>
+sample: [codepen](https://codepen.io/javadbat/pen/dyNwddd)    
 
 ## instructions
 
