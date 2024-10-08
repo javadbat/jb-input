@@ -111,7 +111,7 @@ const result = document.getElementByTagName('jb-input').validation.addValidation
 
 ### check validation
 
-like any other jb design system ypo can access validation by `validation` property:
+like any other jb design system you can access validation by `validation` property:
 ```js
 //access validation module
 document.getElementByTagName('jb-input').validation
@@ -199,9 +199,11 @@ example:
     <div slot="start-section">before</div>
 </jb-input>
 ```
-## Other Related Docs:
-- see [jb-input-react](https://github.com/javadbat/jb-input-react) if you want to use this component in react
 
-- see [All JB Design system Component List](https://github.com/javadbat/design-system/blob/master/docs/component-list.md) for more components
+## Other Related Docs:
+
+- see [jb-input-react](https://github.com/javadbat/jb-input-react) if you want to use this component in react.
+
+- see [All JB Design system Component List](https://github.com/javadbat/design-system/blob/master/docs/component-list.md) for more components.
 
 - use [Contribution Guide](https://github.com/javadbat/design-system/blob/master/docs/contribution-guide.md) if you want to contribute in this component.
