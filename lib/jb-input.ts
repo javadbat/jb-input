@@ -1,5 +1,5 @@
 import CSS from "./jb-input.scss";
-import { ValidationResult, WithValidation } from 'jb-validation/types';
+import { ValidationItem, ValidationResult, WithValidation } from 'jb-validation/types';
 import { ValidationHelper } from 'jb-validation';
 import {
   type ElementsObject,
@@ -19,7 +19,10 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   };
   elements!: ElementsObject;
   #disabled = false;
-  internals_?: ElementInternals;
+  get required() {
+    return this.getAttribute('required') ? this.getAttribute('required') !== 'false' : false;
+  }
+  #internals?: ElementInternals;
   /**
  * @description will determine if component trigger jb-validation mechanism automatically on user event or it just let user-developer handle validation mechanism by himself
  */
@@ -27,12 +30,12 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     //currently we only support disable-validation in attribute and only in initiate time but later we can add support for change of this 
     return this.getAttribute('disable-auto-validation') === '' || this.getAttribute('disable-auto-validation') === 'true' ? true : false;
   }
-  #checkValidity(showError:boolean){
-    if(!this.isAutoValidationDisabled){
+  #checkValidity(showError: boolean) {
+    if (!this.isAutoValidationDisabled) {
       return this.#validation.checkValidity(showError);
     }
   }
-  #validation = new ValidationHelper<ValidationValue>(this.showValidationError.bind(this), this.clearValidationError.bind(this), () => this.#value, () => this.#value.displayValue, () => []);
+  #validation = new ValidationHelper<ValidationValue>(this.showValidationError.bind(this), this.clearValidationError.bind(this), () => this.#value, () => this.#value.displayValue, this.#getInsideValidation.bind(this), this.#setValidationResult.bind(this));
   get validation() {
     return this.#validation;
   }
@@ -54,8 +57,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #setValueByObject(valueOnj: JBInputValue) {
     this.#value = valueOnj;
     //comment for typescript problem
-    if (this.internals_ && typeof this.internals_.setFormValue == "function") {
-      this.internals_.setFormValue(valueOnj.value);
+    if (this.#internals && typeof this.#internals.setFormValue == "function") {
+      this.#internals.setFormValue(valueOnj.value);
     }
     this.elements.input.value = valueOnj.displayValue;
   }
@@ -83,7 +86,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     super();
     if (typeof this.attachInternals == "function") {
       //some browser dont support attachInternals
-      this.internals_ = this.attachInternals();
+      this.#internals = this.attachInternals();
+      this.#internals.checkValidity = this.checkValidity;
     }
     this.#initWebComponent();
   }
@@ -231,23 +235,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     e.stopPropagation();
     //trigger component event
     const keyDownInitObj: KeyboardEventInit = {
-      key: e.key,
-      keyCode: e.keyCode,
-      code: e.code,
-      ctrlKey: e.ctrlKey,
-      shiftKey: e.shiftKey,
-      altKey: e.altKey,
-      charCode: e.charCode,
-      which: e.which,
+      ...e,
       cancelable: true,
-      bubbles: e.bubbles,
-      composed: e.composed,
-      detail: e.detail,
-      isComposing: e.isComposing,
-      location: e.location,
-      metaKey: e.metaKey,
-      repeat: e.repeat,
-      view: e.view
+
     };
     const event = new KeyboardEvent("keydown", keyDownInitObj);
     const isPrevented = !this.dispatchEvent(event);
@@ -258,18 +248,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #onInputKeyPress(e: KeyboardEvent): void {
     e.stopPropagation();
     const keyPressInitObj: KeyboardEventInit = {
-      key: e.key,
-      keyCode: e.keyCode,
-      code: e.code,
-      ctrlKey: e.ctrlKey,
-      shiftKey: e.shiftKey,
-      altKey: e.altKey,
-      charCode: e.charCode,
-      which: e.which,
-      isComposing: e.isComposing,
-      cancelable: e.cancelable,
-      bubbles: e.bubbles,
-      composed: e.composed,
+      ...e
     };
     const event = new KeyboardEvent("keypress", keyPressInitObj);
     this.dispatchEvent(event);
@@ -283,14 +262,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #dispatchKeyupEvent(e: KeyboardEvent) {
     e.stopPropagation();
     const keyUpInitObj = {
-      key: e.key,
-      keyCode: e.keyCode,
-      code: e.code,
-      ctrlKey: e.ctrlKey,
-      shiftKey: e.shiftKey,
-      altKey: e.altKey,
-      charCode: e.charCode,
-      which: e.which,
+      ...e
     };
     const event = new KeyboardEvent("keyup", keyUpInitObj);
     this.dispatchEvent(event);
@@ -325,15 +297,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #dispatchOnInputEvent(e: InputEvent): void {
     e.stopPropagation();
     const eventInitDict: InputEventInit = {
-      bubbles: e.bubbles,
-      cancelable: e.cancelable,
-      composed: e.composed,
-      data: e.data,
-      isComposing: e.isComposing,
-      inputType: e.inputType,
-      dataTransfer: e.dataTransfer,
-      view: e.view,
-      detail: e.detail,
+      ...e,
       targetRanges: e.getTargetRanges(),
     };
     const event = new InputEvent("input", eventInitDict);
@@ -346,15 +310,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #dispatchBeforeInputEvent(e: InputEvent): boolean {
     e.stopPropagation();
     const eventInitDict: InputEventInit = {
-      bubbles: e.bubbles,
-      cancelable: e.cancelable,
-      composed: e.composed,
-      data: e.data,
-      isComposing: e.isComposing,
-      inputType: e.inputType,
-      dataTransfer: e.dataTransfer,
-      view: e.view,
-      detail: e.detail,
+      ...e,
       targetRanges: e.getTargetRanges(),
     };
     const event = new InputEvent("beforeinput", eventInitDict);
@@ -409,6 +365,60 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   setSelectionRange(start: number | null, end: number | null, direction?: "forward" | "backward" | "none") {
     this.elements.input.setSelectionRange(start, end, direction);
+  }
+  #getInsideValidation(): ValidationItem<ValidationValue>[] {
+    const validationList: ValidationItem<ValidationValue>[] = [];
+    if (this.required) {
+      validationList.push({
+        validator: /.{1}/g,
+        message: this.getAttribute("label") + "میبایست حتما وارد شود",
+        stateType: "valueMissing"
+      });
+    }
+    return validationList;
+  }
+  /**
+   * @public
+   * @description this method used to check for validity but doesn't show error to user and just return the result
+   * this method used by #internal of component
+   */
+  checkValidity(): boolean {
+    const validationResult = this.#validation.checkValidity(false);
+    if (!validationResult.isAllValid) {
+      const event = new CustomEvent('invalid');
+      this.dispatchEvent(event);
+    }
+    return validationResult.isAllValid;
+  }
+  /**
+  * @public
+ * @description this method used to check for validity and show error to user
+ */
+  reportValidity(): boolean {
+    const validationResult = this.#validation.checkValidity(true);
+    if (!validationResult.isAllValid) {
+      const event = new CustomEvent('invalid');
+      this.dispatchEvent(event);
+    }
+    return validationResult.isAllValid;
+  }
+  /**
+   * @description this method called on every checkValidity calls and update validation result of #internal
+   */
+  #setValidationResult(result: ValidationResult<ValidationValue>) {
+    if (result.isAllValid) {
+      this.#internals.setValidity({}, '');
+    } else {
+      const states: ValidityStateFlags = {};
+      let message = "";
+      result.validationList.forEach((res) => {
+        if (!res.isValid) {
+          if (res.validation.stateType) { states[res.validation.stateType] = true; }
+          if (message == '') { message = res.message; }
+        }
+      });
+      this.#internals.setValidity(states, message);
+    }
   }
 }
 const myElementNotExists = !customElements.get("jb-input");
