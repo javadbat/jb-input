@@ -1,15 +1,17 @@
 import CSS from "./jb-input.scss";
-import { ValidationItem, ValidationResult, WithValidation } from 'jb-validation/types';
+import { ValidationItem, ValidationResult, type WithValidation } from 'jb-validation/types';
+import type { JBFormInputStandards } from 'jb-form/types';
 import { ValidationHelper } from 'jb-validation';
 import {
   type ElementsObject,
   type JBInputValue,
-  StandardValueCallbackFunc,
-  ValidationValue,
+  type StandardValueCallbackFunc,
+  type ValidationValue,
 } from "./types";
 import { renderHTML } from "./render";
+import { createInputEvent, createKeyboardEvent } from "./utils";
 
-export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue> {
+export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue>,JBFormInputStandards<string> {
   static get formAssociated() {
     return true;
   }
@@ -19,8 +21,26 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   };
   elements!: ElementsObject;
   #disabled = false;
+  get disabled(){
+    return this.#disabled;
+  }
+  set disabled(value:boolean){
+    this.#disabled = value;
+    this.elements.input.disabled = value;
+    if(value){
+      //TODO: remove as any when typescript support
+      (this.#internals as any).states?.add("disabled");
+    }else{
+      (this.#internals as any).states?.delete("disabled");
+    }
+  }
+  #required = false;
+  set required(value:boolean){
+    this.#required = value;
+    this.#validation.checkValidity(false);
+  }
   get required() {
-    return this.getAttribute('required') ? this.getAttribute('required') !== 'false' : false;
+    return this.#required;
   }
   #internals?: ElementInternals;
   /**
@@ -62,6 +82,10 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     }
     this.elements.input.value = valueOnj.displayValue;
   }
+  initialValue = "";
+  get isDirty(): boolean{
+    return this.#value.value !== this.initialValue;
+  }
   //selection input behavior
   get selectionStart(): number {
     return this.elements.input.selectionStart;
@@ -81,13 +105,15 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   set selectionDirection(value: "forward" | "backward" | "none") {
     this.elements.input.selectionDirection = value;
   }
+  get name(){
+    return this.getAttribute('name') || '';
+  }
   // end of selection input behavior
   constructor() {
     super();
     if (typeof this.attachInternals == "function") {
       //some browser dont support attachInternals
       this.#internals = this.attachInternals();
-      this.#internals.checkValidity = this.checkValidity;
     }
     this.#initWebComponent();
   }
@@ -158,7 +184,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.input.addEventListener("keydown", this.#onInputKeyDown.bind(this));
   }
   initProp() {
-    this.#disabled = false;
     this.value = this.getAttribute("value") || "";
   }
   static get observedAttributes(): string[] {
@@ -173,6 +198,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       "disabled",
       "inputmode",
       'disable-auto-validation',
+      "required",
     ];
   }
   //please do not add any other functionality in this func because it may override by enstatite d component
@@ -215,15 +241,19 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         break;
       case "disabled":
         if (value == "" || value === "true") {
-          this.#disabled = true;
-          this.elements.input.setAttribute("disabled", "true");
+          this.disabled = true;
         } else if (value == "false" || value == null || value == undefined) {
-          this.#disabled = false;
+          this.disabled = false;
           this.elements.input.removeAttribute("disabled");
         }
         break;
       case "inputmode":
         this.elements.input.setAttribute("inputmode", value);
+        break;
+      case "required":
+        //to update validation result base on new requirement
+        this.required = value ? value !== 'false' : false;
+        break;
     }
   }
 
@@ -234,12 +264,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #dispatchKeydownEvent(e: KeyboardEvent) {
     e.stopPropagation();
     //trigger component event
-    const keyDownInitObj: KeyboardEventInit = {
-      ...e,
-      cancelable: true,
-
-    };
-    const event = new KeyboardEvent("keydown", keyDownInitObj);
+    const event = createKeyboardEvent("keydown",e,{cancelable:true});
     const isPrevented = !this.dispatchEvent(event);
     if (isPrevented) {
       e.preventDefault();
@@ -247,10 +272,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #onInputKeyPress(e: KeyboardEvent): void {
     e.stopPropagation();
-    const keyPressInitObj: KeyboardEventInit = {
-      ...e
-    };
-    const event = new KeyboardEvent("keypress", keyPressInitObj);
+    const event = createKeyboardEvent("keypress",e,{cancelable:false});
     this.dispatchEvent(event);
   }
   #onInputKeyup(e: KeyboardEvent): void {
@@ -261,10 +283,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #dispatchKeyupEvent(e: KeyboardEvent) {
     e.stopPropagation();
-    const keyUpInitObj = {
-      ...e
-    };
-    const event = new KeyboardEvent("keyup", keyUpInitObj);
+    const event = createKeyboardEvent("keyup",e,{cancelable:false});
     this.dispatchEvent(event);
   }
   #onInputEnter(): void {
@@ -296,11 +315,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #dispatchOnInputEvent(e: InputEvent): void {
     e.stopPropagation();
-    const eventInitDict: InputEventInit = {
-      ...e,
-      targetRanges: e.getTargetRanges(),
-    };
-    const event = new InputEvent("input", eventInitDict);
+    const event = createInputEvent('input',e,{cancelable:true});
     this.dispatchEvent(event);
   }
 
@@ -309,11 +324,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #dispatchBeforeInputEvent(e: InputEvent): boolean {
     e.stopPropagation();
-    const eventInitDict: InputEventInit = {
-      ...e,
-      targetRanges: e.getTargetRanges(),
-    };
-    const event = new InputEvent("beforeinput", eventInitDict);
+    const event = createInputEvent('beforeinput',e,{cancelable:true});
     this.dispatchEvent(event);
     if (event.defaultPrevented) {
       e.preventDefault();
@@ -419,6 +430,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       });
       this.#internals.setValidity(states, message);
     }
+  }
+  get validationMessage(){
+    return this.#internals.validationMessage;
   }
 }
 const myElementNotExists = !customElements.get("jb-input");
