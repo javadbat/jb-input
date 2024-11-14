@@ -1,2 +1,2 @@
-import './dist/jb-input.js';
-export * from './dist/jb-input.js';
+import './dist/index.js';
+export * from './dist/index.js';

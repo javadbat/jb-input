@@ -10,7 +10,6 @@ import {
 } from "./types";
 import { renderHTML } from "./render";
 import { createInputEvent, createKeyboardEvent } from "./utils";
-
 export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue>,JBFormInputStandards<string> {
   static get formAssociated() {
     return true;
