@@ -381,7 +381,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     if (this.required) {
       validationList.push({
         validator: /.{1}/g,
-        message: this.getAttribute("label") + "میبایست حتما وارد شود",
+        message: this.getAttribute("label")+ " " + "میبایست حتما وارد شود",
         stateType: "valueMissing"
       });
     }
