@@ -1,7 +1,6 @@
 import CSS from "./jb-input.scss";
-import { ValidationItem, ValidationResult, type WithValidation } from 'jb-validation';
+import { ValidationItem, ValidationResult, type WithValidation, ValidationHelper } from 'jb-validation';
 import type { JBFormInputStandards } from 'jb-form';
-import { ValidationHelper } from 'jb-validation';
 import {
   type ElementsObject,
   type JBInputValue,
