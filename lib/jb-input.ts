@@ -69,6 +69,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.#setValue(value);
   }
   #setValue(value: string) {
+    if(value === null || value == undefined){
+      value = "";
+    }
     const standardValue = this.standardValue(value);
     this.#setValueByObject(standardValue);
   }
