@@ -6,7 +6,9 @@
         "../global.d.ts",
         "lib/**/*.ts",
         "lib/**/*.js",
-        "../../common/scripts/**/*.ts", "../../modules/jb-validation/validation-helper-types.ts", "../../modules/jb-validation/validation-helper.ts",
+        "../../common/scripts/**/*.ts",
+        "../../modules/jb-validation/validation-helper-types.ts"
+        , "../../modules/jb-validation/validation-helper.ts",
     ],
     "exclude": [
         "node_modules",
