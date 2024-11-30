@@ -1,5 +1,5 @@
 import CSS from "./jb-input.scss";
-import { ValidationItem, ValidationResult, type WithValidation, ValidationHelper } from 'jb-validation';
+import { ValidationItem, ValidationResult, type WithValidation, ValidationHelper, ShowValidationErrorInput } from 'jb-validation';
 import type { JBFormInputStandards } from 'jb-form';
 import {
   type ElementsObject,
@@ -35,7 +35,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #required = false;
   set required(value:boolean){
     this.#required = value;
-    this.#validation.checkValidity(false);
+    this.#checkValidity(false);
   }
   get required() {
     return this.#required;
@@ -50,10 +50,17 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #checkValidity(showError: boolean) {
     if (!this.isAutoValidationDisabled) {
-      return this.#validation.checkValidity(showError);
+      return this.#validation.checkValidity({showError});
     }
   }
-  #validation = new ValidationHelper<ValidationValue>(this.showValidationError.bind(this), this.clearValidationError.bind(this), () => this.#value, () => this.#value.displayValue, this.#getInsideValidation.bind(this), this.#setValidationResult.bind(this));
+  #validation = new ValidationHelper<ValidationValue>({
+    clearValidationError:this.clearValidationError.bind(this),
+    showValidationError:this.showValidationError.bind(this),
+    getInputtedValue:() => this.#value,
+    getInsideValidations:this.#getInsideValidation.bind(this),
+    getValueString:() => this.#value.displayValue,
+    setValidationResult:this.#setValidationResult.bind(this)
+  });
   get validation() {
     return this.#validation;
   }
@@ -198,6 +205,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       "placeholder",
       "disabled",
       "inputmode",
+      "readonly",
       'disable-auto-validation',
       "required",
     ];
@@ -209,6 +217,12 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   protected onAttributeChange(name: string, value: string): void {
     switch (name) {
+      case "name":
+      case "autocomplete":
+      case "inputmode":
+      case "readonly":
+        this.elements.input.setAttribute(name, value);
+        break;
       case "label":
         this.elements.labelValue.innerHTML = value;
         if (value == null || value == undefined || value == "") {
@@ -231,12 +245,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       case "value":
         this.value = value;
         break;
-      case "name":
-        this.elements.input.setAttribute("name", value);
-        break;
-      case "autocomplete":
-        this.elements.input.setAttribute("autocomplete", value);
-        break;
+      
       case "placeholder":
         this.elements.input.placeholder = value;
         break;
@@ -247,9 +256,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
           this.disabled = false;
           this.elements.input.removeAttribute("disabled");
         }
-        break;
-      case "inputmode":
-        this.elements.input.setAttribute("inputmode", value);
         break;
       case "required":
         //to update validation result base on new requirement
@@ -359,8 +365,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     return false;
   }
 
-  showValidationError(error: string) {
-    this.elements.messageBox.innerHTML = error;
+  showValidationError(error: ShowValidationErrorInput | string) {
+    const message = typeof error == "string"?error:error.message;
+    this.elements.messageBox.innerHTML = message;
     this.elements.messageBox.classList.add("error");
   }
   clearValidationError() {
@@ -395,7 +402,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
    * this method used by #internal of component
    */
   checkValidity(): boolean {
-    const validationResult = this.#validation.checkValidity(false);
+    const validationResult = this.#validation.checkValiditySync({showError:false});
     if (!validationResult.isAllValid) {
       const event = new CustomEvent('invalid');
       this.dispatchEvent(event);
@@ -407,7 +414,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
  * @description this method used to check for validity and show error to user
  */
   reportValidity(): boolean {
-    const validationResult = this.#validation.checkValidity(true);
+    const validationResult = this.#validation.checkValiditySync({showError:true});
     if (!validationResult.isAllValid) {
       const event = new CustomEvent('invalid');
       this.dispatchEvent(event);

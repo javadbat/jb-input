@@ -116,7 +116,13 @@ like any other jb design system you can access validation by `validation` proper
 //access validation module
 document.getElementByTagName('jb-input').validation
 // check if input pass all the validations. showError is a boolean that determine your intent to show error to user on invalid status.
-const result = document.getElementByTagName('jb-input').validation.checkValidity(showError)
+const result = await document.getElementByTagName('jb-input').validation.checkValidity({showError})
+//or
+const result = document.getElementByTagName('jb-input').validation.checkValiditySync({showError})
+//return boolean of if inputted string is valid
+const result = document.getElementByTagName('jb-input').checkValidity()
+//orreturn boolean and show error
+const result = document.getElementByTagName('jb-input').reportValidity()
 
 ```
 ### intercept user input
