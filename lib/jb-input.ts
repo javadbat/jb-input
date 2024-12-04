@@ -56,8 +56,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #validation = new ValidationHelper<ValidationValue>({
     clearValidationError:this.clearValidationError.bind(this),
     showValidationError:this.showValidationError.bind(this),
-    getInputtedValue:() => this.#value,
-    getInsideValidations:this.#getInsideValidation.bind(this),
+    getValue:() => this.#value,
+    getValidations:this.#getInsideValidation.bind(this),
     getValueString:() => this.#value.displayValue,
     setValidationResult:this.#setValidationResult.bind(this)
   });
