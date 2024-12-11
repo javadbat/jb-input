@@ -1,1 +1,1 @@
-export * from './dist/JBInput.js';
+export * from './dist/index.js';
