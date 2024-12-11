@@ -1,0 +1,34 @@
+{
+  "name": "jb-input-react",
+  "description": "input react component",
+  "type": "module",
+  "author": {
+		"name": "mohammad javad bathaei",
+		"email": "javadbat@gmail.com"
+	},
+  "keywords": [
+    "jb",
+    "jb-input",
+    "input",
+    "input box",
+    "react component"
+  ],
+  "version": "3.5.0",
+  "bugs": "https://github.com/javadbat/jb-input-react/issues",
+  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "lib/",
+    "dist/"
+  ],
+  "main": "index.js",
+  "types": "./dist/react-component/jb-input/lib/JBInput.d.ts",
+  "repository": {
+		"type": "git",
+		"url": "git@github.com:javadbat/jb-input-react.git"
+  },
+  "dependencies": {
+    "jb-input": "file:../index.js"
+  }
+}
