@@ -14,14 +14,15 @@
     "input",
     "web component"
   ],
-  "version": "3.4.1",
+  "version": "3.4.2",
   "bugs": "https://github.com/javadbat/jb-input/issues",
   "license": "MIT",
   "files": [
     "LICENSE",
     "README.md",
     "lib/",
-    "dist/"
+    "dist/",
+    "react/"
   ],
   "main": "index.js",
   "types": "./dist/web-component/jb-input/lib/index.d.ts",

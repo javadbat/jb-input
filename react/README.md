@@ -14,9 +14,9 @@ text input `react component` with these benefits:
 
 - customizable ui with css variable so you can have multiple style in different scope of your app.
 
-- custom display for password and number input.
+- support typescript.
 
-- support typescript
+- extendable so you can create your own custom input base on jb-input like [jb-number-input](https://github.com/javadbat/jb-number-input).
 
 Demo :  Demo: [codeSandbox preview](https://3f63dj.csb.app/samples/jb-input) for just see the demo and [codeSandbox editor](https://codesandbox.io/p/sandbox/jb-design-system-3f63dj?file=%2Fsrc%2Fsamples%2FJBInput.tsx) if you want to see and play with code
 
@@ -29,7 +29,7 @@ npm i jb-input-react
 ```
 in your jsx file
 ```js
-import {JBInput} from 'jb-input-react';
+import {JBInput} from 'jb-input/react';
 ```
 ``` jsx
 <JBInput label="label:" message="hint message under textbox"></JBInput>

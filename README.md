@@ -16,13 +16,15 @@ text input web component with these benefit:
 
 - customizable ui with css variable sp you can have multiple style in different scope of your app.
 
-- custom display for password input with show and hide trigger button.
+- extendable so you can create your own custom input base on jb-input like [jb-number-input](https://github.com/javadbat/jb-number-input).
 
-- number input with thousand separator (1,000,000) and  +- button with keyboard support for up and down value with customizable step and preventable negative value.
+- can accept persian number char and convert them to english char in value.
 
-- number input will accept persian number char and convert them to english char
+sample: [codepen](https://codepen.io/javadbat/pen/dyNwddd)
 
-sample: [codepen](https://codepen.io/javadbat/pen/dyNwddd)    
+## using with JS frameworks
+
+to use this component in **react** see [`jb-input/react`](https://github.com/javadbat/jb-input/tree/main/react);
 
 ## instructions
 
@@ -34,7 +36,7 @@ sample: [codepen](https://codepen.io/javadbat/pen/dyNwddd)
 npm i jb-input
 ```
 
-in one of your js in pag
+in one of your js in page
 
 ```js
 import 'jb-input';
@@ -44,7 +46,7 @@ import 'jb-input';
 in your html or jsx
 
 ```html
-<jb-input class="" label="لیبل" message="متن ثابت زیر کادر متن"></jb-input>
+<jb-input class="" label="your label" message="hint text under the text box"></jb-input>
 ```
 #### using cdn
 
@@ -208,7 +210,7 @@ example:
 
 ## Other Related Docs:
 
-- see [jb-input-react](https://github.com/javadbat/jb-input-react) if you want to use this component in react.
+- see [jb-input-react](https://github.com/javadbat/jb-input/tree/main/react) if you want to use this component in react.
 
 - see [All JB Design system Component List](https://github.com/javadbat/design-system/blob/master/docs/component-list.md) for more components.
 
