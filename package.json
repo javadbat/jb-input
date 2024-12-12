@@ -14,7 +14,7 @@
     "input",
     "web component"
   ],
-  "version": "3.4.2",
+  "version": "3.4.5",
   "bugs": "https://github.com/javadbat/jb-input/issues",
   "license": "MIT",
   "files": [
@@ -22,7 +22,8 @@
     "README.md",
     "lib/",
     "dist/",
-    "react/"
+    "react/",
+    "react/dist/"
   ],
   "main": "index.js",
   "types": "./dist/web-component/jb-input/lib/index.d.ts",
