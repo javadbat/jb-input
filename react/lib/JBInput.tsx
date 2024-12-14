@@ -43,9 +43,11 @@ export const JBInput = forwardRef((props: Props, ref) => {
     </jb-input>
   );
 });
-export type Props = JBInputEvents & JBInputAttributes & {
-    className?: string,
-    children?: React.ReactNode | React.ReactNode[],
+//used in derived jb-input react components like number input.
+export type BaseProps<T extends JBInputWebComponent> = JBInputEvents<T> & JBInputAttributes & {
+  className?: string,
+  children?: React.ReactNode | React.ReactNode[],
 }
+export type Props = BaseProps<JBInputWebComponent>;
 JBInput.displayName = "JBInput";
 

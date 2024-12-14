@@ -29,6 +29,7 @@ declare global {
         setFormValue(value:string):void;
     }
 }
-export type JBInputEventType<T> = T & {
-    target: JBInputWebComponent
-}
+export type EventTypeWithTarget<TEvent,TTarget> = TEvent & {
+    target: TTarget;
+};
+export type JBInputEventType<TEvent> = EventTypeWithTarget<TEvent,JBInputWebComponent>
