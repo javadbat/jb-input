@@ -29,6 +29,6 @@
 		"url": "git@github.com:javadbat/jb-input-react.git"
   },
   "dependencies": {
-    "jb-input": "file:../index.js"
+    "jb-input": ">=3.4.9"
   }
 }
