@@ -2,6 +2,7 @@ import CSS from "./jb-input.scss";
 import { ValidationItem, ValidationResult, type WithValidation, ValidationHelper, ShowValidationErrorInput } from 'jb-validation';
 import type { JBFormInputStandards } from 'jb-form';
 import {
+  ValueSetterEventType,
   type ElementsObject,
   type JBInputValue,
   type StandardValueCallbackFunc,
@@ -71,15 +72,16 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     //do not write any logic or task here this function will be overrides by other inputs like mobile input or payment input 
     return this.#value.value;
   }
+  //do not call it from inside and use #setValue in inside
   set value(value: string) {
     //do not write any logic or task here this function will be overrides by other inputs like mobile input or payment input 
-    this.#setValue(value);
+    this.#setValue(value,"SET_VALUE");
   }
-  #setValue(value: string) {
+  #setValue(value: string,eventType:ValueSetterEventType) {
     if(value === null || value == undefined){
       value = "";
     }
-    const standardValue = this.standardValue(value);
+    const standardValue = this.standardValue(value,eventType);
     this.#setValueByObject(standardValue);
   }
   #setValueByObject(valueOnj: JBInputValue) {
@@ -171,13 +173,13 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   /**
    * @description this function will get user inputted or pasted text and convert it to standard one base on developer config
    */
-  standardValue(valueString: string | number): JBInputValue {
+  standardValue(valueString: string | number, eventType:ValueSetterEventType): JBInputValue {
     let standardValue: JBInputValue = {
       displayValue: valueString.toString(),
       value: valueString.toString(),
     };
     standardValue = this.#standardValueCallbacks.reduce((acc, func) => {
-      const res = func(valueString.toString(), this.#value, acc);
+      const res = func(valueString.toString(), this.#value, acc, eventType);
       return res;
     }, standardValue);
     return standardValue;
@@ -192,7 +194,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.input.addEventListener("keydown", this.#onInputKeyDown.bind(this));
   }
   initProp() {
-    this.value = this.getAttribute("value") || "";
+    this.#setValue(this.getAttribute("value") || "","SET_VALUE");
   }
   static get observedAttributes(): string[] {
     return [
@@ -243,7 +245,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         this.elements.messageBox.innerHTML = value;
         break;
       case "value":
-        this.value = value;
+        this.#setValue(value,"SET_VALUE");
         break;
       
       case "placeholder":
@@ -307,7 +309,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const inputText = (e.target as HTMLInputElement).value;
     const target = (e.target as HTMLInputElement);
     //to standard value again
-    this.value = inputText;
+    this.#setValue(inputText,"INPUT");
     //if user type in middle of text we will return the caret position to the middle of text because this.value = inputText will move caret to end
     if (endCaretPos != inputText.length) {
       //because number input does not support setSelectionRange
@@ -342,7 +344,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const inputText = (e.target as HTMLInputElement).value;
     //here is the rare  time we update value directly because we want trigger event that may read value directly from dom
     const oldValue = this.#value;
-    this.value = inputText;
+    this.#setValue(inputText,"CHANGE");
     this.#checkValidity(true);
     const isCanceled = this.#dispatchOnChangeEvent(e);
     if (isCanceled) {

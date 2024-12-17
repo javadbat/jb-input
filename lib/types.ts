@@ -12,10 +12,15 @@ export type ElementsObject = {
     };
 };
 /**
+ * @description "INPUT" is for onInput,  "SET_VALUE" is for when value set from outside of component by dom.value="" or in attribute value set, and change call in onChange mean's it execute after blur
+ */
+export type ValueSetterEventType = "INPUT" | "SET_VALUE" | "CHANGE"
+/**
  * @description this function used by derived input component so they can make different between display value and value value.
  * @param prevResult result of prev callback function it maybe useful in some cases when user add chain of value standard
+ * @param eventType when standard  value is called. its for filter some standard function in some events, for example disable min value check on input number and let user do blur before some standard function be applied  
  */
-export type StandardValueCallbackFunc = (inputtedString:string, oldValue:JBInputValue, prevResult:JBInputValue)=>JBInputValue
+export type StandardValueCallbackFunc = (inputtedString:string, oldValue:JBInputValue, prevResult:JBInputValue, eventType:ValueSetterEventType)=>JBInputValue
 export type JBInputValue = {
     // the value we return as dom.value
     value:string,
