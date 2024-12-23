@@ -209,6 +209,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       "inputmode",
       "readonly",
       'disable-auto-validation',
+      "virtualkeyboardpolicy",
       "required",
     ];
   }
@@ -243,6 +244,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         break;
       case "message":
         this.elements.messageBox.innerHTML = value;
+        break;
+      case "virtualkeyboardpolicy":
+        this.elements.input.setAttribute("virtualkeyboardpolicy",value);
         break;
       case "value":
         this.#setValue(value,"SET_VALUE");
