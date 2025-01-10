@@ -10,7 +10,7 @@ import {
 } from "./types";
 import { renderHTML } from "./render";
 import { createInputEvent, createKeyboardEvent } from "./utils";
-export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue>,JBFormInputStandards<string> {
+export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue>, JBFormInputStandards<string> {
   static get formAssociated() {
     return true;
   }
@@ -20,21 +20,21 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   };
   elements!: ElementsObject;
   #disabled = false;
-  get disabled(){
+  get disabled() {
     return this.#disabled;
   }
-  set disabled(value:boolean){
+  set disabled(value: boolean) {
     this.#disabled = value;
     this.elements.input.disabled = value;
-    if(value){
+    if (value) {
       //TODO: remove as any when typescript support
       (this.#internals as any).states?.add("disabled");
-    }else{
+    } else {
       (this.#internals as any).states?.delete("disabled");
     }
   }
   #required = false;
-  set required(value:boolean){
+  set required(value: boolean) {
     this.#required = value;
     this.#checkValidity(false);
   }
@@ -51,16 +51,16 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #checkValidity(showError: boolean) {
     if (!this.isAutoValidationDisabled) {
-      return this.#validation.checkValidity({showError});
+      return this.#validation.checkValidity({ showError });
     }
   }
   #validation = new ValidationHelper<ValidationValue>({
-    clearValidationError:this.clearValidationError.bind(this),
-    showValidationError:this.showValidationError.bind(this),
-    getValue:() => this.#value,
-    getValidations:this.#getInsideValidation.bind(this),
-    getValueString:() => this.#value.displayValue,
-    setValidationResult:this.#setValidationResult.bind(this)
+    clearValidationError: this.clearValidationError.bind(this),
+    showValidationError: this.showValidationError.bind(this),
+    getValue: () => this.#value,
+    getValidations: this.#getInsideValidation.bind(this),
+    getValueString: () => this.#value.displayValue,
+    setValidationResult: this.#setValidationResult.bind(this)
   });
   get validation() {
     return this.#validation;
@@ -75,13 +75,13 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   //do not call it from inside and use #setValue in inside
   set value(value: string) {
     //do not write any logic or task here this function will be overrides by other inputs like mobile input or payment input 
-    this.#setValue(value,"SET_VALUE");
+    this.#setValue(value, "SET_VALUE");
   }
-  #setValue(value: string,eventType:ValueSetterEventType) {
-    if(value === null || value == undefined){
+  #setValue(value: string, eventType: ValueSetterEventType) {
+    if (value === null || value == undefined) {
       value = "";
     }
-    const standardValue = this.standardValue(value,eventType);
+    const standardValue = this.standardValue(value, eventType);
     this.#setValueByObject(standardValue);
   }
   #setValueByObject(valueOnj: JBInputValue) {
@@ -93,7 +93,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.input.value = valueOnj.displayValue;
   }
   initialValue = "";
-  get isDirty(): boolean{
+  get isDirty(): boolean {
     return this.#value.value !== this.initialValue;
   }
   //selection input behavior
@@ -115,7 +115,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   set selectionDirection(value: "forward" | "backward" | "none") {
     this.elements.input.selectionDirection = value;
   }
-  get name(){
+  get name() {
     return this.getAttribute('name') || '';
   }
   // end of selection input behavior
@@ -173,7 +173,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   /**
    * @description this function will get user inputted or pasted text and convert it to standard one base on developer config
    */
-  standardValue(valueString: string | number, eventType:ValueSetterEventType): JBInputValue {
+  standardValue(valueString: string | number, eventType: ValueSetterEventType): JBInputValue {
     let standardValue: JBInputValue = {
       displayValue: valueString.toString(),
       value: valueString.toString(),
@@ -194,7 +194,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.input.addEventListener("keydown", this.#onInputKeyDown.bind(this));
   }
   initProp() {
-    this.#setValue(this.getAttribute("value") || "","SET_VALUE");
+    this.#setValue(this.getAttribute("value") || "", "SET_VALUE");
   }
   static get observedAttributes(): string[] {
     return [
@@ -224,6 +224,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       case "autocomplete":
       case "inputmode":
       case "readonly":
+      case "virtualkeyboardpolicy":
         this.elements.input.setAttribute(name, value);
         break;
       case "label":
@@ -243,15 +244,14 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         }
         break;
       case "message":
-        this.elements.messageBox.innerHTML = value;
-        break;
-      case "virtualkeyboardpolicy":
-        this.elements.input.setAttribute("virtualkeyboardpolicy",value);
+        if (!this.elements.messageBox.classList.contains("error")) {
+          this.elements.messageBox.innerHTML = value;
+        }
         break;
       case "value":
-        this.#setValue(value,"SET_VALUE");
+        this.#setValue(value, "SET_VALUE");
         break;
-      
+
       case "placeholder":
         this.elements.input.placeholder = value;
         break;
@@ -277,7 +277,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #dispatchKeydownEvent(e: KeyboardEvent) {
     e.stopPropagation();
     //trigger component event
-    const event = createKeyboardEvent("keydown",e,{cancelable:true});
+    const event = createKeyboardEvent("keydown", e, { cancelable: true });
     const isPrevented = !this.dispatchEvent(event);
     if (isPrevented) {
       e.preventDefault();
@@ -285,7 +285,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #onInputKeyPress(e: KeyboardEvent): void {
     e.stopPropagation();
-    const event = createKeyboardEvent("keypress",e,{cancelable:false});
+    const event = createKeyboardEvent("keypress", e, { cancelable: false });
     this.dispatchEvent(event);
   }
   #onInputKeyup(e: KeyboardEvent): void {
@@ -296,7 +296,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #dispatchKeyupEvent(e: KeyboardEvent) {
     e.stopPropagation();
-    const event = createKeyboardEvent("keyup",e,{cancelable:false});
+    const event = createKeyboardEvent("keyup", e, { cancelable: false });
     this.dispatchEvent(event);
   }
   #onInputEnter(): void {
@@ -313,7 +313,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const inputText = (e.target as HTMLInputElement).value;
     const target = (e.target as HTMLInputElement);
     //to standard value again
-    this.#setValue(inputText,"INPUT");
+    this.#setValue(inputText, "INPUT");
     //if user type in middle of text we will return the caret position to the middle of text because this.value = inputText will move caret to end
     if (endCaretPos != inputText.length) {
       //because number input does not support setSelectionRange
@@ -328,7 +328,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #dispatchOnInputEvent(e: InputEvent): void {
     e.stopPropagation();
-    const event = createInputEvent('input',e,{cancelable:true});
+    const event = createInputEvent('input', e, { cancelable: true });
     this.dispatchEvent(event);
   }
 
@@ -337,7 +337,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #dispatchBeforeInputEvent(e: InputEvent): boolean {
     e.stopPropagation();
-    const event = createInputEvent('beforeinput',e,{cancelable:true});
+    const event = createInputEvent('beforeinput', e, { cancelable: true });
     this.dispatchEvent(event);
     if (event.defaultPrevented) {
       e.preventDefault();
@@ -348,7 +348,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const inputText = (e.target as HTMLInputElement).value;
     //here is the rare  time we update value directly because we want trigger event that may read value directly from dom
     const oldValue = this.#value;
-    this.#setValue(inputText,"CHANGE");
+    this.#setValue(inputText, "CHANGE");
     this.#checkValidity(true);
     const isCanceled = this.#dispatchOnChangeEvent(e);
     if (isCanceled) {
@@ -372,7 +372,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
 
   showValidationError(error: ShowValidationErrorInput | string) {
-    const message = typeof error == "string"?error:error.message;
+    const message = typeof error == "string" ? error : error.message;
     this.elements.messageBox.innerHTML = message;
     this.elements.messageBox.classList.add("error");
   }
@@ -396,7 +396,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     if (this.required) {
       validationList.push({
         validator: /.{1}/g,
-        message: this.getAttribute("label")+ " " + "میبایست حتما وارد شود",
+        message: this.getAttribute("label") + " " + "میبایست حتما وارد شود",
         stateType: "valueMissing"
       });
     }
@@ -408,7 +408,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
    * this method used by #internal of component
    */
   checkValidity(): boolean {
-    const validationResult = this.#validation.checkValiditySync({showError:false});
+    const validationResult = this.#validation.checkValiditySync({ showError: false });
     if (!validationResult.isAllValid) {
       const event = new CustomEvent('invalid');
       this.dispatchEvent(event);
@@ -420,7 +420,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
  * @description this method used to check for validity and show error to user
  */
   reportValidity(): boolean {
-    const validationResult = this.#validation.checkValiditySync({showError:true});
+    const validationResult = this.#validation.checkValiditySync({ showError: true });
     if (!validationResult.isAllValid) {
       const event = new CustomEvent('invalid');
       this.dispatchEvent(event);
@@ -445,7 +445,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       this.#internals.setValidity(states, message);
     }
   }
-  get validationMessage(){
+  get validationMessage() {
     return this.#internals.validationMessage;
   }
 }
