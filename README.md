@@ -164,11 +164,12 @@ if you want something more than just simple input please check this components t
 
 ### set custom style
 
-in some cases in your project you need to change defualt style of web-component for example you need zero margin or different border-radius and etc.    
+in some cases in your project you need to change default style of web-component for example you need zero margin or different border-radius and etc.    
 if you want to set a custom style to this web-component all you need is to set css variable in parent scope of web-component 
+
 | css variable name                  | description                                                                                   |
 | -------------                      | -------------                                                                                 |
-| --jb-input-margin                  | web-component margin default is `0 0`                                                      |
+| --jb-input-margin                  | web-component margin default is `0 0`                                                         |
 | --jb-input-border-radius           | web-component border-radius default is `16px`                                                 |
 | --jb-input-border-color            | border color of select in normal mode                                                         |
 | --jb-input-border-color-focus      | border color of select in normal mode                                                         |
@@ -210,7 +211,7 @@ example:
 
 ## Other Related Docs:
 
-- see [jb-input-react](https://github.com/javadbat/jb-input/tree/main/react) if you want to use this component in react.
+- see [jb-input/react](https://github.com/javadbat/jb-input/tree/main/react) if you want to use this component in react.
 
 - see [All JB Design system Component List](https://github.com/javadbat/design-system/blob/main/docs/component-list.md) for more components.
 
