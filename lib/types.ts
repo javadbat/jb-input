@@ -1,5 +1,5 @@
 import { type JBInputWebComponent } from "./jb-input";
-
+import {type EventTypeWithTarget} from 'jb-core';
 export type ElementsObject = {
     input: HTMLInputElement;
     inputBox: HTMLDivElement;
@@ -34,7 +34,5 @@ declare global {
         setFormValue(value:string):void;
     }
 }
-export type EventTypeWithTarget<TEvent,TTarget> = TEvent & {
-    target: TTarget;
-};
+
 export type JBInputEventType<TEvent> = EventTypeWithTarget<TEvent,JBInputWebComponent>

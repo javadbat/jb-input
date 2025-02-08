@@ -33,7 +33,8 @@
 		"url": "git@github.com:javadbat/jb-input.git"
   },
   "dependencies": {
-    "jb-validation": ">=0.2.0"
+    "jb-validation": ">=0.2.0",
+    "jb-core":">=0.0.1"
   },
   "devDependencies": {
     "jb-form":">=0.6.10"
