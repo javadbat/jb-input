@@ -9,7 +9,7 @@ import {
   type ValidationValue,
 } from "./types";
 import { renderHTML } from "./render";
-import { createInputEvent, createKeyboardEvent } from "./utils";
+import { createInputEvent, createKeyboardEvent } from "jb-core";
 export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue>, JBFormInputStandards<string> {
   static get formAssociated() {
     return true;
