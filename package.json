@@ -14,7 +14,7 @@
     "input",
     "web component"
   ],
-  "version": "3.6.0",
+  "version": "3.6.1",
   "bugs": "https://github.com/javadbat/jb-input/issues",
   "license": "MIT",
   "files": [
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "jb-validation": ">=0.2.0",
-    "jb-core":">=0.0.1"
+    "jb-core":">=0.0.4"
   },
   "devDependencies": {
     "jb-form":">=0.6.10"
