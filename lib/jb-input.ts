@@ -186,12 +186,12 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
 
   #registerEventListener(): void {
-    this.elements.input.addEventListener("change", (e: Event) => this.#onInputChange(e));
-    this.elements.input.addEventListener("beforeinput", this.#onInputBeforeInput.bind(this));
-    this.elements.input.addEventListener("input", (e) => this.#onInputInput(e as InputEvent));
-    this.elements.input.addEventListener("keypress", this.#onInputKeyPress.bind(this));
-    this.elements.input.addEventListener("keyup", this.#onInputKeyup.bind(this));
-    this.elements.input.addEventListener("keydown", this.#onInputKeyDown.bind(this));
+    this.elements.input.addEventListener("change", (e: Event) => this.#onInputChange(e),{capture:true});
+    this.elements.input.addEventListener("beforeinput", this.#onInputBeforeInput.bind(this),{capture:true});
+    this.elements.input.addEventListener("input", (e) => this.#onInputInput(e as InputEvent),{capture:true});
+    this.elements.input.addEventListener("keypress", this.#onInputKeyPress.bind(this),{capture:true});
+    this.elements.input.addEventListener("keyup", this.#onInputKeyup.bind(this),{capture:true});
+    this.elements.input.addEventListener("keydown", this.#onInputKeyDown.bind(this),{capture:true});
   }
   initProp() {
     this.#setValue(this.getAttribute("value") || "", "SET_VALUE");
