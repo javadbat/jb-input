@@ -9,7 +9,7 @@ import {
   type ValidationValue,
 } from "./types";
 import { renderHTML } from "./render";
-import { createInputEvent, createKeyboardEvent } from "jb-core";
+import { createInputEvent, createKeyboardEvent, listenAndSilentEvent } from "jb-core";
 export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue>, JBFormInputStandards<string> {
   static get formAssociated() {
     return true;
@@ -189,9 +189,10 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.input.addEventListener("change", (e: Event) => this.#onInputChange(e),{capture:false});
     this.elements.input.addEventListener("beforeinput", this.#onInputBeforeInput.bind(this),{capture:false});
     this.elements.input.addEventListener("input", (e) => this.#onInputInput(e as InputEvent),{capture:false});
-    this.elements.input.addEventListener("keypress", this.#onInputKeyPress.bind(this),{capture:false});
-    this.elements.input.addEventListener("keyup", this.#onInputKeyup.bind(this),{capture:false});
-    this.elements.input.addEventListener("keydown", this.#onInputKeyDown.bind(this),{capture:false});
+    //because keyboard event are composable and will scape from shadow dom we need to listen to them in document and stop their propagation
+    listenAndSilentEvent(this.elements.input, "keyup", this.#onInputKeyup.bind(this));
+    listenAndSilentEvent(this.elements.input, "keydown", this.#onInputKeyDown.bind(this));
+    listenAndSilentEvent(this.elements.input, "keypress", this.#onInputKeyPress.bind(this));
   }
   initProp() {
     this.#setValue(this.getAttribute("value") || "", "SET_VALUE");
@@ -289,7 +290,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.dispatchEvent(event);
   }
   #onInputKeyup(e: KeyboardEvent): void {
-    debugger;
     this.#dispatchKeyupEvent(e);
     if (e.keyCode == 13) {
       this.#onInputEnter();
