@@ -18,7 +18,7 @@ export const reactComponentList: ReactComponentBuildConfig[] = [
     name: "jb-input-react",
     path: "./react/lib/JBInput.tsx",
     outputPath: "./react/dist/JBInput.js",
-    external: ["jb-core","jb-input", "prop-types", "react"],
+    external: ["jb-core", "jb-core/react","jb-input", "prop-types", "react"],
     globals: {
       react: "React",
       "prop-types": "PropTypes",

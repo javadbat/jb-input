@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "jb-input": ">=3.4.9",
-    "jb-core": ">=0.0.1"
+    "jb-core": ">=0.1.0"
   }
 }
