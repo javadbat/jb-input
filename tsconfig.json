@@ -7,8 +7,7 @@
         "lib/**/*.ts",
         "lib/**/*.js",
         "../../common/scripts/**/*.ts",
-        "../../modules/jb-validation/validation-helper-types.ts"
-        , "../../modules/jb-validation/validation-helper.ts", "../jb-core/lib/device-detection.ts",
+        "../jb-core/lib/device-detection.ts", "../jb-core/lib/persian-helper.ts",
     ],
     "exclude": [
         "node_modules",
