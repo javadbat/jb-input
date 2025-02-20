@@ -6,8 +6,6 @@
         "../global.d.ts",
         "lib/**/*.ts",
         "lib/**/*.js",
-        "../../common/scripts/**/*.ts",
-        "../jb-core/lib/device-detection.ts", "../jb-core/lib/persian-helper.ts",
     ],
     "exclude": [
         "node_modules",
