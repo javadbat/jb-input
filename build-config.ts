@@ -22,6 +22,7 @@ export const reactComponentList: ReactComponentBuildConfig[] = [
     globals: {
       react: "React",
       "prop-types": "PropTypes",
+      "jb-input": "JBInput",
       "jb-core": "JBCore",
       "jb-core/react": "JBCoreReact",
     },
