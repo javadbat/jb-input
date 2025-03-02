@@ -1,1 +1,0 @@
-export * from "./dist/web-component/jb-input/lib/types.js";

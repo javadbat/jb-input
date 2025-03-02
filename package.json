@@ -26,7 +26,7 @@
     "react/dist/"
   ],
   "main": "index.js",
-  "types": "./dist/web-component/jb-input/lib/index.d.ts",
+  "types": "./dist/index.d.ts",
   "sideEffects": true,
   "repository": {
 		"type": "git",
