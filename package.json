@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "jb-validation": ">=0.2.0",
-    "jb-core":">=0.1.0"
+    "jb-core":">=0.4.0"
   },
   "devDependencies": {
     "jb-form":">=0.6.10"
