@@ -1,0 +1,17 @@
+.cloudy-style{
+    --jb-input-border-color:#DCDCDC;
+    --jb-input-bgcolor:#F9F9F9;
+    --jb-input-height:164px;
+    --jb-input-border-bottom-width:1px;
+    --jb-input-box-shadow-focus:0px 4px 8px rgba(0, 0, 0, 0.25);
+    --jb-input-increase-button-color: green;
+    --jb-input-increase-button-color-hover: blue;
+    --jb-input-decrease-button-color:red;
+    --jb-input-decrease-button-color-hover:blue;
+    --jb-input-number-button-width:120px;
+    --jb-input-decrease-button-border:1px solid #dcdcdc;
+    --jb-input-increase-button-border:1px solid #dcdcdc;
+    --jb-input-increase-button-border-radius:16px 0 0px 16px;
+    --jb-input-increase-button-bg:#000;
+    --jb-input-decrease-button-bg:#fff;
+}
