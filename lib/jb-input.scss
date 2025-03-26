@@ -2,6 +2,16 @@
 :host(:focus-visible) {
     outline: none;
 }
+:host{
+    --border-color:var(--jb-input-border-color, #f7f6f6);
+    --message-color:var(--jb-input-message-color, #929292);
+}
+:host(:state(invalid)){
+    --message-color:var(--jb-input-message-error-color, red);
+}
+:host(:focus-within){
+    --border-color:var(--jb-input-border-color-focus, #1e2832);
+}
 .jb-input-web-component {
     width: 100%;
     margin: var(--jb-input-margin, 0 0);
@@ -25,9 +35,9 @@
         width: 100%;
         box-sizing: border-box;
         height: var(--jb-input-height, 40px);
-        border: solid var(--jb-input-border-width, 1px) var(--jb-input-border-color, #f7f6f6);
+        border: solid var(--jb-input-border-width, 1px) var(--border-color);
         background-color: var(--jb-input-bgcolor, #f7f6f6);
-        border-bottom: solid var(--jb-input-border-bottom-width, 3px) var(--jb-input-border-color, #f7f6f6);
+        border-bottom: solid var(--jb-input-border-bottom-width, 3px) var(--border-color);
         border-radius: var(--jb-input-border-radius, 16px);
         margin: 4px 0px;
         transition: ease 0.3s all;
@@ -36,7 +46,6 @@
         grid-template-columns: auto 1fr auto;
         box-shadow: var(--jb-input-box-shadow, none);
         &:focus-within {
-            border-color: var(--jb-input-border-color-focus, #1e2832);
             border-width: var(--jb-input-border-width-focus, var(--jb-input-border-width, 1px));
             border-bottom-width: var(--jb-input-border-bottom-width-focus, var(--jb-input-border-bottom-width, 3px));
             box-shadow: var(--jb-input-box-shadow-focus, none);
@@ -100,13 +109,10 @@
     .message-box {
         font-size: var(--jb-input-message-font-size, 0.7rem);
         padding: 2px 8px;
-        color: var(--jb-input-message-color, #929292);
+        color: var(--message-color);
         display: var(--jb-input-message-box-display, block);
         &:empty {
             padding: 0;
-        }
-        &.error {
-            color: var(--jb-input-message-error-color, red);
         }
     }
 }

@@ -13,6 +13,7 @@ export type JBInputAttributes = {
     inputmode?: string,
     label?: string,
     name?: string,
+    error?: string,
 }
 export function useJBInputAttribute(element: RefObject<JBInputWebComponent>, props: JBInputAttributes) {
   useEffect(() => {
@@ -64,4 +65,11 @@ export function useJBInputAttribute(element: RefObject<JBInputWebComponent>, pro
   useEffect(() => {
     element?.current?.setAttribute('placeholder', props.placeholder || "");
   }, [props.placeholder]);
+  useEffect(() => {
+    if(props.error){
+      element?.current?.setAttribute('error', props.error);
+    }else{
+      element?.current?.removeAttribute('error');
+    }
+  }, [props.error]);
 }

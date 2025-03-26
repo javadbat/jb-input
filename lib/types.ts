@@ -27,6 +27,7 @@ export type JBInputValue = {
     //the value we ser into the input box that final user see
     displayValue:string
 }
+export type SupportedState = "disabled" | "invalid"
 export type ValidationValue = JBInputValue;
 //because this._internal is not a standard we have to extend HTML ELEMENT to use it
 declare global {

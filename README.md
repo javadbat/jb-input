@@ -123,7 +123,7 @@ const result = await document.getElementByTagName('jb-input').validation.checkVa
 const result = document.getElementByTagName('jb-input').validation.checkValiditySync({showError})
 //return boolean of if inputted string is valid
 const result = document.getElementByTagName('jb-input').checkValidity()
-//orreturn boolean and show error
+//or return boolean and show error
 const result = document.getElementByTagName('jb-input').reportValidity()
 
 ```
@@ -153,19 +153,32 @@ if you want something more than just simple input please check this components t
 
 ### other attribute
 
-| atribute name  | description                                                                                                         |
+| attribute name  | description                                                                                                        |
 | -------------  | -------------                                                                                                       |
 | name           | name you want to set to actual input element `<jb-input name="username"></jb-input>`                                |
-| message        | in botton of input we show small message for example "user name must be at least 5 char"                            |
+| message        | in bottom of input we show small message for example "user name must be at least 5 char"                            |
+| error          | error message to show under the input box                                                                           |
 | autocomplete   | set autocomplete directly into dom element in case you need it                                                      |
-| direction      | set web-component direction defualt set is rtl but if you need ltr use `<jb-input direction="ltr"></jb-input>`      |
+| direction      | set web-component direction default set is rtl but if you need ltr use `<jb-input direction="ltr"></jb-input>`      |
 | disabled       | disable the input                                                                                                   |
 | inputmode      | set input mode help mobile device to open proper keyboard for your input like `url`, `search` and `numeric`         |
 
 ### set custom style
 
-in some cases in your project you need to change default style of web-component for example you need zero margin or different border-radius and etc.    
-if you want to set a custom style to this web-component all you need is to set css variable in parent scope of web-component 
+you have 2 way to customize style,
+
+1. using selectors like`:states` or `::part` selector
+```css
+jb-input::part(label){
+  font-size: 2rem;
+}
+jb-input:states(invalid)::part(label){
+  color:red;
+}
+```
+we have `label`, `input-box`, `input`, `message` as a supported part in our component. you can also combine them with `disabled`, `invalid` states for different style in different states.
+
+2. using css variable
 
 | css variable name                  | description                                                                                   |
 | -------------                      | -------------                                                                                 |
@@ -199,7 +212,7 @@ if you want to set a custom style to this web-component all you need is to set c
 
 ## add custom element in input box
 
-in jb-input you can put icon or any other custom html DOM in input box. to doing so you just have to plae custom DOM in `jb-input` tag and add `slot="start-section"` or `slot="end-section"` to place it before or after input field.
+in jb-input you can put icon or any other custom html DOM in input box. to doing so you just have to place custom DOM in `jb-input` tag and add `slot="start-section"` or `slot="end-section"` to place it before or after input field.
 example:
 
 ```HTML

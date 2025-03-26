@@ -29,10 +29,12 @@ export const Large: Story = {
   }
 };
 
-export const Password: Story = {
+export const WithError: Story = {
   args: {
-    label: 'متن ساده',
-    message: 'متن ثابت زیر کادر متن',
+    label: 'has error message',
+    message: 'simple hint message',
+    error: 'error message',
+    validationList:[{validator: /^.{3,}$/g, message: 'you must enter at least 3 characters'}],
     type: 'password'
   }
 };

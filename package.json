@@ -1,6 +1,6 @@
 {
   "name": "jb-input",
-  "description": "input web component",
+  "description": "input web component with built in validation",
   "type": "module",
   "author": {
 		"name": "mohammad javad bathaei",
@@ -9,12 +9,13 @@
   "keywords": [
     "jb",
     "jb-input",
-    "number input",
-    "password input",
+    "input box",
+    "input with validation",
     "input",
-    "web component"
+    "web component",
+    "react component"
   ],
-  "version": "3.6.2",
+  "version": "3.8.0",
   "bugs": "https://github.com/javadbat/jb-input/issues",
   "license": "MIT",
   "files": [
@@ -33,7 +34,7 @@
 		"url": "git@github.com:javadbat/jb-input.git"
   },
   "dependencies": {
-    "jb-validation": ">=0.2.0",
+    "jb-validation": ">=0.4.0",
     "jb-core":">=0.4.0"
   },
   "devDependencies": {

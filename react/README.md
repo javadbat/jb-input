@@ -88,13 +88,20 @@ you can set validation to your input by creating a validationList array and pass
 you can check if an input value meet your validation standad by creating a ref of the element using `React.createRef()`.
 ```javascript
     const elementRef = React.createRef();
-    const isValid = elementRef.current.validation.checkValidity(true).isAllValid;
+    const isValid = elementRef.current.checkValidity().isAllValid;
+    //if you want to show occurred error too
+    const isValid = elementRef.current.reportValidity().isAllValid;
 ```
 if `isValid` is `true` the value of input is valid.
 
+if you want to show your own error message (you may get it from tanstack form or react hook form ,...) you can set `error` prop
 
+```jsx
+<JBInput error="your own error message"></JBInput>
+```
 
 ## other props
+
 |props name | description        |
 | --------- | ------------------ |
 | disabled	| disable the input  |

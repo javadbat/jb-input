@@ -1,12 +1,13 @@
 import CSS from "./jb-input.scss";
-import { ValidationItem, ValidationResult, type WithValidation, ValidationHelper, ShowValidationErrorInput } from 'jb-validation';
+import { type ValidationItem, type ValidationResult, type WithValidation, ValidationHelper, type ShowValidationErrorParameters } from 'jb-validation';
 import type { JBFormInputStandards } from 'jb-form';
-import {
+import type {
   ValueSetterEventType,
-  type ElementsObject,
-  type JBInputValue,
-  type StandardValueCallbackFunc,
-  type ValidationValue,
+  ElementsObject,
+  JBInputValue,
+  StandardValueCallbackFunc,
+  ValidationValue,
+  SupportedState,
 } from "./types";
 import { renderHTML } from "./render";
 import { createInputEvent, createKeyboardEvent, listenAndSilentEvent } from "jb-core";
@@ -28,8 +29,10 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.input.disabled = value;
     if (value) {
       //TODO: remove as any when typescript support
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       (this.#internals as any).states?.add("disabled");
     } else {
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       (this.#internals as any).states?.delete("disabled");
     }
   }
@@ -42,6 +45,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     return this.#required;
   }
   #internals?: ElementInternals;
+  hasState(state:SupportedState):boolean {
+    return (this.#internals as any).states.has(state);
+  }
   /**
  * @description will determine if component trigger jb-validation mechanism automatically on user event or it just let user-developer handle validation mechanism by himself
  */
@@ -55,7 +61,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     }
   }
   #validation = new ValidationHelper<ValidationValue>({
-    clearValidationError: this.clearValidationError.bind(this),
+    clearValidationError: () => this.clearValidationError(),
     showValidationError: this.showValidationError.bind(this),
     getValue: () => this.#value,
     getValidations: this.#getInsideValidation.bind(this),
@@ -78,7 +84,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.#setValue(value, "SET_VALUE");
   }
   #setValue(value: string, eventType: ValueSetterEventType) {
-    if (value === null || value == undefined) {
+    if (value === null || value === undefined) {
       value = "";
     }
     const standardValue = this.standardValue(value, eventType);
@@ -148,20 +154,27 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     });
     this.#render();
     this.elements = {
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       input: shadowRoot.querySelector(".input-box input")!,
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       inputBox: shadowRoot.querySelector(".input-box")!,
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       label: shadowRoot.querySelector("label")!,
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       labelValue: shadowRoot.querySelector("label .label-value")!,
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       messageBox: shadowRoot.querySelector(".message-box")!,
       slots: {
+        // biome-ignore lint/style/noNonNullAssertion: <explanation>
         startSection: shadowRoot.querySelector(".jb-input-start-section-wrapper slot")!,
+        // biome-ignore lint/style/noNonNullAssertion: <explanation>
         endSection: shadowRoot.querySelector(".jb-input-end-section-wrapper slot")!
       }
     };
     this.#registerEventListener();
   }
   #render() {
-    const html = `<style>${CSS}</style>` + "\n" + renderHTML();
+    const html = `<style>${CSS}</style>\n${renderHTML()}`;
     const element = document.createElement("template");
     element.innerHTML = html;
     this.shadowRoot.appendChild(element.content.cloneNode(true));
@@ -186,9 +199,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
 
   #registerEventListener(): void {
-    this.elements.input.addEventListener("change", (e: Event) => this.#onInputChange(e),{capture:false});
-    this.elements.input.addEventListener("beforeinput", this.#onInputBeforeInput.bind(this),{capture:false});
-    this.elements.input.addEventListener("input", (e) => this.#onInputInput(e as InputEvent),{capture:false});
+    this.elements.input.addEventListener("change", (e: Event) => this.#onInputChange(e), { capture: false });
+    this.elements.input.addEventListener("beforeinput", this.#onInputBeforeInput.bind(this), { capture: false });
+    this.elements.input.addEventListener("input", (e) => this.#onInputInput(e as InputEvent), { capture: false });
     //because keyboard event are composable and will scape from shadow dom we need to listen to them in document and stop their propagation
     listenAndSilentEvent(this.elements.input, "keyup", this.#onInputKeyup.bind(this));
     listenAndSilentEvent(this.elements.input, "keydown", this.#onInputKeyDown.bind(this));
@@ -212,6 +225,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       'disable-auto-validation',
       "virtualkeyboardpolicy",
       "required",
+      "error",
     ];
   }
   //please do not add any other functionality in this func because it may override by enstatite d component
@@ -230,7 +244,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         break;
       case "label":
         this.elements.labelValue.innerHTML = value;
-        if (value == null || value == undefined || value == "") {
+        if (value == null || value === undefined || value === "") {
           this.elements.label.classList.add("--hide");
         } else {
           this.elements.label.classList.remove("--hide");
@@ -257,9 +271,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         this.elements.input.placeholder = value;
         break;
       case "disabled":
-        if (value == "" || value === "true") {
+        if (value === "" || value === "true") {
           this.disabled = true;
-        } else if (value == "false" || value == null || value == undefined) {
+        } else if (value === "false" || value == null || value === undefined) {
           this.disabled = false;
           this.elements.input.removeAttribute("disabled");
         }
@@ -268,6 +282,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         //to update validation result base on new requirement
         this.required = value ? value !== 'false' : false;
         break;
+      case "error":
+        //to check error and show or clear error message base on error attribute
+        this.reportValidity();
     }
   }
 
@@ -316,7 +333,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     //to standard value again
     this.#setValue(inputText, "INPUT");
     //if user type in middle of text we will return the caret position to the middle of text because this.value = inputText will move caret to end
-    if (endCaretPos != inputText.length) {
+    if (endCaretPos !== inputText.length) {
       //because number input does not support setSelectionRange
       if (!['number'].includes(this.getAttribute('type'))) {
         target.setSelectionRange(endCaretPos, endCaretPos);
@@ -371,16 +388,15 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     }
     return false;
   }
-
-  showValidationError(error: ShowValidationErrorInput | string) {
-    const message = typeof error == "string" ? error : error.message;
-    this.elements.messageBox.innerHTML = message;
-    this.elements.messageBox.classList.add("error");
+  showValidationError(error: ShowValidationErrorParameters) {
+    this.elements.messageBox.innerHTML = error.message;
+    //invalid state is used for ui purpose
+    (this.#internals as any).states?.add("invalid");
   }
   clearValidationError() {
     const text = this.getAttribute("message") || "";
     this.elements.messageBox.innerHTML = text;
-    this.elements.messageBox.classList.remove("error");
+    (this.#internals as any).states?.delete("invalid");
   }
   /**
    * @public
@@ -397,8 +413,15 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     if (this.required) {
       validationList.push({
         validator: /.{1}/g,
-        message: this.getAttribute("label") + " " + "میبایست حتما وارد شود",
+        message: `${this.getAttribute("label")} میبایست حتما وارد شود`,
         stateType: "valueMissing"
+      });
+    }
+    if(this.getAttribute("error") !== null && this.getAttribute("error").trim().length > 0){
+      validationList.push({
+        validator: undefined,
+        message: this.getAttribute("error"),
+        stateType: "customError"
       });
     }
     return validationList;

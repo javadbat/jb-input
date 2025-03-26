@@ -2,7 +2,7 @@ export function renderHTML():string{
   return /* html */ `
     <div class="jb-input-web-component">
     <label class="--hide"><span class="label-value" part="label"></span></label>
-    <div class="input-box">
+    <div class="input-box" part="input-box">
         <div class="jb-input-start-section-wrapper">
             <slot name="start-section"></slot>
         </div>
