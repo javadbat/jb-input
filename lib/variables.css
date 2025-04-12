@@ -1,0 +1,13 @@
+:host{
+  --border-color:var(--jb-input-border-color, var(--jb-neutral-10));
+  --message-color:var(--jb-input-message-color, var(--jb-text-secondary));
+  --label-color: var(--jb-input-label-color, var(--jb-text-primary));
+  --value-color: var(--jb-input-value-color,  var(--jb-text-primary));
+  --input-box-bg-color:var(--jb-input-bgcolor, var(--jb-neutral-10));
+}
+:host(:state(invalid)){
+  --message-color:var(--jb-input-message-error-color, var(--jb-red));
+}
+:host(:focus-within){
+  --border-color:var(--jb-input-border-color-focus, var(--jb-neutral));
+}

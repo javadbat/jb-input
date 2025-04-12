@@ -11,6 +11,7 @@ import type {
 } from "./types";
 import { renderHTML } from "./render";
 import { createInputEvent, createKeyboardEvent, listenAndSilentEvent } from "jb-core";
+import {defineColors} from 'jb-core/theme';
 export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue>, JBFormInputStandards<string> {
   static get formAssociated() {
     return true;
@@ -152,6 +153,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       mode: "open",
       delegatesFocus: true,
     });
+    defineColors();
     this.#render();
     this.elements = {
       // biome-ignore lint/style/noNonNullAssertion: <explanation>

@@ -1,17 +1,10 @@
+@use './variables.css';
+
 :host(:focus),
 :host(:focus-visible) {
     outline: none;
 }
-:host{
-    --border-color:var(--jb-input-border-color, #f7f6f6);
-    --message-color:var(--jb-input-message-color, #929292);
-}
-:host(:state(invalid)){
-    --message-color:var(--jb-input-message-error-color, red);
-}
-:host(:focus-within){
-    --border-color:var(--jb-input-border-color-focus, #1e2832);
-}
+
 .jb-input-web-component {
     width: 100%;
     margin: var(--jb-input-margin, 0 0);
@@ -20,23 +13,22 @@
     }
     label {
         width: 100%;
-        margin: var(--jb-input-label-margin, 4px 0px);
+        margin: var(--jb-input-label-margin, 0.25rem 0px);
         display: block;
         font-size: var(--jb-input-label-font-size, 0.8em);
-        color: var(--jb-input-label-color, #1f1735);
+        color: var(--label-color);
         margin: var(--jb-input-label-margin, 0);
         font-weight: var(--jb-input-label-font-weight, 300);
         &.--hide {
             display: none;
         }
     }
-
     .input-box {
         width: 100%;
         box-sizing: border-box;
         height: var(--jb-input-height, 40px);
         border: solid var(--jb-input-border-width, 1px) var(--border-color);
-        background-color: var(--jb-input-bgcolor, #f7f6f6);
+        background-color: var(--input-box-bg-color);
         border-bottom: solid var(--jb-input-border-bottom-width, 3px) var(--border-color);
         border-radius: var(--jb-input-border-radius, 16px);
         margin: 4px 0px;
@@ -56,11 +48,11 @@
             box-sizing: border-box;
             height: 100%;
             background-color: transparent;
-            padding: var(--jb-input-input-padding, 2px 12px 0 12px);
+            padding: var(--jb-input-input-padding, 0.125rem 0.75rem 0 0.75rem);
             display: block;
             font-family: inherit;
             font-size: var(--jb-input-value-font-size, 1.1rem);
-            color: var(--jb-input-value-color, #1f1735);
+            color: var(--value-color);
             margin: 0;
             border-radius: 0;
             text-align: var(--jb-input-input-text-align, initial);
@@ -108,7 +100,7 @@
     }
     .message-box {
         font-size: var(--jb-input-message-font-size, 0.7rem);
-        padding: 2px 8px;
+        padding: 0.125rem 0.5rem;
         color: var(--message-color);
         display: var(--jb-input-message-box-display, block);
         &:empty {
