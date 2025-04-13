@@ -39,6 +39,13 @@ export const WithError: Story = {
   }
 };
 
+export const WithPlaceholder: Story = {
+  args: {
+    label: 'with placeholder',
+    placeholder: 'test placeholder'
+  }
+};
+
 export const testActions: Story = {
   render: () => <JBInputTest></JBInputTest>
 };

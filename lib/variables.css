@@ -3,6 +3,7 @@
   --message-color:var(--jb-input-message-color, var(--jb-text-secondary));
   --label-color: var(--jb-input-label-color, var(--jb-text-primary));
   --value-color: var(--jb-input-value-color,  var(--jb-text-primary));
+  --placeholder-color:  var(--jb-input-placeholder-color, var(--jb-neutral-6));
   --input-box-bg-color:var(--jb-input-bgcolor, var(--jb-neutral-10));
 }
 :host(:state(invalid)){

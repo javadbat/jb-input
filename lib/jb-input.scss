@@ -62,7 +62,7 @@
                 outline: none;
             }
             &::placeholder {
-                color: var(--jb-input-placeholder-color, initial);
+                color: var(--placeholder-color);
                 font-size: var(--jb-input-placeholder-font-size, 1.1rem);
             }
             //remove number input arrow keys of browser
