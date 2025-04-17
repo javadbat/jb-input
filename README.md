@@ -189,11 +189,11 @@ we have `label`, `input-box`, `input`, `message` as a supported part in our comp
 | --jb-input-bgcolor                 | background color of input                                                                     |
 | --jb-input-border-bottom-width     | border bottom thickness default is `3px`                                                      |
 | --jb-input-label-font-size         | font size of input label default is `0.8em`                                                   |
-| --jb-input-label-color             | change label color default is `#1f1735`                                                       |
+| --jb-input-label-color             | change label color                                                                            |
 | --jb-input-label-margin            | change label margin default is `0 4px`                                                        |
 | --jb-input-message-font-size       | font size of message we show under input                                                      |
-| --jb-input-message-color           | set under box message color defualt is `#929292`                                              |
-| --jb-input-message-error-color     | change color of error we show under input default is `red`                                    |
+| --jb-input-message-color           | set under box message color                                                                   |
+| --jb-input-message-error-color     | change color of error we show under input                                                     |
 | --jb-input-height                  | height of input default is 40px                                                               |
 | --jb-input-placeholder-color       | change placeholder color                                                                      |
 | --jb-input-placeholder-font-size   | change placeholder font-size                                                                  |
