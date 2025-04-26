@@ -1,7 +1,7 @@
 import React ,{ useRef, useEffect, useImperativeHandle, useState, DetailedHTMLProps, HTMLAttributes,forwardRef } from 'react';
 import 'jb-input';
 // eslint-disable-next-line no-duplicate-imports
-import {JBInputWebComponent, JBInputEventType } from 'jb-input';
+import {JBInputWebComponent, type JBInputEventType } from 'jb-input';
 import { type JBInputEvents, useJBInputEvents } from './events-hook.js';
 import { type JBInputAttributes, useJBInputAttribute } from './attributes-hook.js';
 
