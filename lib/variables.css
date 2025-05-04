@@ -1,4 +1,6 @@
 :host{
+  --border-radius:var(--jb-input-border-radius, var(--jb-radius));
+  /*colors*/
   --border-color:var(--jb-input-border-color, var(--jb-neutral-10));
   --message-color:var(--jb-input-message-color, var(--jb-text-secondary));
   --label-color: var(--jb-input-label-color, var(--jb-text-primary));

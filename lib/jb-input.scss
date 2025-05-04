@@ -30,7 +30,7 @@
         border: solid var(--jb-input-border-width, 1px) var(--border-color);
         background-color: var(--input-box-bg-color);
         border-bottom: solid var(--jb-input-border-bottom-width, 3px) var(--border-color);
-        border-radius: var(--jb-input-border-radius, 16px);
+        border-radius: var(--border-radius);
         margin: 4px 0px;
         transition: ease 0.3s all;
         overflow: var(--jb-input-box-overflow, hidden);

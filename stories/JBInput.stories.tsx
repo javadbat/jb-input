@@ -7,7 +7,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 
 const meta: Meta<Props> = {
-  title: "Example/form elements/Inputs/JBInput",
+  title: "Components/form elements/Inputs/JBInput",
   component: JBInput,
 };
 export default meta;
