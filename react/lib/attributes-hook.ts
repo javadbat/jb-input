@@ -31,7 +31,11 @@ export function useJBInputAttribute(element: RefObject<JBInputWebComponent>, pro
     }
   }, [props.type]);
   useEffect(() => {
-    element?.current?.setAttribute('name', props.name || '');
+    if(props.name){
+        element?.current?.setAttribute('name', props.name || '');
+      }else{
+        element?.current?.removeAttribute('name');
+      }
   }, [props.name]);
   useEffect(() => {
     if (element && element.current) {
