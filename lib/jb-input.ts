@@ -311,7 +311,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #onInputKeyup(e: KeyboardEvent): void {
     this.#dispatchKeyupEvent(e);
     if (e.keyCode == 13) {
-      this.#onInputEnter();
+      this.#onInputEnter(e);
     }
   }
   #dispatchKeyupEvent(e: KeyboardEvent) {
@@ -319,8 +319,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const event = createKeyboardEvent("keyup", e, { cancelable: false });
     this.dispatchEvent(event);
   }
-  #onInputEnter(): void {
-    const event = new KeyboardEvent("enter");
+  #onInputEnter(e:KeyboardEvent): void {
+    const event = createKeyboardEvent("enter",e,{cancelable:false})
     this.dispatchEvent(event);
   }
   /**
