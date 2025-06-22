@@ -1,3 +1,4 @@
+'use client';
 import React ,{ useRef, useEffect, useImperativeHandle, useState, DetailedHTMLProps, HTMLAttributes,forwardRef } from 'react';
 import 'jb-input';
 // eslint-disable-next-line no-duplicate-imports
@@ -14,7 +15,7 @@ interface JBInputType extends DetailedHTMLProps<HTMLAttributes<JBInputWebCompone
   placeholder?:string,
   // ref:React.RefObject<JBDateInputWebComponent>,
 }
-declare global {
+declare module "react" {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace JSX {
         interface IntrinsicElements {
