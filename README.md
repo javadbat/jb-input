@@ -226,6 +226,6 @@ example:
 
 - see [jb-input/react](https://github.com/javadbat/jb-input/tree/main/react) if you want to use this component in react.
 
-- see [All JB Design system Component List](https://github.com/javadbat/design-system/blob/main/docs/component-list.md) for more components.
+- see [All JB Design system Component List](https://javadbat.github.io/design-system/) for more components.
 
 - use [Contribution Guide](https://github.com/javadbat/design-system/blob/main/docs/contribution-guide.md) if you want to contribute in this component.
