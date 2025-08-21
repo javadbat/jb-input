@@ -1,5 +1,9 @@
 @use './variables.css';
 
+:host{
+    display: block;
+}
+
 :host(:focus),
 :host(:focus-visible) {
     outline: none;
