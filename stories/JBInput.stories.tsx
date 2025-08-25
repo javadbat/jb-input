@@ -77,8 +77,9 @@ export const testStyles: Story = {
     <div className="jb-input-styling-test">
       <h1>JBInput different Styling test</h1>
       <div className="cloudy-style">
-        <JBInput></JBInput>
+        <JBInput />
       </div>
+      <a href='https://github.com/javadbat/jb-input/blob/main/stories/styles/styles.css' target='_blank'>see css styles here</a>
     </div>
   )
 };
