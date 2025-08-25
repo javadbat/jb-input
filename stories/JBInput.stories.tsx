@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { JBInput, Props } from 'jb-input/react';
-import JBInputStylingTest from './samples/JBInputStylingTest';
-import JBInputTest from './samples/JBInputTest';
-import JBInputValidationList from './samples/JBInputValidationList';
 import type { Meta, StoryObj } from '@storybook/react';
-
+import type { JBInputWebComponent, ValidationValue } from 'jb-input';
+import type { ValidationItem } from 'jb-validation';
+import {JBButton} from 'jb-button/react'
+import './styles/styles.css';
 
 const meta: Meta<Props> = {
   title: "Components/form elements/Inputs/JBInput",
@@ -34,7 +34,7 @@ export const WithError: Story = {
     label: 'has error message',
     message: 'simple hint message',
     error: 'error message',
-    validationList:[{validator: /^.{3,}$/g, message: 'you must enter at least 3 characters'}],
+    validationList: [{ validator: /^.{3,}$/g, message: 'you must enter at least 3 characters' }],
     type: 'password'
   }
 };
@@ -47,25 +47,121 @@ export const WithPlaceholder: Story = {
 };
 
 export const testActions: Story = {
-  render: () => <JBInputTest></JBInputTest>
+  render: () => {
+    const input = useRef<JBInputWebComponent>(null);
+    const [value, setValue] = useState('09');
+    useEffect(() => {
+      input.current?.focus();
+    }, []);
+    return (
+      <div>
+        <JBInput ref={input} value={value} onKeyup={e => setValue(e.target.value)} onKeydown={(e) => { console.log(e); }} label="type value" message='native input and JB Input value must be sync'></JBInput>
+        <br />
+        <span>value:</span>
+        <input value={value} onChange={e => setValue(e.target.value)} />
+      </div>
+    );
+  }
 };
+
+export const OnEnterTest: Story = {
+  args: {
+    label: "enter test",
+    message: 'Press Enter to see alert',
+    onEnter: () => { alert('you press Enter'); }
+  }
+}
 
 export const testStyles: Story = {
-  render: () => <JBInputStylingTest />
+  render: () => (
+    <div className="jb-input-styling-test">
+      <h1>JBInput different Styling test</h1>
+      <div className="cloudy-style">
+        <JBInput></JBInput>
+      </div>
+    </div>
+  )
 };
 
 
-export const ValidationList: StoryObj<typeof JBInputValidationList> = {
-  render: (args) => <JBInputValidationList {...args}></JBInputValidationList>,
+export const ValidationList: StoryObj = {
+  render: (props:Record<string,any>) => {
+    const inputValidation: ValidationItem<ValidationValue>[] = [
+      {
+        validator: props.inputRegex,
+        message: props.inputMessage
+      }
+    ];
+    const passwordValidation = [
+      {
+        validator: props.passwordRegex,
+        message: props.passwordMessage
+      }
+    ];
+    const emailValidation: ValidationItem<ValidationValue>[] = [
+      {
+        validator: props.emailRegex,
+        message: props.emailMessage
+      },
+      {
+        validator: ({ displayValue, value }) => {
+          if (value.includes('yahoo')) {
+            return 'you cant enter yahoo email9';
+          }
+          return true;
+        },
+        message: "email must be gmail"
+      },
+      {
+        validator: ({ displayValue, value }) => {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              if (value.includes('outlook')) {
+                resolve('you cant enter outlook email');
+              }
+              resolve(true);
+            }, 3000);
+
+          });
+
+        },
+        message: "outlook doesn't respond",
+        defer: true
+      }
+    ];
+    const mobileValidation: ValidationItem<ValidationValue>[] = [
+      {
+        validator: props.mobileRegex,
+        message: props.mobileMessage
+      }
+    ];
+
+    const passwordInputDom = useRef<JBInputWebComponent>(null);
+    function onButtonClicked() {
+      if (passwordInputDom.current) {
+        console.log(passwordInputDom.current.validation.result);
+      }
+    }
+
+    return (
+      <div style={{display:'flex',flexDirection:'column', gap:'0.5rem'}}>
+        <JBInput label='input' validationList={inputValidation}></JBInput>
+        <JBInput label='email' validationList={emailValidation} message="enter outlook and see async validation result after 3sec"></JBInput>
+        <JBInput label='phone number' validationList={mobileValidation} message='you can use jb-mobile-input for better experience'></JBInput>
+        <JBInput ref={passwordInputDom} label='password' validationList={passwordValidation}></JBInput>
+        <JBButton onClick={onButtonClicked}>log password validation(see console)</JBButton>
+      </div>
+    );
+  },
   args: {
     inputRegex: /^.{8,}$/g,
-    inputMessage: 'ورودی باید حداقل 8 کارکتر باشد',
+    inputMessage: 'you must enter 8 char at least',
     passwordRegex: /^(?=.*?[a-z])(?=.*?[0-9]).{8,}$/g,
-    passwordMessage: 'رمز باید حداقل 8 کارکتر و حداقل شامل یک حرف انگلیسی و حداقل شامل یک عدد باشد',
+    passwordMessage: 'password must include one word one number and at least 8 char long',
     emailRegex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/g,
-    emailMessage: 'آدرس ایمیل معتبر نیست ',
+    emailMessage: 'email is not valid',
     mobileRegex: /^(\+98|0|0098)?9\d{9}$/g,
-    mobileMessage: 'شماره موبایل معتبر نیست ',
+    mobileMessage: 'mobile number is not valid',
   }
 };
 

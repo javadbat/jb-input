@@ -1,0 +1,7 @@
+.cloudy-style{
+    --jb-input-border-color:#DCDCDC;
+    --jb-input-bgcolor:#F9F9F9;
+    --jb-input-height:164px;
+    --jb-input-border-bottom-width:1px;
+    --jb-input-box-shadow-focus:0px 4px 8px rgba(0, 0, 0, 0.25);
+}
