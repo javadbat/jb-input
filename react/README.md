@@ -24,17 +24,18 @@ Demo :  Demo: [codeSandbox preview](https://3f63dj.csb.app/samples/jb-input) for
 
 ### using npm
 
-``` command
-npm i jb-input-react
+```sh
+npm i jb-input
 ```
 in your jsx file
+
 ```js
 import {JBInput} from 'jb-input/react';
 ```
+
 ``` jsx
 <JBInput label="label:" message="hint message under textbox"></JBInput>
 ```
-
 
 ## events
 

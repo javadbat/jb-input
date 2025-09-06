@@ -32,7 +32,7 @@ to use this component in **react** see [`jb-input/react`](https://github.com/jav
 
 #### using npm
 
-```cmd
+```sh
 npm i jb-input
 ```
 
