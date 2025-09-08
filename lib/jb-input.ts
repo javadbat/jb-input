@@ -31,10 +31,12 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     if (value) {
       //TODO: remove as any when typescript support
       // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-      (this.#internals as any).states?.add("disabled");
+      this.#internals.states?.add("disabled");
+      this.#internals.ariaDisabled = "true";
     } else {
       // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       (this.#internals as any).states?.delete("disabled");
+      this.#internals.ariaDisabled = "false";
     }
   }
   #required = false;
@@ -246,6 +248,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         break;
       case "label":
         this.elements.labelValue.innerHTML = value;
+        this.#internals.ariaLabel = value;
         if (value == null || value === undefined || value === "") {
           this.elements.label.classList.add("--hide");
         } else {
@@ -261,6 +264,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         }
         break;
       case "message":
+        this.#internals.ariaDescription = value;
         if (!this.elements.messageBox.classList.contains("error")) {
           this.elements.messageBox.innerHTML = value;
         }
@@ -271,6 +275,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
 
       case "placeholder":
         this.elements.input.placeholder = value;
+        this.#internals.ariaPlaceholder = value;
         break;
       case "disabled":
         if (value === "" || value === "true") {
