@@ -1,4 +1,5 @@
-import CSS from "./jb-input.scss";
+import CSS from "./jb-input.css";
+import VariablesCSS from "./variables.css";
 import { type ValidationItem, type ValidationResult, type WithValidation, ValidationHelper, type ShowValidationErrorParameters } from 'jb-validation';
 import type { JBFormInputStandards } from 'jb-form';
 import type {
@@ -178,7 +179,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.#registerEventListener();
   }
   #render() {
-    const html = `<style>${CSS}</style>\n${renderHTML()}`;
+    const html = `<style>${CSS} ${VariablesCSS}</style>\n${renderHTML()}`;
     const element = document.createElement("template");
     element.innerHTML = html;
     this.shadowRoot.appendChild(element.content.cloneNode(true));

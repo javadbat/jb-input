@@ -17,7 +17,7 @@ export const Normal: Story = {
   args: {
     label: 'label',
     message: 'static text under input show all the time',
-    placeholder: 'place holder',
+    placeholder: 'placeholder',
     disabled: false
   }
 };

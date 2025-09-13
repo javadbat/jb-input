@@ -1,5 +1,3 @@
-@use './variables.css';
-
 :host{
     display: block;
 }
@@ -69,7 +67,7 @@
                 color: var(--placeholder-color);
                 font-size: var(--jb-input-placeholder-font-size, 1.1rem);
             }
-            //remove number input arrow keys of browser
+            /*remove number input arrow keys of browser*/
             /* Chrome, Safari, Edge, Opera */
             &::-webkit-outer-spin-button,
             &::-webkit-inner-spin-button {

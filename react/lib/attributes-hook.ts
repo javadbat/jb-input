@@ -46,8 +46,10 @@ export function useJBInputAttribute(element: RefObject<JBInputWebComponent>, pro
     element?.current?.setAttribute('label', props.label || "");
   }, [props.label]);
   useEffect(() => {
-    if (typeof props.disabled == "boolean") {
-      element?.current?.setAttribute('disabled', `${props.disabled}`);
+    if (typeof props.disabled == "boolean" && props.disabled) {
+      element?.current?.setAttribute('disabled','');
+    }else{
+      element?.current?.removeAttribute('disabled');
     }
   }, [props.disabled]);
   useEffect(() => {
