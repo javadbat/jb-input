@@ -20,7 +20,10 @@ text input web component with these benefit:
 
 - can accept persian number char and convert them to english char in value.
 
-sample: [codepen](https://codepen.io/javadbat/pen/dyNwddd)
+## Demo
+
+- [codepen](https://codepen.io/javadbat/pen/dyNwddd)
+- [storybook](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput)
 
 ## using with JS frameworks
 
