@@ -29,29 +29,29 @@ text input web component with these benefit:
 
 to use this component in **react** see [`jb-input/react`](https://github.com/javadbat/jb-input/tree/main/react);
 
-## instructions
 
-### install
+## install
 
-#### using npm
+### using npm
 
 ```sh
 npm i jb-input
 ```
 
-in one of your js in page
+We must import package in one of our js files.
 
 ```js
 import 'jb-input';
 
 ```
+> if you are using typescript or you need to import other modules of the component please use one nameless import and one named import(to bypass treeshake).
 
 in your html or jsx
 
 ```html
-<jb-input class="" label="your label" message="hint text under the text box"></jb-input>
+<jb-input label="your label" message="hint text under the text box"></jb-input>
 ```
-#### using cdn
+### using cdn
 
 you can just add script tag to your html file and then use web component how ever you need
 
@@ -59,7 +59,8 @@ you can just add script tag to your html file and then use web component how eve
 <script src="https://unpkg.com/jb-input/dist/JBInput.umd.js"></script>
 ```
 
-### get/set value
+## get/set value
+like normal native input you can get/set value like below or use html attribute.
 
 ```js
 //get value
@@ -68,7 +69,11 @@ const inputValue = document.getElementByTagName('jb-input').value;
 document.getElementByTagName('jb-input').value = "new string";
 ```
 
-### events
+```HTML
+<jb-input value="your value" />
+```
+
+## events
 
 ```js
 document.getElementByTagName('jb-input').addEventListener('change',(event)=>{console.log(event.target.value)});
@@ -81,7 +86,7 @@ document.getElementByTagName('jb-input').addEventListener('beforeinput',(event)=
 document.getElementByTagName('jb-input').addEventListener('enter',(event)=>{console.log(event.target.value)});
 ```
 
-### set validation
+## set validation
 
 jb-input use [jb-validation](https://github.com/javadbat/jb-validation) inside to handle validation. so for more information you can read [jb-validation](https://github.com/javadbat/jb-validation) documentation.  
 for simple usage you can set validation to your input:
@@ -114,9 +119,10 @@ for simple usage you can set validation to your input:
 const result = document.getElementByTagName('jb-input').validation.addValidationListGetter(getterFunction)
 ```
 
-### check validation
+## check validation
 
-like any other jb design system you can access validation by `validation` property:
+Like any other jb design system you can access validation by `validation` property:
+
 ```js
 //access validation module
 document.getElementByTagName('jb-input').validation
@@ -130,9 +136,10 @@ const result = document.getElementByTagName('jb-input').checkValidity()
 const result = document.getElementByTagName('jb-input').reportValidity()
 
 ```
-### intercept user input
+## intercept user input
 
 I don't recommend this in most cases but sometimes you need to change what user input in the text field or prevent user from typing or paste the wrong value into the field in this scenario we have a tools to let you do this. to doing so just register a interceptor function like this:
+
 ```ts
 this.validation.addStandardValueCallback((inputtedString:string, oldValue:JBInputValue, prevResult:JBInputValue):JBInputValue=>{
     //here you can check new string, old value and  the value object that return by previous StandardValueCallback if you register multiple callback to modify value 
@@ -145,7 +152,7 @@ this.validation.addStandardValueCallback((inputtedString:string, oldValue:JBInpu
 });
 ```
 
-### custom inputs
+## custom inputs
 if you want something more than just simple input please check this components that use jb-input but add extra validation and input check layer for better user experience:   
 - [jb-number-input](https://github.com/javadbat/jb-number-input) for input number
 - [jb-payment-input](https://github.com/javadbat/jb-payment-input) for input bank card number and SHABA number

@@ -211,6 +211,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     listenAndSilentEvent(this.elements.input, "keyup", this.#onInputKeyup.bind(this));
     listenAndSilentEvent(this.elements.input, "keydown", this.#onInputKeyDown.bind(this));
     listenAndSilentEvent(this.elements.input, "keypress", this.#onInputKeyPress.bind(this));
+    // by click on label input get focus
+    this.elements.label.addEventListener("click", (e) => this.focus(), { capture: false, passive:true });
   }
   initProp() {
     this.#setValue(this.getAttribute("value") || "", "SET_VALUE");
