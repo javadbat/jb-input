@@ -59,10 +59,11 @@ export function useJBInputAttribute(element: RefObject<JBInputWebComponent>, pro
   }, [props.disabled]);
 
   useEffect(() => {
-    if (typeof props.required == "string") {
+    debugger;
+    if (typeof props.required === "string") {
       element?.current?.setAttribute('required', props.required);
     }
-    if (typeof props.required == "boolean") {
+    if (typeof props.required === "boolean") {
       props.required?element?.current?.setAttribute('required', ''):element?.current?.removeAttribute('required');
     }
   }, [props.required]);
