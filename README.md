@@ -172,6 +172,7 @@ if you want something more than just simple input please check this components t
 | direction      | set web-component direction default set is rtl but if you need ltr use `<jb-input direction="ltr"></jb-input>`      |
 | disabled       | disable the input                                                                                                   |
 | inputmode      | set input mode help mobile device to open proper keyboard for your input like `url`, `search` and `numeric`         |
+| required       | determine if input is required, used like:`<jb-input required />` or `<jb-input required="custom message"/>`        |
 
 ### set custom style
 

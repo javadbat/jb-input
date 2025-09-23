@@ -13,6 +13,7 @@ import type {
 import { renderHTML } from "./render";
 import { createInputEvent, createKeyboardEvent, listenAndSilentEvent } from "jb-core";
 import {registerDefaultVariables} from 'jb-core/theme';
+import {getRequiredMessage, i18n} from 'jb-core/i18n';
 export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue>, JBFormInputStandards<string> {
   static get formAssociated() {
     return true;
@@ -207,6 +208,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.input.addEventListener("change", (e: Event) => this.#onInputChange(e), { capture: false });
     this.elements.input.addEventListener("beforeinput", this.#onInputBeforeInput.bind(this), { capture: false });
     this.elements.input.addEventListener("input", (e) => this.#onInputInput(e as InputEvent), { capture: false });
+    this.elements.input.addEventListener("blur", (e) => this.#onInputBlur(), { capture: false, passive:true });
     //because keyboard event are composable and will scape from shadow dom we need to listen to them in document and stop their propagation
     listenAndSilentEvent(this.elements.input, "keyup", this.#onInputKeyup.bind(this));
     listenAndSilentEvent(this.elements.input, "keydown", this.#onInputKeyDown.bind(this));
@@ -290,15 +292,16 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         break;
       case "required":
         //to update validation result base on new requirement
-        this.required = value ? value !== 'false' : false;
+        this.required = (value || value ==='') && value !== 'false';
         break;
       case "error":
         //to check error and show or clear error message base on error attribute
         this.reportValidity();
     }
   }
-
-
+  #onInputBlur(){
+    this.#checkValidity(true);
+  }
   #onInputKeyDown(e: KeyboardEvent): void {
     this.#dispatchKeydownEvent(e);
   }
@@ -398,11 +401,19 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     }
     return false;
   }
+    /**
+   * show validation message error under input box
+   * @public
+   */
   showValidationError(error: ShowValidationErrorParameters) {
     this.elements.messageBox.innerHTML = error.message;
     //invalid state is used for ui purpose
     (this.#internals as any).states?.add("invalid");
   }
+  /**
+   * clear validation message error showing under input box
+   * @public
+   */
   clearValidationError() {
     const text = this.getAttribute("message") || "";
     this.elements.messageBox.innerHTML = text;
@@ -421,9 +432,10 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #getInsideValidation(): ValidationItem<ValidationValue>[] {
     const validationList: ValidationItem<ValidationValue>[] = [];
     if (this.required) {
+      const message:string = this.getAttribute("required").length>0?this.getAttribute("required"):getRequiredMessage(i18n,this.getAttribute("label"))
       validationList.push({
         validator: /.{1}/g,
-        message: `${this.getAttribute("label")} میبایست حتما وارد شود`,
+        message,
         stateType: "valueMissing"
       });
     }

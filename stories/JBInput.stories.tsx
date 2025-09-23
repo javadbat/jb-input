@@ -22,12 +22,28 @@ export const Normal: Story = {
   }
 };
 
-export const Large: Story = {
-  args: {
-    label: 'متن ساختگی جهت نمایش در لیبل برای تست کردن طول کاراکترها و اندازه ی صفحه و زیر هم شدن متن در اندازه صفحه کوچک مثلا در سایز موبایل. این یک متن ساختگی می باشد',
-    message: 'متن ساختگی جهت نمایش در پیام برای تست کردن طول کاراکترها و اندازه ی صفحه و زیر هم شدن متن در اندازه صفحه کوچک مثلا در سایز موبایل. این یک متن ساختگی می باشد',
+
+
+export const Required: Story = {
+  args:{
+    message:"focus on input write nothing then unfocus(blur) the input and see error message. then write something to make message disappear",
+    required:true,
   }
-};
+}
+export const RequiredWithLabel: Story = {
+  args:{
+    label:"name",
+    message:"focus on input write nothing then unfocus(blur) the input and see error message. then write something to make message disappear",
+    required:true,
+  }
+}
+export const RequiredWithCustomMessage: Story = {
+  args:{
+    label:"Required with custom message",
+    message:"focus on input write nothing then unfocus(blur) the input and see error message. then write something to make message disappear",
+    required:"you must fill this field to continue",
+  }
+}
 
 export const WithError: Story = {
   args: {
@@ -71,6 +87,13 @@ export const OnEnterTest: Story = {
     onEnter: () => { alert('you press Enter'); }
   }
 }
+
+export const LargeText: Story = {
+  args: {
+    label: 'large text to test what will happen if we set long text as an label to input',
+    message: 'long message text to test what happen we we set long message as an message prop. you can also try responsiveness control to see what happen in mobile or tablet size',
+  }
+};
 
 export const testStyles: Story = {
   render: () => (
