@@ -291,7 +291,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         }
         break;
       case "required":
-        //to update validation result base on new requirement
         this.required = (value || value ==='') && value !== 'false';
         break;
       case "error":
@@ -409,15 +408,17 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.messageBox.innerHTML = error.message;
     //invalid state is used for ui purpose
     (this.#internals as any).states?.add("invalid");
+    this.#internals.ariaInvalid = "true"
   }
   /**
    * clear validation message error showing under input box
    * @public
-   */
-  clearValidationError() {
-    const text = this.getAttribute("message") || "";
-    this.elements.messageBox.innerHTML = text;
-    (this.#internals as any).states?.delete("invalid");
+  */
+ clearValidationError() {
+   const text = this.getAttribute("message") || "";
+   this.elements.messageBox.innerHTML = text;
+   (this.#internals as any).states?.delete("invalid");
+   this.#internals.ariaInvalid = "false"
   }
   /**
    * @public

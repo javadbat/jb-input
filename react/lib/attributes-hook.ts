@@ -59,7 +59,6 @@ export function useJBInputAttribute(element: RefObject<JBInputWebComponent>, pro
   }, [props.disabled]);
 
   useEffect(() => {
-    debugger;
     if (typeof props.required === "string") {
       element?.current?.setAttribute('required', props.required);
     }
