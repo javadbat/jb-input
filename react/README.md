@@ -71,12 +71,12 @@ you can set validation to your input by creating a validationList array and pass
     const validationList = [
         {
             validator: /.{3}/g,
-            message: 'عنوان حداقل باید سه کارکتر طول داشته باشد'
+            message: 'minimum length is 3 char'
         },
         #you can use function as a validator too
         {
-            validator: ({displayValue,value})=>{return value == "سلام"},
-            message: 'شما تنها میتوانید عبارت سلام را وارد کنید'
+            validator: ({displayValue,value})=>{return value == "hello"},
+            message: 'you can only type hello'
         },
     ]
 ```

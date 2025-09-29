@@ -97,12 +97,12 @@ for simple usage you can set validation to your input:
     titleInput.validation.list = [
         {
             validator: /.{3}/g,
-            message: 'عنوان حداقل باید سه کارکتر طول داشته باشد'
+            message: 'minimum length is 3 char'
         },
     //you can use function as a validator too
         {
-            validator: ({displayValue,value})=>{return value == "سلام"},
-            message: 'شما تنها میتوانید عبارت سلام را وارد کنید'
+            validator: ({displayValue,value})=>{return value == "hello"},
+            message: 'you can only type hello'
         },
     //you can also return string in validator if you want custom error message in some edge cases
         {
