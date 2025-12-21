@@ -135,6 +135,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     if (typeof this.attachInternals == "function") {
       //some browser dont support attachInternals
       this.#internals = this.attachInternals();
+      this.#internals.role = "textbox"
     }
     this.#initWebComponent();
   }
