@@ -12,6 +12,7 @@
   --input-padding:var(--jb-input-input-padding, 0.125rem 0.75rem 0 0.75rem);
   --placeholder-font-size:var(--jb-input-placeholder-font-size, var(--value-font-size));
   --message-font-size:var(--jb-input-message-font-size, 0.7rem);
+  --inline-slots-padding:0.375rem 0.625rem;
   /* Colors */
   --border-color:var(--jb-input-border-color, var(--jb-neutral-10));
   --message-color:var(--jb-input-message-color, var(--jb-text-secondary));
@@ -38,6 +39,7 @@
   /* 0.375 = radius-xs - (0.25*radius-xs) */
   --input-padding:var(--jb-input-input-padding-xs, 0.125rem 0.375rem 0 0.375rem);
   --border-radius: var(--jb-input-border-radius-xs, var(--jb-radius-xs));
+  --inline-slots-padding:0.125rem 0.25rem;
 }
 
 :host([size="sm"]){
@@ -47,7 +49,7 @@
   --message-font-size:var(--jb-input-message-font-size-sm, 0.6125rem);
   --input-padding:var(--jb-input-input-padding-sm, 0.125rem 0.5625rem 0 0.5625rem);
   --border-radius: var(--jb-input-border-radius-sm, var(--jb-radius-sm));
-
+  --inline-slots-padding:0.25rem 0.5rem;
 }
 
 :host([size="lg"]){
@@ -58,6 +60,7 @@
   --message-font-size:var(--jb-input-message-font-size-lg, 0.7875rem);
   --input-padding:var(--jb-input-input-padding-lg, 0.125rem 0.9375rem 0 0.9375rem);
   --border-radius: var(--jb-input-border-radius-lg, var(--jb-radius-lg));
+  --inline-slots-padding:0.5rem 0.75rem;
 }
 
 :host([size="xl"]){
@@ -67,4 +70,5 @@
   --message-font-size:var(--jb-input-message-font-size-xl, 0.875rem);
   --input-padding:var(--jb-input-input-padding-xl, 0.125rem 1.125rem 0 1.125rem);
   --border-radius: var(--jb-input-border-radius-xl, var(--jb-radius-xl));
+  --inline-slots-padding:0.75rem 1rem;
 }

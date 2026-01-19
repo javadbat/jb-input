@@ -37,6 +37,7 @@
         overflow: var(--jb-input-box-overflow, hidden);
         display: grid;
         grid-template-columns: auto 1fr auto;
+        grid-template-rows: minmax(0, 1fr);
         box-shadow: var(--jb-input-box-shadow, none);
         &:focus-within {
             border-width: var(--jb-input-border-width-focus, var(--jb-input-border-width, 1px));
@@ -94,7 +95,7 @@
             max-height: 100%;
             overflow-y: hidden;
             background-color: transparent;
-            padding: 8px 16px;
+            padding: var(--inline-slots-padding);
             width: auto;
             box-sizing: border-box;
         }

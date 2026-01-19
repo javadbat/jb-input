@@ -236,6 +236,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       "virtualkeyboardpolicy",
       "required",
       "error",
+      "size"
     ];
   }
   //please do not add any other functionality in this func because it may override by enstatite d component
