@@ -1,16 +1,70 @@
 :host{
+  /* Sizes */
   --border-radius:var(--jb-input-border-radius, var(--jb-radius));
-  /*colors*/
+  --height:var(--jb-input-height, 2.5rem);
+  --border-width:var(--jb-input-border-width, 1px);
+  --border-bottom-width:var(--jb-input-border-bottom-width, 3px);
+  /* put message and label forward base on border radius*/
+  --inline-space: calc(var(--border-radius) / 1.75);
+  --label-margin: var(--jb-input-label-margin, 0.125rem var(--inline-space));
+  --label-font-size:var(--jb-input-label-font-size, 0.8rem);
+  --value-font-size:var(--jb-input-value-font-size, 1rem);
+  --input-padding:var(--jb-input-input-padding, 0.125rem 0.75rem 0 0.75rem);
+  --placeholder-font-size:var(--jb-input-placeholder-font-size, var(--value-font-size));
+  --message-font-size:var(--jb-input-message-font-size, 0.7rem);
+  /* Colors */
   --border-color:var(--jb-input-border-color, var(--jb-neutral-10));
   --message-color:var(--jb-input-message-color, var(--jb-text-secondary));
   --label-color: var(--jb-input-label-color, var(--jb-text-primary));
   --value-color: var(--jb-input-value-color,  var(--jb-text-primary));
   --placeholder-color:  var(--jb-input-placeholder-color, var(--jb-neutral-6));
   --input-box-bg-color:var(--jb-input-bgcolor, var(--jb-neutral-10));
+
 }
 :host(:state(invalid)){
   --message-color:var(--jb-input-message-error-color, var(--jb-red));
 }
 :host(:focus-within){
   --border-color:var(--jb-input-border-color-focus, var(--jb-neutral));
+}
+
+/*size*/
+ :host([size="xs"]){
+  --height:var(--jb-input-height-xs, 1.5rem);
+  --value-font-size:var(--jb-input-value-font-size-xs, 0.75rem);
+  --label-font-size:var(--jb-input-label-font-size-xs, 0.6rem);
+  /*0.7 - (0.0875 *2) */
+  --message-font-size:var(--jb-input-message-font-size-xs, 0.525rem);
+  /* 0.375 = radius-xs - (0.25*radius-xs) */
+  --input-padding:var(--jb-input-input-padding-xs, 0.125rem 0.375rem 0 0.375rem);
+  --border-radius: var(--jb-input-border-radius-xs, var(--jb-radius-xs));
+}
+
+:host([size="sm"]){
+  --height: var(--jb-input-height-sm, 2rem);
+  --value-font-size:var(--jb-input-value-font-size-sm, 0.875rem);
+  --label-font-size:var(--jb-input-label-font-size-sm, 0.7rem);
+  --message-font-size:var(--jb-input-message-font-size-sm, 0.6125rem);
+  --input-padding:var(--jb-input-input-padding-sm, 0.125rem 0.5625rem 0 0.5625rem);
+  --border-radius: var(--jb-input-border-radius-sm, var(--jb-radius-sm));
+
+}
+
+:host([size="lg"]){
+  --height: var(--jb-input-height-lg, 3rem);
+  --value-font-size:var(--jb-input-value-font-size-lg, 1.125rem);
+  --label-font-size:var(--jb-input-label-font-size-lg, 0.9rem);
+    /*0.7 + 0.0875*/
+  --message-font-size:var(--jb-input-message-font-size-lg, 0.7875rem);
+  --input-padding:var(--jb-input-input-padding-lg, 0.125rem 0.9375rem 0 0.9375rem);
+  --border-radius: var(--jb-input-border-radius-lg, var(--jb-radius-lg));
+}
+
+:host([size="xl"]){
+  --height: var(--jb-input-height-xl, 4rem);
+  --value-font-size:var(--jb-input-value-font-size-xl, 1.25rem);
+  --label-font-size:var(--jb-input-label-font-size-xl, 1rem);
+  --message-font-size:var(--jb-input-message-font-size-xl, 0.875rem);
+  --input-padding:var(--jb-input-input-padding-xl, 0.125rem 1.125rem 0 1.125rem);
+  --border-radius: var(--jb-input-border-radius-xl, var(--jb-radius-xl));
 }

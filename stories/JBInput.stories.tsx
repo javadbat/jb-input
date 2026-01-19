@@ -61,7 +61,31 @@ export const WithPlaceholder: Story = {
     placeholder: 'test placeholder'
   }
 };
+export const SizeVariants: Story = {
+  render:()=>{
+    return (<div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:'1rem'}}>
+      <JBInput label='xl size' message="message underneath" size='xl'></JBInput>
+      <JBInput label='xl size' placeholder="placeholder" size='xl'></JBInput>
+      <JBInput label='xl size' value="Value 1234" size='xl'></JBInput>
 
+      <JBInput label='lg size' message="message underneath" size='lg'></JBInput>
+      <JBInput label='lg size' placeholder="placeholder" size='lg'></JBInput>
+      <JBInput label='lg size' value="Value 1234" size='lg'></JBInput>
+
+      <JBInput label='md size' message="message underneath" size='md'></JBInput>
+      <JBInput label='md size' placeholder="placeholder" size='md'></JBInput>
+      <JBInput label='md size' value="Value 1234" size='md'></JBInput>
+
+      <JBInput label='sm size' message="message underneath" size='sm'></JBInput>
+      <JBInput label='sm size' placeholder="placeholder" size='sm'></JBInput>
+      <JBInput label='sm size' value="Value 1234" size='sm'></JBInput>
+
+      <JBInput label='xs size' message="message underneath" size='xs'></JBInput>
+      <JBInput label='xs size' placeholder="placeholder" size='xs'></JBInput>
+      <JBInput label='xs size' value="Value 1234" size='xs'></JBInput>
+    </div>)
+  }
+}
 export const testActions: Story = {
   render: () => {
     const input = useRef<JBInputWebComponent>(null);

@@ -1,5 +1,6 @@
 :host{
     display: block;
+    margin: var(--jb-input-margin, 0 0);
 }
 
 :host(:focus),
@@ -9,17 +10,16 @@
 
 .jb-input-web-component {
     width: 100%;
-    margin: var(--jb-input-margin, 0 0);
     &:focus-visible {
         outline: none;
     }
     label {
         width: 100%;
-        margin: var(--jb-input-label-margin, 0.25rem 0px);
+        margin: var(--label-margin);
         display: block;
-        font-size: var(--jb-input-label-font-size, 0.8em);
+        font-size: var(--label-font-size);
         color: var(--label-color);
-        margin: var(--jb-input-label-margin, 0);
+        margin: var(--label-margin, 0);
         font-weight: var(--jb-input-label-font-weight, 300);
         &.--hide {
             display: none;
@@ -28,12 +28,11 @@
     .input-box {
         width: 100%;
         box-sizing: border-box;
-        height: var(--jb-input-height, 40px);
-        border: solid var(--jb-input-border-width, 1px) var(--border-color);
+        height: var(--height);
+        border: solid var(--border-width) var(--border-color);
         background-color: var(--input-box-bg-color);
-        border-bottom: solid var(--jb-input-border-bottom-width, 3px) var(--border-color);
+        border-bottom: solid var(--border-bottom-width) var(--border-color);
         border-radius: var(--border-radius);
-        margin: 4px 0px;
         transition: ease 0.3s all;
         overflow: var(--jb-input-box-overflow, hidden);
         display: grid;
@@ -50,10 +49,10 @@
             box-sizing: border-box;
             height: 100%;
             background-color: transparent;
-            padding: var(--jb-input-input-padding, 0.125rem 0.75rem 0 0.75rem);
+            padding: var(--input-padding);
             display: block;
             font-family: inherit;
-            font-size: var(--jb-input-value-font-size, 1.1rem);
+            font-size: var(--value-font-size);
             color: var(--value-color);
             margin: 0;
             border-radius: 0;
@@ -65,7 +64,7 @@
             }
             &::placeholder {
                 color: var(--placeholder-color);
-                font-size: var(--jb-input-placeholder-font-size, 1.1rem);
+                font-size: var(--placeholder-font-size);
             }
             /*remove number input arrow keys of browser*/
             /* Chrome, Safari, Edge, Opera */
@@ -101,8 +100,8 @@
         }
     }
     .message-box {
-        font-size: var(--jb-input-message-font-size, 0.7rem);
-        padding: 0.125rem 0.5rem;
+        font-size: var(--message-font-size);
+        padding: 0.125rem var(--inline-space);
         color: var(--message-color);
         display: var(--jb-input-message-box-display, block);
         &:empty {

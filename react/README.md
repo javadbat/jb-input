@@ -86,7 +86,7 @@ you can set validation to your input by creating a validationList array and pass
 
 ## check validation
 
-you can check if an input value meet your validation standad by creating a ref of the element using `React.createRef()`.
+you can check if an input value meet your validation standard by creating a ref of the element using `React.createRef()`.
 ```javascript
     const elementRef = React.createRef();
     const isValid = elementRef.current.checkValidity().isAllValid;
@@ -103,11 +103,17 @@ if you want to show your own error message (you may get it from tanstack form or
 
 ## other props
 
-|props name | description        |
-| --------- | ------------------ |
-| disabled	| disable the input  |
-| inputmode | set input mode help mobile device to open proper keyboard for your input like url, search and numeric |
-| direction | set web-component direction default set is rtl but if you need ltr use <JBInput direction="ltr"></JBInput> |
+| attribute name  | description                                                                                                         |
+| -------------   | -------------                                                                                                       |
+| name            | name you want to set to actual input element `<JBInput name="username"></JBInput>`                                  |
+| message         | in bottom of input we show small message for example "user name must be at least 5 char"                            |
+| error           | error message to show under the input box                                                                           |
+| autocomplete    | set autocomplete directly into dom element in case you need it                                                      |
+| direction       | set web-component direction default set is rtl but if you need ltr use `<JBInput direction="ltr"></JBInput>`        |
+| disabled        | disable the input                                                                                                   |
+| inputmode       | set input mode help mobile device to open proper keyboard for your input like `url`, `search` and `numeric`         |
+| required        | determine if input is required, used like:`<JBInput required />` or `<JBInput required="custom message"/>`          |
+| size            | size of the input can be: 'xs' , 'sm' , 'md' , 'lg' , 'xl'                                                          |
 
 
 ## set custom style
@@ -129,6 +135,6 @@ in JBInput you can put icon or any other custom html DOM in input box. to doing 
 
 - see [jb-input](https://github.com/javadbat/jb-input) if you want to use this component as a pure-js web-component
 
-- see [All JB Design system Component List](https://javadbat.github.io/design-system/
+- see [All JB Design system Component List](https://javadbat.github.io/design-system/)
 
 - use [Contribution Guide](https://github.com/javadbat/design-system/blob/main/docs/contribution-guide.md) if you want to contribute in this component.

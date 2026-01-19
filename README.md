@@ -173,6 +173,7 @@ if you want something more than just simple input please check this components t
 | disabled       | disable the input                                                                                                   |
 | inputmode      | set input mode help mobile device to open proper keyboard for your input like `url`, `search` and `numeric`         |
 | required       | determine if input is required, used like:`<jb-input required />` or `<jb-input required="custom message"/>`        |
+| size           | size of the input can be: 'xs' , 'sm' , 'md' , 'lg' , 'xl'                                                          |
 
 ### set custom style
 
@@ -187,7 +188,7 @@ jb-input:states(invalid)::part(label){
   color:red;
 }
 ```
-we have `label`, `input-box`, `input`, `message` as a supported part in our component. you can also combine them with `disabled`, `invalid` states for different style in different states.
+we have `label`, `input-box`, `input`, `message` as a supported **part** in our component. you can also combine them with `disabled`, `invalid` **states** for different style in different states.
 
 2. using css variable
 

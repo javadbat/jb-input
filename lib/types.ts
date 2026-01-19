@@ -37,3 +37,6 @@ declare global {
 }
 
 export type JBInputEventType<TEvent> = EventTypeWithTarget<TEvent,JBInputWebComponent>
+
+/* Variants */
+export type SizeVariants = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

@@ -2,7 +2,7 @@
 import React ,{ useRef, useEffect, useImperativeHandle, useState, DetailedHTMLProps, HTMLAttributes,forwardRef } from 'react';
 import 'jb-input';
 // eslint-disable-next-line no-duplicate-imports
-import {JBInputWebComponent, type JBInputEventType } from 'jb-input';
+import {JBInputWebComponent, type JBInputEventType, type SizeVariants } from 'jb-input';
 import { type JBInputEvents, useJBInputEvents } from './events-hook.js';
 import { type JBInputAttributes, useJBInputAttribute } from './attributes-hook.js';
 
@@ -13,6 +13,7 @@ interface JBInputType extends DetailedHTMLProps<HTMLAttributes<JBInputWebCompone
   name?: string,
   message?: string,
   placeholder?:string,
+  size?: SizeVariants,
   // ref:React.RefObject<JBDateInputWebComponent>,
 }
 declare module "react" {
@@ -39,7 +40,7 @@ export const JBInput = forwardRef((props: Props, ref) => {
   useJBInputEvents(element,props);
   useJBInputAttribute(element,props);
   return (
-    <jb-input ref={element} class={props.className}>
+    <jb-input size={props.size} ref={element} class={props.className}>
       {props.children}
     </jb-input>
   );
@@ -48,6 +49,7 @@ export const JBInput = forwardRef((props: Props, ref) => {
 export type BaseProps<T extends JBInputWebComponent> = JBInputEvents<T> & JBInputAttributes & {
   className?: string,
   children?: React.ReactNode | React.ReactNode[],
+  size?: SizeVariants
 }
 export type Props = BaseProps<JBInputWebComponent>;
 JBInput.displayName = "JBInput";
