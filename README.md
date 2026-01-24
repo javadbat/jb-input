@@ -2,7 +2,8 @@
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/jb-input)
 [![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://raw.githubusercontent.com/javadbat/jb-input/main/LICENSE)
-[![NPM Downloads](https://img.shields.io/npm/dw/jb-input)](https://www.npmjs.com/package/jb-input)
+[![NPM Version](https://img.shields.io/npm/v/jb-input)](https://www.npmjs.com/package/jb-input)
+![GitHub Created At](https://img.shields.io/github/created-at/javadbat/jb-input)
 
 text input web component with these benefit:
 

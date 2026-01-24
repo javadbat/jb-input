@@ -15,7 +15,8 @@
     "web component",
     "react component"
   ],
-  "version": "3.13.0",
+  "version": "3.14.0",
+  "homepage": "https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput",
   "bugs": "https://github.com/javadbat/jb-input/issues",
   "license": "MIT",
   "files": [
@@ -35,7 +36,7 @@
   },
   "dependencies": {
     "jb-validation": ">=0.4.0",
-    "jb-core":">=0.17.0"
+    "jb-core":">=0.20.0"
   },
   "devDependencies": {
     "jb-form":">=0.6.10"
