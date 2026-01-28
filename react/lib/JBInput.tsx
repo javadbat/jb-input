@@ -18,6 +18,7 @@ export type DirectProps = {
   type?: string,
   inputmode?: string,
   error?: string,
+  autocomplete?:string
 }
 
 type JBInputType = DetailedHTMLProps<HTMLAttributes<JBInputWebComponent>, JBInputWebComponent> & DirectProps
@@ -37,9 +38,9 @@ export const JBInput = forwardRef((props: Props, ref) => {
     () => (element ? element.current : {}),
     [element],
   );
-  const { onBeforeinput, onBlur, onChange, onEnter, onFocus, onInput, onKeydown, onKeyup, size, disabled, error, inputmode, label, message, name, placeholder, required, type, validationList, value, ...standardProps } = props;
+  const { onBeforeinput, onBlur, onChange, onEnter, onFocus, onInput, onKeydown, onKeyup, size, autocomplete, disabled, error, inputmode, label, message, name, placeholder, required, type, validationList, value, ...standardProps } = props;
   // props that directly set in jsx dom and need no process or property set
-  const directProps: Required<DirectProps> = { label, message, name, placeholder, size, type, error,inputmode }
+  const directProps: Required<DirectProps> = { label, message, name, placeholder, size, type, error,inputmode, autocomplete }
   useJBInputEvents(element, { onBeforeinput, onBlur, onChange, onEnter, onFocus, onInput, onKeydown, onKeyup });
   useJBInputAttribute(element, { disabled, required, validationList, value });
   return (
