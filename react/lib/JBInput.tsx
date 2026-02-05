@@ -7,7 +7,7 @@ import { type JBInputEvents, useJBInputEvents } from './events-hook.js';
 import { type JBInputAttributes, useJBInputAttribute } from './attributes-hook.js';
 import type { JBElementStandardProps } from 'jb-core/react';
 
-export { JBInputEvents, useJBInputEvents, JBInputAttributes, useJBInputAttribute, JBInputEventType };
+export { type JBInputEvents, useJBInputEvents, type JBInputAttributes, useJBInputAttribute, type JBInputEventType };
 
 export type DirectProps = {
   label?: string,
