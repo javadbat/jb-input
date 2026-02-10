@@ -1,7 +1,7 @@
 :host{
   /* Sizes */
-  --border-radius:var(--jb-input-border-radius, var(--jb-radius));
   --height:var(--jb-input-height, 2.5rem);
+  --border-radius:var(--jb-input-border-radius, var(--jb-radius));
   --border-width:var(--jb-input-border-width, 1px);
   --border-bottom-width:var(--jb-input-border-bottom-width, 3px);
   /* put message and label forward base on border radius*/
