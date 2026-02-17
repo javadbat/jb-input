@@ -29,7 +29,7 @@
   --border-color:var(--jb-input-border-color-focus, var(--jb-neutral));
 }
 
-/*size*/
+/*Size*/
  :host([size="xs"]){
   --height:var(--jb-input-height-xs, 1.5rem);
   --value-font-size:var(--jb-input-value-font-size-xs, 0.75rem);
