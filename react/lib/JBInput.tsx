@@ -50,7 +50,7 @@ export const JBInput = forwardRef((props: Props, ref) => {
   );
 });
 //used in derived jb-input react components like number input.
-export type BaseProps<T extends JBInputWebComponent> = PropsWithChildren<JBElementStandardProps> & JBInputEvents<T> & JBInputAttributes & DirectProps;
+export type BaseProps<T extends JBInputWebComponent> = PropsWithChildren<JBElementStandardProps<T,keyof JBInputAttributes & DirectProps>> & JBInputEvents<T> & JBInputAttributes & DirectProps;
 export type Props = BaseProps<JBInputWebComponent>;
 JBInput.displayName = "JBInput";
 
