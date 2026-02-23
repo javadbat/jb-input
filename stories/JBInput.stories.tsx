@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { JBInput, Props } from 'jb-input/react';
+import { JBInput, type Props } from 'jb-input/react';
 import type { Meta, StoryObj } from '@storybook/react';
 import type { JBInputWebComponent, ValidationValue } from 'jb-input';
 import type { ValidationItem } from 'jb-validation';
@@ -126,7 +126,7 @@ export const testStyles: Story = {
       <div className="cloudy-style">
         <JBInput />
       </div>
-      <a href='https://github.com/javadbat/jb-input/blob/main/stories/styles/styles.css' target='_blank'>see css styles here</a>
+      <a href='https://github.com/javadbat/jb-input/blob/main/stories/styles/styles.css' target='_blank' rel="noopener">see css styles here</a>
     </div>
   )
 };
