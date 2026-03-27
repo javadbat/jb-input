@@ -165,24 +165,19 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const shadowRoot = this.attachShadow({
       mode: "open",
       delegatesFocus: true,
+      clonable:true,
+      serializable:true,
     });
     registerDefaultVariables();
     this.#render();
     this.elements = {
-      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       input: shadowRoot.querySelector(".input-box input")!,
-      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       inputBox: shadowRoot.querySelector(".input-box")!,
-      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       label: shadowRoot.querySelector("label")!,
-      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       labelValue: shadowRoot.querySelector("label .label-value")!,
-      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       messageBox: shadowRoot.querySelector(".message-box")!,
       slots: {
-        // biome-ignore lint/style/noNonNullAssertion: <explanation>
         startSection: shadowRoot.querySelector(".jb-input-start-section-wrapper slot")!,
-        // biome-ignore lint/style/noNonNullAssertion: <explanation>
         endSection: shadowRoot.querySelector(".jb-input-end-section-wrapper slot")!
       }
     };
