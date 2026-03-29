@@ -1,6 +1,7 @@
 :host{
     display: block;
     margin: var(--jb-input-margin, 0 0);
+    width: var(--jb-input-width, 100%);
 }
 
 :host(:focus),
@@ -19,9 +20,8 @@
         display: block;
         font-size: var(--label-font-size);
         color: var(--label-color);
-        margin: var(--label-margin, 0);
         font-weight: var(--jb-input-label-font-weight, 300);
-        &.--hide {
+        &:empty{
             display: none;
         }
     }
@@ -31,6 +31,7 @@
         height: var(--height);
         border: solid var(--border-width) var(--border-color);
         background-color: var(--input-box-bg-color);
+        margin: var(--jb-input-box-margin, 0px);
         border-bottom: solid var(--border-bottom-width) var(--border-color);
         border-radius: var(--border-radius);
         transition: ease 0.3s all;

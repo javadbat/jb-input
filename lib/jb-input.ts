@@ -165,7 +165,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const shadowRoot = this.attachShadow({
       mode: "open",
       delegatesFocus: true,
-      clonable:true,
       serializable:true,
     });
     registerDefaultVariables();
@@ -174,7 +173,6 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       input: shadowRoot.querySelector(".input-box input")!,
       inputBox: shadowRoot.querySelector(".input-box")!,
       label: shadowRoot.querySelector("label")!,
-      labelValue: shadowRoot.querySelector("label .label-value")!,
       messageBox: shadowRoot.querySelector(".message-box")!,
       slots: {
         startSection: shadowRoot.querySelector(".jb-input-start-section-wrapper slot")!,
@@ -257,13 +255,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         this.elements.input.setAttribute(name, value);
         break;
       case "label":
-        this.elements.labelValue.innerHTML = value;
+        this.elements.label.innerHTML = value;
         this.#internals.ariaLabel = value;
-        if (value == null || value === undefined || value === "") {
-          this.elements.label.classList.add("--hide");
-        } else {
-          this.elements.label.classList.remove("--hide");
-        }
         break;
       case "type":
         this.elements.input.setAttribute("type", value);
