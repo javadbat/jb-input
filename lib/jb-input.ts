@@ -31,13 +31,11 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.#disabled = value;
     this.elements.input.disabled = value;
     if (value) {
-      //TODO: remove as any when typescript support
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+
       this.#internals.states?.add("disabled");
       this.#internals.ariaDisabled = "true";
     } else {
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-      (this.#internals as any).states?.delete("disabled");
+      this.#internals.states?.delete("disabled");
       this.#internals.ariaDisabled = "false";
     }
   }
@@ -51,7 +49,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #internals?: ElementInternals;
   hasState(state: SupportedState): boolean {
-    return (this.#internals as any).states.has(state);
+    return this.#internals.states.has(state);
   }
   /**
  * @description will determine if component trigger jb-validation mechanism automatically on user event or it just let user-developer handle validation mechanism by himself
@@ -210,13 +208,13 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.input.addEventListener("change", (e: Event) => this.#onInputChange(e), { capture: false });
     this.elements.input.addEventListener("beforeinput", this.#onInputBeforeInput.bind(this), { capture: false });
     this.elements.input.addEventListener("input", (e) => this.#onInputInput(e as InputEvent), { capture: false });
-    this.elements.input.addEventListener("blur", (e) => this.#onInputBlur(), { capture: false, passive: true });
+    this.elements.input.addEventListener("blur", () => this.#onInputBlur(), { capture: false, passive: true });
     //because keyboard event are composable and will scape from shadow dom we need to listen to them in document and stop their propagation
     listenAndSilentEvent(this.elements.input, "keyup", this.#onInputKeyup.bind(this));
     listenAndSilentEvent(this.elements.input, "keydown", this.#onInputKeyDown.bind(this));
     listenAndSilentEvent(this.elements.input, "keypress", this.#onInputKeyPress.bind(this));
     // by click on label input get focus
-    this.elements.label.addEventListener("click", (e) => this.focus(), { capture: false, passive: true });
+    this.elements.label.addEventListener("click", () => this.focus(), { capture: false, passive: true });
   }
   initProp() {
     this.#setValue(this.getAttribute("value") || "", "SET_VALUE");
@@ -241,7 +239,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     ];
   }
   //please do not add any other functionality in this func because it may override by enstatite d component
-  attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
+  attributeChangedCallback(name: string, _oldValue: string, newValue: string): void {
     // do something when an attribute has changed
     this.onAttributeChange(name, newValue);
   }
@@ -405,7 +403,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   showValidationError(error: ShowValidationErrorParameters) {
     this.elements.messageBox.innerHTML = error.message;
     //invalid state is used for ui purpose
-    (this.#internals as any).states?.add("invalid");
+    this.#internals.states?.add("invalid");
     this.#internals.ariaInvalid = "true"
   }
   /**
@@ -415,7 +413,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   clearValidationError() {
     const text = this.getAttribute("message") || "";
     this.elements.messageBox.innerHTML = text;
-    (this.#internals as any).states?.delete("invalid");
+    this.#internals.states?.delete("invalid");
     this.#internals.ariaInvalid = "false"
   }
   /**
