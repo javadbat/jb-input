@@ -30,6 +30,17 @@ export const Required: Story = {
     required:true,
   }
 }
+
+export const Disabled: Story = {
+  args: {
+    label: 'disabled input',
+    message: 'static text under input show all the time',
+    value: 'value',
+    disabled: true
+  }
+};
+
+
 export const RequiredWithLabel: Story = {
   args:{
     label:"name",
