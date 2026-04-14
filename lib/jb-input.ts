@@ -30,14 +30,15 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   set disabled(value: boolean) {
     this.#disabled = value;
     this.elements.input.disabled = value;
-    if (value) {
+    if (this.#internals)
+      if (value) {
 
-      this.#internals.states?.add("disabled");
-      this.#internals.ariaDisabled = "true";
-    } else {
-      this.#internals.states?.delete("disabled");
-      this.#internals.ariaDisabled = "false";
-    }
+        this.#internals.states?.add("disabled");
+        this.#internals.ariaDisabled = "true";
+      } else {
+        this.#internals.states?.delete("disabled");
+        this.#internals.ariaDisabled = "false";
+      }
   }
   #required = false;
   set required(value: boolean) {
@@ -47,7 +48,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   get required() {
     return this.#required;
   }
-  #internals?: ElementInternals;
+  #internals!: ElementInternals;
   hasState(state: SupportedState): boolean {
     return this.#internals.states.has(state);
   }
@@ -56,7 +57,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
  */
   get isAutoValidationDisabled(): boolean {
     //currently we only support disable-validation in attribute and only in initiate time but later we can add support for change of this 
-    return this.getAttribute('disable-auto-validation') === '' || this.getAttribute('disable-auto-validation') === 'true' ? true : false;
+    return !!(this.getAttribute('disable-auto-validation') === '' || this.getAttribute('disable-auto-validation') === 'true' );
   }
   #checkValidity(showError: boolean) {
     if (!this.isAutoValidationDisabled) {
@@ -106,28 +107,28 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     return this.#value.value !== this.initialValue;
   }
   //selection input behavior
-  get selectionStart(): number {
+  get selectionStart(): number|null {
     return this.elements.input.selectionStart;
   }
   set selectionStart(value: number) {
     this.elements.input.selectionStart = value;
   }
-  get selectionEnd(): number {
+  get selectionEnd(): number|null {
     return this.elements.input.selectionEnd;
   }
   set selectionEnd(value: number) {
     this.elements.input.selectionEnd = value;
   }
-  get selectionDirection(): "forward" | "backward" | "none" {
+  get selectionDirection(): SelectionDirection | null {
     return this.elements.input.selectionDirection;
   }
   set selectionDirection(value: "forward" | "backward" | "none") {
     this.elements.input.selectionDirection = value;
   }
   get name() {
-    return this.getAttribute('name') || '';
+    return this.getAttribute('name');
   }
-  set name(value: string | null | undefined) {
+  set name(value: string | null) {
     if (value) {
       this.setAttribute('name', value)
     }
@@ -163,7 +164,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const shadowRoot = this.attachShadow({
       mode: "open",
       delegatesFocus: true,
-      serializable:true,
+      serializable: true,
     });
     registerDefaultVariables();
     this.#render();
@@ -183,7 +184,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const html = `<style>${CSS} ${VariablesCSS}</style>\n${renderHTML()}`;
     const element = document.createElement("template");
     element.innerHTML = html;
-    this.shadowRoot.appendChild(element.content.cloneNode(true));
+    this.shadowRoot?.appendChild(element.content.cloneNode(true));
   }
   #standardValueCallbacks: StandardValueCallbackFunc[] = []
   addStandardValueCallback(func: StandardValueCallbackFunc) {
@@ -287,7 +288,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         }
         break;
       case "required":
-        this.required = (value || value === '') && value !== 'false';
+        this.required = (!!value || value === '') && value !== 'false';
         break;
       case "error":
         //to check error and show or clear error message base on error attribute
@@ -335,7 +336,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
    */
   #onInputInput(e: InputEvent): void {
     const endCaretPos = (e.target as HTMLInputElement).selectionEnd || 0;
-    const startCaretPos = (e.target as HTMLInputElement).selectionStart || 0;
+    const _startCaretPos = (e.target as HTMLInputElement).selectionStart || 0;
     const inputText = (e.target as HTMLInputElement).value;
     const target = (e.target as HTMLInputElement);
     //to standard value again
@@ -343,7 +344,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     //if user type in middle of text we will return the caret position to the middle of text because this.value = inputText will move caret to end
     if (endCaretPos !== inputText.length) {
       //because number input does not support setSelectionRange
-      if (!['number'].includes(this.getAttribute('type'))) {
+      const typeAttr = this.getAttribute('type')
+      if (!typeAttr || !['number'].includes(typeAttr)) {
         target.setSelectionRange(endCaretPos, endCaretPos);
       }
 
@@ -429,17 +431,18 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #getInsideValidation(): ValidationItem<ValidationValue>[] {
     const validationList: ValidationItem<ValidationValue>[] = [];
     if (this.required) {
-      const message: string = this.getAttribute("required").length > 0 ? this.getAttribute("required") : getRequiredMessage(i18n, this.getAttribute("label"))
+      const message: string = this.getAttribute("required")??"".length > 0 ? this.getAttribute("required")! : getRequiredMessage(i18n, this.getAttribute("label"))
       validationList.push({
         validator: /.{1}/g,
         message,
         stateType: "valueMissing"
       });
     }
-    if (this.getAttribute("error") !== null && this.getAttribute("error").trim().length > 0) {
+    const errorAttribute = this.getAttribute("error")
+    if(errorAttribute && errorAttribute.trim().length > 0) {
       validationList.push({
         validator: undefined,
-        message: this.getAttribute("error"),
+        message: errorAttribute,
         stateType: "customError"
       });
     }
@@ -482,7 +485,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
       result.validationList.forEach((res) => {
         if (!res.isValid) {
           if (res.validation.stateType) { states[res.validation.stateType] = true; }
-          if (message == '') { message = res.message; }
+          if (message == '') { message = res.message??""; }
         }
       });
       this.#internals.setValidity(states, message);
