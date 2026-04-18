@@ -13,7 +13,7 @@ export type JBInputEvents<TElement extends JBInputWebComponent> = {
     onKeydown?: (e: EventTypeWithTarget<KeyboardEvent,TElement>) => void,
     onChange?: (e: EventTypeWithTarget<Event,TElement>) => void,
 }
-export function useJBInputEvents<TElement extends JBInputWebComponent>(element:RefObject<TElement>,props:JBInputEvents<TElement>){
+export function useJBInputEvents<TElement extends JBInputWebComponent>(element:RefObject<TElement | null>,props:JBInputEvents<TElement>){
   useEvent(element, 'enter', props.onEnter);
   useEvent(element, 'input', props.onInput);
   useEvent(element, 'beforeinput', props.onBeforeinput);

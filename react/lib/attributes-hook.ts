@@ -8,7 +8,7 @@ export type JBInputAttributes = {
   disabled?: boolean,
   required?: boolean | string,
 }
-export function useJBInputAttribute(element: RefObject<JBInputWebComponent>, props: JBInputAttributes) {
+export function useJBInputAttribute(element: RefObject<JBInputWebComponent|null>, props: JBInputAttributes) {
   useEffect(() => {
     let value = props.value;
     if (props.value == null || props.value === undefined) {

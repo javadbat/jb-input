@@ -35,12 +35,12 @@ export const JBInput = forwardRef((props: Props, ref) => {
   const element = useRef<JBInputWebComponent>(null);
   useImperativeHandle(
     ref,
-    () => (element ? element.current : {}),
+    () => (element ? element.current : undefined),
     [element],
   );
   const { onBeforeinput, onBlur, onChange, onEnter, onFocus, onInput, onKeydown, onKeyup, size, autocomplete, disabled, error, inputmode, label, message, name, placeholder, required, type, validationList, value, ...standardProps } = props;
   // props that directly set in jsx dom and need no process or property set
-  const directProps: Required<DirectProps> = { label, message, name, placeholder, size, type, error,inputmode, autocomplete }
+  const directProps: DirectProps = { label, message, name, placeholder, size, type, error,inputmode, autocomplete }
   useJBInputEvents(element, { onBeforeinput, onBlur, onChange, onEnter, onFocus, onInput, onKeydown, onKeyup });
   useJBInputAttribute(element, { disabled, required, validationList, value });
   return (
