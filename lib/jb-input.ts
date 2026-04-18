@@ -27,6 +27,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   get disabled() {
     return this.#disabled;
   }
+  get form(){
+    return this.#internals.form;
+  }
   set disabled(value: boolean) {
     this.#disabled = value;
     this.elements.input.disabled = value;
@@ -125,8 +128,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   set selectionDirection(value: "forward" | "backward" | "none") {
     this.elements.input.selectionDirection = value;
   }
-  get name() {
-    return this.getAttribute('name');
+  get name():string{
+    return this.getAttribute('name') || "";
   }
   set name(value: string | null) {
     if (value) {
