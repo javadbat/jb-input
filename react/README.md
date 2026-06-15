@@ -15,16 +15,15 @@ text input `react component` with these benefits:
 
 - add label and message in UX friendly format.
 
-- customizable ui with css variable so you can have multiple style in different scope of your app.
+- customizable ui with CSS variable so you can have multiple style in different scope of your app.
 
 - support typescript.
 
-- extendable so you can create your own custom input base on jb-input like [jb-number-input](https://github.com/javadbat/jb-number-input).
+- extendable so you can create your own custom input based on jb-input like [jb-number-input](https://github.com/javadbat/jb-number-input).
 
-Demo :  Demo: [codeSandbox preview](https://3f63dj.csb.app/samples/jb-input) for just see the demo and [codeSandbox editor](https://codesandbox.io/p/sandbox/jb-design-system-3f63dj?file=%2Fsrc%2Fsamples%2FJBInput.tsx) if you want to see and play with code
+Demo: [codeSandbox preview](https://3f63dj.csb.app/samples/jb-input) for just see the demo and [codeSandbox editor](https://codesandbox.io/p/sandbox/jb-design-system-3f63dj?file=%2Fsrc%2Fsamples%2FJBInput.tsx) if you want to see and play with code
 
-## install
-
+## Installation
 ### using npm
 
 ```sh
@@ -40,8 +39,7 @@ import {JBInput} from 'jb-input/react';
 <JBInput label="label:" message="hint message under textbox"></JBInput>
 ```
 
-## events
-
+## Events
 ```jsx
     //when default property are defined best time for impl your config
     <JBInput onInit={(event) => {}}></JBInput>
@@ -134,8 +132,12 @@ in JBInput you can put icon or any other custom html DOM in input box. to doing 
 </JBInput>
 ```
 
-## Other Related Docs:
 
+## Shared Documentation
+
+For web-component behavior, events, slots, and CSS variables, see [`jb-input`](https://github.com/javadbat/jb-input).
+
+## Related Docs
 - see [jb-input](https://github.com/javadbat/jb-input) if you want to use this component as a pure-js web-component
 
 - see [All JB Design system Component List](https://javadbat.github.io/design-system/)

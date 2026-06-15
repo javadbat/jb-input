@@ -15,9 +15,9 @@ text input web component with these benefit:
 
 - add label and message in UX friendly format.
 
-- customizable ui with css variable sp you can have multiple style in different scope of your app.
+- customizable ui with CSS variable so you can have multiple style in different scope of your app.
 
-- extendable so you can create your own custom input base on jb-input like [jb-number-input](https://github.com/javadbat/jb-number-input).
+- extendable so you can create your own custom input based on jb-input like [jb-number-input](https://github.com/javadbat/jb-number-input).
 
 - can accept persian number char and convert them to english char in value.
 
@@ -26,11 +26,23 @@ text input web component with these benefit:
 - [codepen](https://codepen.io/javadbat/pen/dyNwddd)
 - [storybook](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput)
 
-## using with JS frameworks
-
+## Using With JS Frameworks
 - [<img src="https://img.shields.io/badge/React.js-jb--input%2Freact-000.svg?logo=react&logoColor=%2361DAFB" height="30" />](https://github.com/javadbat/jb-input/tree/main/react)
 
-## install
+## Installation
+
+## Attributes/Properties
+
+| name | type | description |
+| --- | --- | --- |
+| `value` | property/attribute | Current input value. |
+| `label` | attribute | Input label. |
+| `message` | attribute | Helper or validation message under the input. |
+| `name` | attribute | Form field name. |
+| `required` | attribute | Marks the input as required. |
+| `validation.list` | property | Custom validators from `jb-validation`. |
+| `change` | event | Fired when the value changes. |
+| `checkValidity()` | method | Runs validation and returns validation result. |
 
 ### using npm
 
@@ -53,7 +65,7 @@ in your html or jsx
 ```
 ### using cdn
 
-you can just add script tag to your html file and then use web component how ever you need
+you can just add script tag to your html file and then use web component however you need
 
 ```HTML
 <script src="https://unpkg.com/jb-input/dist/JBInput.umd.js"></script>
@@ -73,8 +85,7 @@ document.getElementByTagName('jb-input').value = "new string";
 <jb-input value="your value" />
 ```
 
-## events
-
+## Events
 ```js
 document.getElementByTagName('jb-input').addEventListener('change',(event)=>{console.log(event.target.value)});
 document.getElementByTagName('jb-input').addEventListener('keyup',(event)=>{console.log(event.target.value)});
@@ -161,7 +172,7 @@ if you want something more than just simple input please check this components t
 - [jb-mobile-input](https://github.com/javadbat/jb-mobile-input) for input mobile value
 - [jb-time-input](https://github.com/javadbat/jb-time-input) for input time value
 
-### other attribute
+### Other Attributes
 
 | attribute name  | description                                                                                                        |
 | -------------  | -------------                                                                                                       |
@@ -190,9 +201,9 @@ jb-input:states(invalid)::part(label){
 ```
 we have `label`, `input-box`, `input`, `message` as a supported **part** in our component. you can also combine them with `disabled`, `invalid` **states** for different style in different states.
 
-2. using css variable
+2. using CSS variable
 
-| css variable name                  | description                                                                                   |
+| CSS variable name                  | description                                                                                   |
 | -------------                      | -------------                                                                                 |
 | --jb-input-margin                  | web-component margin default is `0 0`                                                         |
 | --jb-input-border-radius           | web-component border-radius default is `16px`                                                 |
@@ -221,6 +232,37 @@ we have `label`, `input-box`, `input`, `message` as a supported **part** in our 
 | --jb-input-label-margin            | label margin default is `0`                                                                   |
 | --jb-input-label-font-weight       | label font weight default is `300`                                                            |
 | --jb-input-box-overflow            | input box overflow default is `hidden`                                                        |
+| --jb-input-bg-color-disabled | Customize bg color disabled. |
+| --jb-input-border-bottom-width-focus | Customize border bottom width focus. |
+| --jb-input-border-radius-lg | Customize border radius lg. |
+| --jb-input-border-radius-sm | Customize border radius sm. |
+| --jb-input-border-radius-xl | Customize border radius xl. |
+| --jb-input-border-radius-xs | Customize border radius xs. |
+| --jb-input-border-width-focus | Customize border width focus. |
+| --jb-input-box-margin | Customize box margin. |
+| --jb-input-height-lg | Customize height lg. |
+| --jb-input-height-sm | Customize height sm. |
+| --jb-input-height-xl | Customize height xl. |
+| --jb-input-height-xs | Customize height xs. |
+| --jb-input-input-padding-lg | Customize input padding lg. |
+| --jb-input-input-padding-sm | Customize input padding sm. |
+| --jb-input-input-padding-xl | Customize input padding xl. |
+| --jb-input-input-padding-xs | Customize input padding xs. |
+| --jb-input-label-font-size-lg | Customize label font size lg. |
+| --jb-input-label-font-size-sm | Customize label font size sm. |
+| --jb-input-label-font-size-xl | Customize label font size xl. |
+| --jb-input-label-font-size-xs | Customize label font size xs. |
+| --jb-input-message-box-display | Customize message box display. |
+| --jb-input-message-font-size-lg | Customize message font size lg. |
+| --jb-input-message-font-size-sm | Customize message font size sm. |
+| --jb-input-message-font-size-xl | Customize message font size xl. |
+| --jb-input-message-font-size-xs | Customize message font size xs. |
+| --jb-input-value-color-disabled | Customize value color disabled. |
+| --jb-input-value-font-size-lg | Customize value font size lg. |
+| --jb-input-value-font-size-sm | Customize value font size sm. |
+| --jb-input-value-font-size-xl | Customize value font size xl. |
+| --jb-input-value-font-size-xs | Customize value font size xs. |
+| --jb-input-width | Customize width. |
 
 ## add custom element in input box
 
@@ -234,8 +276,7 @@ example:
 </jb-input>
 ```
 
-## Other Related Docs:
-
+## Related Docs
 - see [jb-input/react](https://github.com/javadbat/jb-input/tree/main/react) if you want to use this component in react.
 
 - see [All JB Design system Component List](https://javadbat.github.io/design-system/) for more components.
