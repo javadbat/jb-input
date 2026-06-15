@@ -23,6 +23,17 @@ text input `react component` with these benefits:
 
 Demo: [codeSandbox preview](https://3f63dj.csb.app/samples/jb-input) for just see the demo and [codeSandbox editor](https://codesandbox.io/p/sandbox/jb-design-system-3f63dj?file=%2Fsrc%2Fsamples%2FJBInput.tsx) if you want to see and play with code
 
+## AI usage hints
+
+- Import `JBInput` from `jb-input/react`; the wrapper imports and registers the underlying `jb-input` web component.
+- Use `value` for controlled values and `onInput` for every user edit.
+- Use `onChange` for committed changes, usually after blur.
+- Pass custom validators with `validationList`.
+- Use `required={true}` for default required validation or `required="Custom message"` for a custom required message.
+- Use the exact event prop casing from this README, such as `onKeydown`, `onKeyup`, and `onBeforeinput`.
+- Put adornments inside the component with `slot="start-section"` or `slot="end-section"`.
+- Use `ref` when you need imperative methods such as `checkValidity()`, `reportValidity()`, or `focus()`.
+
 ## Installation
 ### using npm
 
@@ -39,6 +50,24 @@ import {JBInput} from 'jb-input/react';
 <JBInput label="label:" message="hint message under textbox"></JBInput>
 ```
 
+## Props
+
+| prop | type | description |
+| --- | --- | --- |
+| `value` | `string \| number \| null \| undefined` | Controlled value. `null` and `undefined` are normalized to an empty string. |
+| `label` | `string` | Visible label text and accessible label. |
+| `message` | `string` | Helper text shown under the input when no validation error is visible. |
+| `placeholder` | `string` | Placeholder text. |
+| `name` | `string` | Form field name. |
+| `type` | `string` | Native input type forwarded to the inner input. |
+| `inputmode` | `string` | Native inputmode value such as `numeric`, `decimal`, `email`, `url`, or `search`. |
+| `autocomplete` | `string` | Native autocomplete value. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | Visual size variant. |
+| `disabled` | `boolean` | Disables the input. |
+| `required` | `boolean \| string` | Enables required validation. A string is used as the required error message. |
+| `error` | `string` | External validation error message. |
+| `validationList` | `ValidationItem<ValidationValue>[]` | Custom validation rules from `jb-validation`. |
+
 ## Events
 ```jsx
     //when default property are defined best time for impl your config
@@ -48,9 +77,8 @@ import {JBInput} from 'jb-input/react';
     <JBInput onLoad={(event) => {}}></JBInput>
 
     //keyboard event
-    <JBInput onKeyDown={(event) => console.log(event.target.value)}></JBInput>
-    <JBInput onKeyUp={(event) => console.log(event.target.value)}></JBInput>
-    <JBInput onKeyPress={(event) => console.log(event.target.value)}></JBInput>
+    <JBInput onKeydown={(event) => console.log(event.target.value)}></JBInput>
+    <JBInput onKeyup={(event) => console.log(event.target.value)}></JBInput>
     <JBInput onChange={(event) => console.log(event.target.value)}></JBInput>
     // when user press enter on type good for situation you want so submit form or call search function on user press enter. 
     <JBInput onEnter={(event) => console.log(event.target.value)}></JBInput>
@@ -59,7 +87,7 @@ import {JBInput} from 'jb-input/react';
     <JBInput onBlur={(event) => console.log(event.target.value)}></JBInput>
     //input Event
     <JBInput onInput={(event) => console.log(event.target.value)}></JBInput>
-    <JBInput onBeforeInput={(event) => console.log(event.target.value)}></JBInput>
+    <JBInput onBeforeinput={(event) => console.log(event.target.value)}></JBInput>
 ```
 
 
@@ -90,9 +118,9 @@ you can set validation to your input by creating a validationList array and pass
 you can check if an input value meet your validation standard by creating a ref of the element using `React.createRef()`.
 ```javascript
     const elementRef = React.createRef();
-    const isValid = elementRef.current.checkValidity().isAllValid;
+    const isValid = elementRef.current.checkValidity();
     //if you want to show occurred error too
-    const isValid = elementRef.current.reportValidity().isAllValid;
+    const isValid = elementRef.current.reportValidity();
 ```
 if `isValid` is `true` the value of input is valid.
 

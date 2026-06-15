@@ -1,0 +1,331 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "README.md",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "lib/jb-input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Form-associated text input web component with label, message, native internals validation, RTL/LTR support, slots for adornments, CSS customization, and value standardization that can show one displayValue while returning a different canonical value from .value.",
+          "name": "JBInputWebComponent",
+          "tagName": "jb-input",
+          "customElement": true,
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "attributes": [
+            {
+              "name": "value",
+              "description": "Initial or reflected input value. Prefer the value property for controlled updates.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "label",
+              "description": "Visible label text and accessible aria label.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "message",
+              "description": "Helper text shown below the input when no validation error is visible.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "name",
+              "description": "Name forwarded to the inner input and used as the form field name.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "type",
+              "description": "Native input type forwarded to the inner input. Use specialized JB components for complex types such as date, time, mobile, payment, or number formatting.",
+              "type": {
+                "text": "string"
+              },
+              "default": "text"
+            },
+            {
+              "name": "placeholder",
+              "description": "Placeholder forwarded to the inner input and exposed through ariaPlaceholder.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "autocomplete",
+              "description": "Native autocomplete value forwarded to the inner input.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "inputmode",
+              "description": "Native inputmode value forwarded to the inner input.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "virtualkeyboardpolicy",
+              "description": "Native virtualkeyboardpolicy value forwarded to the inner input.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "readonly",
+              "description": "Native readonly attribute forwarded to the inner input.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "name": "disabled",
+              "description": "Disables the input and sets the disabled custom state.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "name": "required",
+              "description": "Marks the field as required. A string value is used as the required validation message.",
+              "type": {
+                "text": "boolean | string"
+              }
+            },
+            {
+              "name": "error",
+              "description": "External validation error message. When the attribute changes, the component updates its validation UI.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "disable-auto-validation",
+              "description": "Disables automatic validation on input and blur when set to empty string or true.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "name": "size",
+              "description": "Visual size variant.",
+              "type": {
+                "text": "'xs' | 'sm' | 'md' | 'lg' | 'xl'"
+              }
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "description": "Canonical value submitted with forms.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "displayValue",
+              "description": "Value rendered inside the native input after standardization.",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "initialValue",
+              "description": "Baseline value used by isDirty.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validation",
+              "description": "jb-validation helper. Set validation.list or add validation list getters for custom validation.",
+              "type": {
+                "text": "ValidationHelper<JBInputValue>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "isDirty",
+              "description": "True when current value differs from initialValue.",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            }
+          ],
+          "methods": [
+            {
+              "name": "checkValidity",
+              "description": "Runs validation without showing the error message and returns whether the input is valid.",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "name": "reportValidity",
+              "description": "Runs validation, shows the first error message, and returns whether the input is valid.",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "name": "focus",
+              "description": "Focuses the inner native input."
+            },
+            {
+              "name": "setSelectionRange",
+              "description": "Forwards setSelectionRange to the inner native input."
+            },
+            {
+              "name": "addStandardValueCallback",
+              "description": "Registers a callback that can transform displayValue and submitted value."
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "description": "Dispatched when the native input change event fires, usually after commit/blur."
+            },
+            {
+              "name": "input",
+              "description": "Dispatched on each user input after value standardization."
+            },
+            {
+              "name": "beforeinput",
+              "description": "Cancelable event dispatched before the native input changes."
+            },
+            {
+              "name": "keydown",
+              "description": "Keyboard event re-dispatched from the host."
+            },
+            {
+              "name": "keyup",
+              "description": "Keyboard event re-dispatched from the host."
+            },
+            {
+              "name": "keypress",
+              "description": "Keyboard event re-dispatched from the host."
+            },
+            {
+              "name": "enter",
+              "description": "Dispatched on keyup when Enter is pressed."
+            },
+            {
+              "name": "invalid",
+              "description": "Dispatched when checkValidity or reportValidity finds an invalid value."
+            },
+            {
+              "name": "load",
+              "description": "Dispatched from connectedCallback before init."
+            },
+            {
+              "name": "init",
+              "description": "Dispatched from connectedCallback after initProp."
+            }
+          ],
+          "slots": [
+            {
+              "name": "start-section",
+              "description": "Content rendered before the native input, commonly an icon or prefix."
+            },
+            {
+              "name": "end-section",
+              "description": "Content rendered after the native input, commonly an action, icon, or suffix."
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "label",
+              "description": "The label element."
+            },
+            {
+              "name": "input-box",
+              "description": "The wrapper around start slot, input, and end slot."
+            },
+            {
+              "name": "input",
+              "description": "The inner native input."
+            },
+            {
+              "name": "message",
+              "description": "The helper/error message element."
+            }
+          ],
+          "cssProperties": [
+            {
+              "name": "--jb-input-width",
+              "description": "Input host width."
+            },
+            {
+              "name": "--jb-input-height",
+              "description": "Default input height."
+            },
+            {
+              "name": "--jb-input-border-color",
+              "description": "Border color in normal state."
+            },
+            {
+              "name": "--jb-input-border-color-focus",
+              "description": "Border color in focus state."
+            },
+            {
+              "name": "--jb-input-message-error-color",
+              "description": "Validation error message color."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "JBInputWebComponent",
+          "declaration": {
+            "name": "JBInputWebComponent",
+            "module": "lib/jb-input.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "jb-input",
+          "declaration": {
+            "name": "JBInputWebComponent",
+            "module": "lib/jb-input.ts"
+          }
+        }
+      ]
+    }
+  ]
+}
