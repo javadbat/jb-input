@@ -30,6 +30,7 @@
   ],
   "main": "index.js",
   "types": "./dist/index.d.ts",
+  "customElements": "custom-elements.json",
   "sideEffects": true,
   "repository": {
 		"type": "git",
