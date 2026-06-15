@@ -1,6 +1,9 @@
 # JBInput React
 
-this component is React.js wrapper for [jb-input](https://www.npmjs.com/package/jb-input) web component.
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/jb-input)
+[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://raw.githubusercontent.com/javadbat/jb-input/main/LICENSE)
+[![NPM Version](https://img.shields.io/npm/v/jb-input-react)](https://www.npmjs.com/package/jb-input-react)
+![GitHub Created At](https://img.shields.io/github/created-at/javadbat/jb-input)
 
 text input `react component` with these benefits:
 
