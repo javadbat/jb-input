@@ -1,6 +1,6 @@
-import { JBInputWebComponent, type ValidationValue } from "jb-input";
+import { type JBInputWebComponent, type ValidationValue } from "jb-input";
 import { type ValidationItem } from "jb-validation";
-import { RefObject, useEffect } from "react";
+import { type RefObject, useEffect } from "react";
 
 export type JBInputAttributes = {
   value?: string | number | null | undefined,
@@ -8,7 +8,7 @@ export type JBInputAttributes = {
   disabled?: boolean,
   required?: boolean | string,
 }
-export function useJBInputAttribute(element: RefObject<JBInputWebComponent|null>, props: JBInputAttributes) {
+export function useJBInputAttribute<TElement extends JBInputWebComponent>(element: RefObject<TElement | null>, props: JBInputAttributes) {
   useEffect(() => {
     let value = props.value;
     if (props.value == null || props.value === undefined) {
