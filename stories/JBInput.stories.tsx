@@ -1,17 +1,17 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { JBInput, type Props } from 'jb-input/react';
+import { JBInput } from 'jb-input/react';
 import type { Meta, StoryObj } from '@storybook/react';
 import type { JBInputWebComponent, ValidationValue } from 'jb-input';
 import type { ValidationItem } from 'jb-validation';
 import {JBButton} from 'jb-button/react'
 import './styles/styles.css';
 
-const meta: Meta<Props> = {
+const meta = {
   title: "Components/form elements/Inputs/JBInput",
   component: JBInput,
-};
+} satisfies Meta<typeof JBInput>;
 export default meta;
-type Story = StoryObj<typeof JBInput>;
+type Story = StoryObj<typeof meta>;
 
 export const Normal: Story = {
   args: {
