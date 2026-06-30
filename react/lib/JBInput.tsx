@@ -1,11 +1,12 @@
 'use client';
-import React, { useRef, useEffect, useImperativeHandle, useState, DetailedHTMLProps, HTMLAttributes, forwardRef, type CSSProperties, type PropsWithChildren } from 'react';
+import React, { useRef, useImperativeHandle, forwardRef, type PropsWithChildren } from 'react';
 import 'jb-input';
 // eslint-disable-next-line no-duplicate-imports
 import { JBInputWebComponent, type JBInputEventType, type SizeVariants } from 'jb-input';
 import { type JBInputEvents, useJBInputEvents } from './events-hook.js';
 import { type JBInputAttributes, useJBInputAttribute } from './attributes-hook.js';
 import type { JBElementStandardProps } from 'jb-core/react';
+import './module-declaration.js';
 
 export { type JBInputEvents, useJBInputEvents, type JBInputAttributes, useJBInputAttribute, type JBInputEventType };
 
@@ -21,15 +22,6 @@ export type DirectProps = {
   autocomplete?:string
 }
 
-type JBInputType = DetailedHTMLProps<HTMLAttributes<JBInputWebComponent>, JBInputWebComponent> & DirectProps
-declare module "react" {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      'jb-input': JBInputType;
-    }
-  }
-}
 // eslint-disable-next-line react/display-name
 export const JBInput = forwardRef((props: Props, ref) => {
   const element = useRef<JBInputWebComponent>(null);
