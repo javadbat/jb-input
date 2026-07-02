@@ -4,7 +4,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import type { JBInputWebComponent, ValidationValue } from 'jb-input';
 import type { ValidationItem } from 'jb-validation';
 import {JBButton} from 'jb-button/react'
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import './styles/styles.css';
+import { getInput, getInputBox, getMessageText, getNativeInput } from './test-utils';
 
 const meta = {
   title: "Components/form elements/Inputs/JBInput",
@@ -37,6 +39,27 @@ export const Disabled: Story = {
     message: 'static text under input show all the time',
     value: 'value',
     disabled: true
+  },
+  play: async ({ canvasElement }) => {
+    const input = getInput(canvasElement);
+    const nativeInput = getNativeInput(input);
+    const onInput = fn();
+
+    input.addEventListener('input', onInput);
+
+    await waitFor(() => {
+      expect(input.disabled).toBe(true);
+      expect(nativeInput.disabled).toBe(true);
+      expect(nativeInput.value).toBe('value');
+    });
+
+    input.focus();
+    await userEvent.click(nativeInput);
+    await userEvent.type(nativeInput, ' updated');
+
+    expect(nativeInput.value).toBe('value');
+    expect(input.value).toBe('value');
+    expect(onInput).not.toHaveBeenCalled();
   }
 };
 
@@ -53,6 +76,24 @@ export const RequiredWithCustomMessage: Story = {
     label:"Required with custom message",
     message:"focus on input write nothing then unfocus(blur) the input and see error message. then write something to make message disappear",
     required:"you must fill this field to continue",
+  },
+  play: async ({ canvasElement, args }) => {
+    const input = getInput(canvasElement);
+
+    expect(input.reportValidity()).toBe(false);
+
+    await waitFor(() => {
+      expect(getMessageText(input)).toBe(args.required);
+      expect(input.hasState('invalid')).toBe(true);
+    });
+
+    input.value = 'filled';
+    expect(input.reportValidity()).toBe(true);
+
+    await waitFor(() => {
+      expect(getMessageText(input)).toBe(args.message);
+      expect(input.hasState('invalid')).toBe(false);
+    });
   }
 }
 
@@ -63,6 +104,31 @@ export const WithError: Story = {
     error: 'error message',
     validationList: [{ validator: /^.{3,}$/g, message: 'you must enter at least 3 characters' }],
     type: 'password'
+  },
+  play: async ({ canvasElement, args }) => {
+    const input = getInput(canvasElement);
+
+    await waitFor(() => {
+      expect(input.reportValidity()).toBe(false);
+      expect(getMessageText(input)).toBe(args.error);
+    });
+
+    input.value = 'ab';
+    input.setAttribute('error', '');
+
+    await waitFor(() => {
+      expect(input.reportValidity()).toBe(false);
+      expect(getMessageText(input)).toBe('you must enter at least 3 characters');
+      expect(input.hasState('invalid')).toBe(true);
+    });
+
+    input.value = 'abcd';
+    expect(input.reportValidity()).toBe(true);
+
+    await waitFor(() => {
+      expect(getMessageText(input)).toBe(args.message);
+      expect(input.hasState('invalid')).toBe(false);
+    });
   }
 };
 
@@ -109,9 +175,37 @@ export const testActions: Story = {
         <JBInput ref={input} value={value} onKeyup={e => setValue(e.target.value)} onKeydown={(e) => { console.log(e); }} label="type value" message='native input and JB Input value must be sync'></JBInput>
         <br />
         <span>value:</span>
-        <input value={value} onChange={e => setValue(e.target.value)} />
+        <input data-testid="mirror-input" value={value} onChange={e => setValue(e.target.value)} />
       </div>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const input = getInput(canvasElement);
+    const nativeInput = getNativeInput(input);
+    const mirrorInput = within(canvasElement).getByTestId('mirror-input') as HTMLInputElement;
+
+    await waitFor(() => {
+      expect(nativeInput.value).toBe('09');
+      expect(mirrorInput.value).toBe('09');
+    });
+
+    await userEvent.click(mirrorInput);
+    await userEvent.keyboard('{Control>}a{/Control}{Backspace}');
+    await userEvent.type(mirrorInput, '12345');
+
+    await waitFor(() => {
+      expect(input.value).toBe('12345');
+      expect(nativeInput.value).toBe('12345');
+    });
+
+    nativeInput.focus();
+    await userEvent.keyboard('{Control>}a{/Control}{Backspace}');
+    await userEvent.type(nativeInput, '678');
+
+    await waitFor(() => {
+      expect(input.value).toBe('678');
+      expect(mirrorInput.value).toBe('678');
+    });
   }
 };
 
@@ -119,7 +213,18 @@ export const OnEnterTest: Story = {
   args: {
     label: "enter test",
     message: 'Press Enter to see alert',
-    onEnter: () => { alert('you press Enter'); }
+    onEnter: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const input = getInput(canvasElement);
+    const nativeInput = getNativeInput(input);
+
+    nativeInput.focus();
+    nativeInput.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter', keyCode: 13, bubbles: true, composed: true }));
+
+    await waitFor(() => {
+      expect(args.onEnter).toHaveBeenCalled();
+    });
   }
 }
 
@@ -221,6 +326,28 @@ export const ValidationList: StoryObj = {
     emailMessage: 'email is not valid',
     mobileRegex: /^(\+98|0|0098)?9\d{9}$/g,
     mobileMessage: 'mobile number is not valid',
+  },
+  play: async ({ canvasElement }) => {
+    const input = getInput(canvasElement);
+    const nativeInput = getNativeInput(input);
+
+    await userEvent.type(nativeInput, 'short');
+    nativeInput.blur();
+
+    await waitFor(() => {
+      expect(input.reportValidity()).toBe(false);
+      expect(getMessageText(input)).toBe('you must enter 8 char at least');
+      expect(input.hasState('invalid')).toBe(true);
+    });
+
+    nativeInput.focus();
+    await userEvent.keyboard('{Control>}a{/Control}{Backspace}');
+    await userEvent.type(nativeInput, 'long-enough');
+
+    await waitFor(() => {
+      expect(input.reportValidity()).toBe(true);
+      expect(input.hasState('invalid')).toBe(false);
+    });
   }
 };
 
@@ -260,5 +387,15 @@ export const CustomMobileKeyboard: Story = {
   args: {
     'label': 'number keyboard',
     'inputmode': 'numeric'
+  },
+  play: async ({ canvasElement }) => {
+    const input = getInput(canvasElement);
+    const nativeInput = getNativeInput(input);
+    const inputBox = getInputBox(input);
+
+    await waitFor(() => {
+      expect(nativeInput.inputMode).toBe('numeric');
+      expect(inputBox).toBeTruthy();
+    });
   }
 };
