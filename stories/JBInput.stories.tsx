@@ -3,7 +3,7 @@ import { JBInput } from 'jb-input/react';
 import type { Meta, StoryObj } from '@storybook/react';
 import type { JBInputWebComponent, ValidationValue } from 'jb-input';
 import type { ValidationItem } from 'jb-validation';
-import {JBButton} from 'jb-button/react'
+import { JBButton } from 'jb-button/react'
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import './styles/styles.css';
 import { getInput, getInputBox, getMessageText, getNativeInput } from './test-utils';
@@ -27,9 +27,9 @@ export const Normal: Story = {
 
 
 export const Required: Story = {
-  args:{
-    message:"focus on input write nothing then unfocus(blur) the input and see error message. then write something to make message disappear",
-    required:true,
+  args: {
+    message: "focus on input write nothing then unfocus(blur) the input and see error message. then write something to make message disappear",
+    required: true,
   }
 }
 
@@ -65,17 +65,17 @@ export const Disabled: Story = {
 
 
 export const RequiredWithLabel: Story = {
-  args:{
-    label:"name",
-    message:"focus on input write nothing then unfocus(blur) the input and see error message. then write something to make message disappear",
-    required:true,
+  args: {
+    label: "name",
+    message: "focus on input write nothing then unfocus(blur) the input and see error message. then write something to make message disappear",
+    required: true,
   }
 }
 export const RequiredWithCustomMessage: Story = {
-  args:{
-    label:"Required with custom message",
-    message:"focus on input write nothing then unfocus(blur) the input and see error message. then write something to make message disappear",
-    required:"you must fill this field to continue",
+  args: {
+    label: "Required with custom message",
+    message: "focus on input write nothing then unfocus(blur) the input and see error message. then write something to make message disappear",
+    required: "you must fill this field to continue",
   },
   play: async ({ canvasElement, args }) => {
     const input = getInput(canvasElement);
@@ -139,8 +139,8 @@ export const WithPlaceholder: Story = {
   }
 };
 export const SizeVariants: Story = {
-  render:()=>{
-    return (<div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:'1rem'}}>
+  render: () => {
+    return (<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
       <JBInput label='xl size' message="message underneath" size='xl'></JBInput>
       <JBInput label='xl size' placeholder="placeholder" size='xl'></JBInput>
       <JBInput label='xl size' value="Value 1234" size='xl'></JBInput>
@@ -249,23 +249,31 @@ export const testStyles: Story = {
 
 
 export const ValidationList: StoryObj = {
-  render: (props:Record<string,any>) => {
+  render: () => {
     const inputValidation: ValidationItem<ValidationValue>[] = [
       {
-        validator: props.inputRegex,
-        message: props.inputMessage
+        validator: /^.{8,}$/g,
+        message: 'you must enter 8 char at least'
       }
     ];
     const passwordValidation = [
       {
-        validator: props.passwordRegex,
-        message: props.passwordMessage
+        validator: /.{8,}/g,
+        message: 'password must at least 8 char long'
+      },
+      {
+        validator: /(?=.*?[0-9])/g,
+        message: 'password should include one number'
+      },
+      {
+        validator: /(?=.*?[a-z])/g,
+        message: 'password must include one word'
       }
     ];
     const emailValidation: ValidationItem<ValidationValue>[] = [
       {
-        validator: props.emailRegex,
-        message: props.emailMessage
+        validator: /^[^\s@]+@[^\s@]+\.[^\s@]+$/g,
+        message: 'email is not valid'
       },
       {
         validator: ({ displayValue, value }) => {
@@ -295,8 +303,8 @@ export const ValidationList: StoryObj = {
     ];
     const mobileValidation: ValidationItem<ValidationValue>[] = [
       {
-        validator: props.mobileRegex,
-        message: props.mobileMessage
+        validator: /^(\+98|0|0098)?9\d{9}$/g,
+        message: 'mobile number is not valid'
       }
     ];
 
@@ -308,7 +316,7 @@ export const ValidationList: StoryObj = {
     }
 
     return (
-      <div style={{display:'flex',flexDirection:'column', gap:'0.5rem'}}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <JBInput label='input' validationList={inputValidation}></JBInput>
         <JBInput label='email' validationList={emailValidation} message="enter outlook and see async validation result after 3sec"></JBInput>
         <JBInput label='phone number' validationList={mobileValidation} message='you can use jb-mobile-input for better experience'></JBInput>
@@ -318,14 +326,6 @@ export const ValidationList: StoryObj = {
     );
   },
   args: {
-    inputRegex: /^.{8,}$/g,
-    inputMessage: 'you must enter 8 char at least',
-    passwordRegex: /^(?=.*?[a-z])(?=.*?[0-9]).{8,}$/g,
-    passwordMessage: 'password must include one word one number and at least 8 char long',
-    emailRegex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/g,
-    emailMessage: 'email is not valid',
-    mobileRegex: /^(\+98|0|0098)?9\d{9}$/g,
-    mobileMessage: 'mobile number is not valid',
   },
   play: async ({ canvasElement }) => {
     const input = getInput(canvasElement);

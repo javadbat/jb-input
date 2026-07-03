@@ -64,6 +64,10 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   }
   #checkValidity(showError: boolean) {
     if (!this.isAutoValidationDisabled) {
+      if(this.#internals.states.has("invalid")){
+        // if we currently showing error to user it make sure error get updated (when failed validation changed of function return different string as an error) 
+        showError=true;
+      }
       return this.#validation.checkValidity({ showError });
     }
   }
