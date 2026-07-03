@@ -356,7 +356,7 @@ export const WithStartSection: Story = {
     label: 'label',
     message: 'static text under input show all the time',
     placeholder: 'place holder',
-    children: <div slot="start-section" style={{ width: '24px', height: '24px', backgroundColor: '#262626' }}></div>
+    children: <div slot="start-section" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
   }
 };
 
@@ -366,7 +366,7 @@ export const WithEndSection: Story = {
     label: 'label',
     message: 'static text under input show all the time',
     placeholder: 'place holder',
-    children: <div slot="end-section" style={{ width: '24px', height: '24px', backgroundColor: '#262626' }}></div>
+    children: <div slot="end-section" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
   }
 };
 
@@ -377,8 +377,8 @@ export const WithStartAndEndSection: Story = {
     placeholder: 'place holder',
     children: (
       <Fragment>
-        <div slot="end-section" style={{ width: '24px', height: '24px', backgroundColor: '#262626' }}></div>
-        <div slot="start-section" style={{ width: '24px', height: '24px', backgroundColor: '#262626' }}></div>
+        <div slot="end-section" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
+        <div slot="start-section" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
       </Fragment>)
   }
 };

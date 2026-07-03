@@ -176,7 +176,7 @@ The React wrapper exposes the same CSS parts, custom states, and variables as `j
 }
 
 .username-input {
-  --jb-input-border-radius: 8px;
+  --jb-input-border-radius: 0.5rem;
 }
 ```
 

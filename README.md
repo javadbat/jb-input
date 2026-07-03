@@ -334,7 +334,7 @@ we have `label`, `input-box`, `input`, `message` as a supported **part** in our 
 | CSS variable name                  | description                                                                                   |
 | -------------                      | -------------                                                                                 |
 | --jb-input-margin                  | web-component margin default is `0 0`                                                         |
-| --jb-input-border-radius           | web-component border-radius default is `16px`                                                 |
+| --jb-input-border-radius           | web-component border-radius default is `1rem`                                                 |
 | --jb-input-border-color            | border color of select in normal mode                                                         |
 | --jb-input-border-color-focus      | border color of select in normal mode                                                         |
 | --jb-input-bgcolor                 | background color of input                                                                     |
@@ -345,12 +345,12 @@ we have `label`, `input-box`, `input`, `message` as a supported **part** in our 
 | --jb-input-message-font-size       | font size of message we show under input                                                      |
 | --jb-input-message-color           | set under box message color                                                                   |
 | --jb-input-message-error-color     | change color of error we show under input                                                     |
-| --jb-input-height                  | height of input default is 40px                                                               |
+| --jb-input-height                  | height of input default is 2.5rem                                                               |
 | --jb-input-placeholder-color       | change placeholder color                                                                      |
 | --jb-input-placeholder-font-size   | change placeholder font-size                                                                  |
 | --jb-input-value-font-size         | input value font-size                                                                         |
 | --jb-input-value-color             | input value color                                                                             |
-| --jb-input-input-padding           | set input inner padding default is `2px 12px 0 12px`                                          |
+| --jb-input-input-padding           | set input inner padding default is `2px 0.75rem 0 0.75rem`                                          |
 | --jb-input-input-text-align        | set input element text align for example if you have number Input and want to make it left    |
 | --jb-input-input-direction         | set input element direction to other than inherited value from it's parent element            |
 | --jb-input-input-font-weight       | set input value font-weight default is `initial` (browser setting)                            |
