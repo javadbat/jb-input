@@ -23,6 +23,12 @@ text input `react component` with these benefits:
 
 Demo: [codeSandbox preview](https://3f63dj.csb.app/samples/jb-input) for just see the demo and [codeSandbox editor](https://codesandbox.io/p/sandbox/jb-design-system-3f63dj?file=%2Fsrc%2Fsamples%2FJBInput.tsx) if you want to see and play with code
 
+## When to use
+
+Use `JBInput` for single-line text entry with JB Design System label, helper message, validation, form association, custom adornment slots, and shared input styling.
+
+Use specialized inputs such as `JBNumberInput`, `JBMobileInput`, `JBDateInput`, or `JBPaymentInput` when the value has domain-specific formatting or validation.
+
 ## AI usage hints
 
 - Import `JBInput` from `jb-input/react`; the wrapper imports and registers the underlying `jb-input` web component.
@@ -160,6 +166,23 @@ in JBInput you can put icon or any other custom html DOM in input box. to doing 
 </JBInput>
 ```
 
+## CSS parts and states
+
+The React wrapper exposes the same CSS parts, custom states, and variables as `jb-input`. Use `::part(...)` and CSS variables on the React component class name.
+
+```css
+.username-input::part(input) {
+  text-align: left;
+}
+
+.username-input {
+  --jb-input-border-radius: 8px;
+}
+```
+
+## Accessibility notes
+
+Set `label` whenever the field does not already have an external accessible label. Keep custom `start-section` and `end-section` content decorative unless it is interactive and independently keyboard-accessible.
 
 ## Shared Documentation
 
