@@ -3,8 +3,9 @@ import type { ReactComponentBuildConfig, WebComponentBuildConfig } from "../../t
 export const webComponentList: WebComponentBuildConfig[] = [
   {
     name: "jb-input",
-    path: "./lib/index.ts",
-    outputPath: "./dist/index.js",
+    path: "./web-component/lib/index.ts",
+    outputPath: "./web-component/dist/index.js",
+    tsConfigPath: "./web-component/tsconfig.json",
     umdName: "JBInput",
     external: ["jb-validation", "jb-form", "jb-core", "jb-core/theme", "jb-core/i18n"],
     globals: {

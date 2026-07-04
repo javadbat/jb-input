@@ -22,15 +22,15 @@
   "files": [
     "LICENSE",
     "README.md",
-    "custom-elements.json",
-    "lib/",
-    "dist/",
+    "web-component/custom-elements.json",
+    "web-component/lib/",
+    "web-component/dist/",
     "react/",
     "react/dist/"
   ],
   "main": "index.js",
-  "types": "./dist/index.d.ts",
-  "customElements": "custom-elements.json",
+  "types": "./web-component/dist/index.d.ts",
+  "customElements": "web-component/custom-elements.json",
   "sideEffects": true,
   "repository": {
 		"type": "git",
