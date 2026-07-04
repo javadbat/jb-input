@@ -1,7 +1,7 @@
 :host{
     display: block;
-    margin: var(--jb-input-margin, 0 0);
-    width: var(--jb-input-width, 100%);
+    margin: var(--margin);
+    width: var(--width);
 }
 
 :host(:focus),
@@ -20,7 +20,7 @@
         display: block;
         font-size: var(--label-font-size);
         color: var(--label-color);
-        font-weight: var(--jb-input-label-font-weight, 300);
+        font-weight: var(--label-font-weight);
         &:empty{
             display: none;
         }
@@ -31,19 +31,19 @@
         height: var(--height);
         border: solid var(--border-width) var(--border-color);
         background-color: var(--input-box-bg-color);
-        margin: var(--jb-input-box-margin, 0px);
+        margin: var(--box-margin);
         border-bottom: solid var(--border-bottom-width) var(--border-color);
         border-radius: var(--border-radius);
         transition: ease 0.3s all;
-        overflow: var(--jb-input-box-overflow, hidden);
+        overflow: var(--box-overflow);
         display: grid;
         grid-template-columns: auto 1fr auto;
         grid-template-rows: minmax(0, 1fr);
-        box-shadow: var(--jb-input-box-shadow, none);
+        box-shadow: var(--box-shadow);
         &:focus-within {
-            border-width: var(--jb-input-border-width-focus, var(--jb-input-border-width, 1px));
-            border-bottom-width: var(--jb-input-border-bottom-width-focus, var(--jb-input-border-bottom-width, 3px));
-            box-shadow: var(--jb-input-box-shadow-focus, none);
+            border-width: var(--border-width-focus);
+            border-bottom-width: var(--border-bottom-width-focus);
+            box-shadow: var(--box-shadow-focus);
         }
         input {
             border: none;
@@ -58,9 +58,9 @@
             color: var(--value-color);
             margin: 0;
             border-radius: 0;
-            text-align: var(--jb-input-input-text-align, initial);
-            direction: var(--jb-input-input-direction, inherit);
-            font-weight: var(--jb-input-input-font-weight, initial);
+            text-align: var(--input-text-align);
+            direction: var(--input-direction);
+            font-weight: var(--input-font-weight);
             cursor: inherit;
             &:focus {
                 outline: none;
@@ -106,7 +106,7 @@
         font-size: var(--message-font-size);
         padding: 0.125rem var(--inline-space);
         color: var(--message-color);
-        display: var(--jb-input-message-box-display, block);
+        display: var(--message-box-display);
         &:empty {
             padding: 0;
         }

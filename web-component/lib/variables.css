@@ -1,9 +1,12 @@
 :host {
-  /* Sizes */
+  /* Size */
+  --width: var(--jb-input-width, 100%);
   --height: var(--jb-input-height, 2.5rem);
   --border-radius: var(--jb-input-border-radius, var(--jb-radius));
   --border-width: var(--jb-input-border-width, 1px);
   --border-bottom-width: var(--jb-input-border-bottom-width, 3px);
+  --border-width-focus: var(--jb-input-border-width-focus, var(--border-width));
+  --border-bottom-width-focus: var(--jb-input-border-bottom-width-focus, var(--border-bottom-width));
   /* put message and label forward base on border radius*/
   --inline-space: calc(var(--border-radius) / 1.75);
   --label-margin: var(--jb-input-label-margin, 0.125rem var(--inline-space));
@@ -20,7 +23,17 @@
   --value-color: var(--jb-input-value-color, var(--jb-text-primary));
   --placeholder-color: var(--jb-input-placeholder-color, var(--jb-neutral-6));
   --input-box-bg-color: var(--jb-input-bgcolor, var(--jb-neutral-10));
-
+  /* Other */
+  --margin: var(--jb-input-margin, 0 0);
+  --label-font-weight: var(--jb-input-label-font-weight, 300);
+  --box-margin: var(--jb-input-box-margin, 0px);
+  --box-overflow: var(--jb-input-box-overflow, hidden);
+  --box-shadow: var(--jb-input-box-shadow, none);
+  --box-shadow-focus: var(--jb-input-box-shadow-focus, none);
+  --input-text-align: var(--jb-input-input-text-align, initial);
+  --input-direction: var(--jb-input-input-direction, inherit);
+  --input-font-weight: var(--jb-input-input-font-weight, initial);
+  --message-box-display: var(--jb-input-message-box-display, block);
 }
 
 :host(:state(invalid)) {
@@ -37,7 +50,7 @@
   --border-color: var(--jb-input-border-color-focus, var(--jb-neutral));
 }
 
-/*Size*/
+/* Size */
 :host([size="xs"]) {
   --height: var(--jb-input-height-xs, 1.5rem);
   --value-font-size: var(--jb-input-value-font-size-xs, 0.75rem);
