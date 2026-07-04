@@ -337,14 +337,14 @@ we have `label`, `input-box`, `input`, `message` as a supported **part** in our 
 | --jb-input-border-radius           | web-component border-radius default is `1rem`                                                 |
 | --jb-input-border-color            | border color of select in normal mode                                                         |
 | --jb-input-border-color-focus      | border color of select in normal mode                                                         |
-| --jb-input-bgcolor                 | background color of input                                                                     |
+| --jb-input-bg-color                 | background color of input                                                                     |
 | --jb-input-border-bottom-width     | border bottom thickness default is `3px`                                                      |
 | --jb-input-label-font-size         | font size of input label default is `0.8em`                                                   |
 | --jb-input-label-color             | change label color                                                                            |
 | --jb-input-label-margin            | change label margin default is `0 4px`                                                        |
 | --jb-input-message-font-size       | font size of message we show under input                                                      |
 | --jb-input-message-color           | set under box message color                                                                   |
-| --jb-input-message-error-color     | change color of error we show under input                                                     |
+| --jb-input-message-color-error     | change color of error we show under input                                                     |
 | --jb-input-height                  | height of input default is 2.5rem                                                               |
 | --jb-input-placeholder-color       | change placeholder color                                                                      |
 | --jb-input-placeholder-font-size   | change placeholder font-size                                                                  |

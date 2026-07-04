@@ -302,7 +302,7 @@
               "description": "Border color in focus state."
             },
             {
-              "name": "--jb-input-message-error-color",
+              "name": "--jb-input-message-color-error",
               "description": "Validation error message color."
             }
           ]
