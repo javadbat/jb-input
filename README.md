@@ -372,6 +372,12 @@ we have `label`, `input-box`, `input`, `message` as a supported **part** in our 
 | --jb-input-height-sm | Customize height sm. |
 | --jb-input-height-xl | Customize height xl. |
 | --jb-input-height-xs | Customize height xs. |
+| --jb-input-inline-space | Inline label/message spacing derived from border radius. |
+| --jb-input-inline-slots-padding | Inline slot padding. |
+| --jb-input-inline-slots-padding-xs | Inline slot padding for `size="xs"`. |
+| --jb-input-inline-slots-padding-sm | Inline slot padding for `size="sm"`. |
+| --jb-input-inline-slots-padding-lg | Inline slot padding for `size="lg"`. |
+| --jb-input-inline-slots-padding-xl | Inline slot padding for `size="xl"`. |
 | --jb-input-input-padding-lg | Customize input padding lg. |
 | --jb-input-input-padding-sm | Customize input padding sm. |
 | --jb-input-input-padding-xl | Customize input padding xl. |
