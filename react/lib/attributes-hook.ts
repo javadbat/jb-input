@@ -3,22 +3,11 @@ import { type ValidationItem } from "jb-validation";
 import { type RefObject, useEffect } from "react";
 
 export type JBInputAttributes = {
-  value?: string | number | null | undefined,
   validationList?: ValidationItem<ValidationValue>[],
   disabled?: boolean,
   required?: boolean | string,
 }
 export function useJBInputAttribute<TElement extends JBInputWebComponent>(element: RefObject<TElement | null>, props: JBInputAttributes) {
-  useEffect(() => {
-    let value = props.value;
-    if (props.value == null || props.value === undefined) {
-      value = '';
-    }
-    if (element && element.current && element.current) {
-      element.current.value = value?.toString() || "";
-    }
-  }, [props.value]);
-
   useEffect(() => {
     if (element && element.current) {
       element.current.validation.list = props.validationList || [];

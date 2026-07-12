@@ -24,6 +24,24 @@ export const Normal: Story = {
   }
 };
 
+export const DirectValueProperties: Story = {
+  args: {
+    value: 'current value',
+    initialValue: 'initial value',
+  },
+  play: async ({ canvasElement }) => {
+    const input = getInput(canvasElement);
+    const nativeInput = getNativeInput(input);
+
+    await waitFor(() => {
+      expect(input.value).toBe('current value');
+      expect(input.initialValue).toBe('initial value');
+      expect(nativeInput.value).toBe('current value');
+      expect(input.isDirty).toBe(true);
+    });
+  },
+};
+
 
 
 export const Required: Story = {

@@ -225,7 +225,10 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.label.addEventListener("click", () => this.focus(), { capture: false, passive: true });
   }
   initProp() {
-    this.#setValue(this.getAttribute("value") || "", "SET_VALUE");
+    const valueAttribute = this.getAttribute("value");
+    if (valueAttribute !== null) {
+      this.#setValue(valueAttribute, "SET_VALUE");
+    }
   }
   static get observedAttributes(): string[] {
     return [

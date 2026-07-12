@@ -9,8 +9,13 @@
 
 ### Changed
 
+- Added the React `initialValue` prop and forwarded `value` and `initialValue` directly as React 19 custom-element properties.
 - Breaking: renamed `--jb-input-bgcolor` to `--jb-input-bg-color`.
 - Breaking: renamed `--jb-input-message-error-color` to `--jb-input-message-color-error`.
 - Added public inline spacing and inline slot padding variables for each size.
 - Standardized theme recipes on tag-qualified host selectors and exported parts for composed date and time inputs.
 - Increased Carbon label and message spacing for clearer separation from the input box.
+
+### Fixed
+
+- Preserved property-assigned values during connection when no `value` attribute is present.

@@ -19,7 +19,9 @@ export type DirectProps = {
   type?: string,
   inputmode?: string,
   error?: string,
-  autocomplete?:string
+  autocomplete?:string,
+  value?: string | number | null,
+  initialValue?: string | number | null,
 }
 
 // eslint-disable-next-line react/display-name
@@ -30,11 +32,23 @@ export const JBInput = forwardRef((props: Props, ref) => {
     () => (element ? element.current : undefined),
     [element],
   );
-  const { onBeforeinput, onBlur, onChange, onEnter, onFocus, onInput, onKeydown, onKeyup, size, autocomplete, disabled, error, inputmode, label, message, name, placeholder, required, type, validationList, value, ...standardProps } = props;
+  const { onBeforeinput, onBlur, onChange, onEnter, onFocus, onInput, onKeydown, onKeyup, size, autocomplete, disabled, error, initialValue, inputmode, label, message, name, placeholder, required, type, validationList, value, ...standardProps } = props;
   // props that directly set in jsx dom and need no process or property set
-  const directProps: DirectProps = { label, message, name, placeholder, size, type, error,inputmode, autocomplete }
+  const directProps: DirectProps = {
+    label,
+    message,
+    name,
+    placeholder,
+    size,
+    type,
+    error,
+    inputmode,
+    autocomplete,
+    value: value?.toString() ?? "",
+    initialValue: initialValue?.toString() ?? "",
+  }
   useJBInputEvents(element, { onBeforeinput, onBlur, onChange, onEnter, onFocus, onInput, onKeydown, onKeyup });
-  useJBInputAttribute(element, { disabled, required, validationList, value });
+  useJBInputAttribute(element, { disabled, required, validationList });
   return (
     <jb-input ref={element} {...directProps} {...standardProps} >
       {props.children}
