@@ -1,0 +1,33 @@
+jb-date-input.cupertino-style,
+jb-time-input.cupertino-style,
+jb-input.cupertino-style {
+    --jb-input-bg-color: var(--jb-surface);
+    --jb-input-bg-color-disabled: var(--jb-surface-hover);
+    --jb-input-border-color: var(--jb-border-color);
+    --jb-input-border-color-focus: var(--jb-focus-color);
+    --jb-input-border-radius: 0.75rem;
+    --jb-input-border-width: 1px;
+    --jb-input-border-bottom-width: 1px;
+    --jb-input-border-bottom-width-focus: 1px;
+    --jb-input-box-shadow-focus: 0 0 0 0.25rem oklch(58% 0.2 255 / 0.18);
+    --jb-input-label-color: var(--jb-text-primary);
+    --jb-input-label-font-weight: 500;
+    --jb-input-value-color: var(--jb-text-primary);
+    --jb-input-value-color-disabled: #8e8e93;
+    --jb-input-placeholder-color: #8e8e93;
+    --jb-input-message-color: var(--jb-text-secondary);
+    --jb-input-message-color-error: var(--jb-success);
+}
+
+
+jb-date-input.cupertino-style::part(input-box),
+jb-time-input.cupertino-style::part(input-box),
+jb-input.cupertino-style::part(input-box) {
+    backdrop-filter: blur(0.75rem);
+}
+
+jb-input.cupertino-style:state(disabled)::part(label),
+jb-date-input.cupertino-style:state(disabled)::part(label),
+jb-time-input.cupertino-style:state(disabled)::part(label) {
+    color: #8e8e93;
+}

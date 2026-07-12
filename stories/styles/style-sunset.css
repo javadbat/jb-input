@@ -1,0 +1,36 @@
+jb-date-input.sunset-style,
+jb-time-input.sunset-style,
+jb-input.sunset-style {
+    --jb-input-bg-color: var(--jb-surface);
+    --jb-input-bg-color-disabled: var(--jb-background);
+    --jb-input-border-color: var(--jb-border-color);
+    --jb-input-border-color-focus: var(--jb-focus-color);
+    --jb-input-border-radius: 1rem;
+    --jb-input-border-width: 1px;
+    --jb-input-border-bottom-width: 1px;
+    --jb-input-border-bottom-width-focus: 2px;
+    --jb-input-box-shadow-focus: 0 0 0 0.25rem oklch(85% 0.14 75 / 0.18);
+    --jb-input-label-color: var(--jb-text-primary);
+    --jb-input-label-font-weight: 700;
+    --jb-input-value-color: var(--jb-text-primary);
+    --jb-input-value-color-disabled: var(--jb-text-disabled);
+    --jb-input-placeholder-color: var(--jb-text-secondary);
+    --jb-input-message-color: var(--jb-text-secondary);
+    --jb-input-message-color-error: var(--jb-primary-hover);
+}
+
+
+jb-date-input.sunset-style::part(label),
+jb-date-input.sunset-style::part(message),
+jb-time-input.sunset-style::part(label),
+jb-time-input.sunset-style::part(message),
+jb-input.sunset-style::part(label),
+jb-input.sunset-style::part(message) {
+    text-shadow: 0 0.4rem 1rem oklch(0% 0 0 / 0.2);
+}
+
+jb-input.sunset-style:state(invalid),
+jb-date-input.sunset-style:state(invalid),
+jb-time-input.sunset-style:state(invalid) {
+    --jb-input-border-color: var(--jb-primary-hover);
+}

@@ -284,26 +284,268 @@
               "description": "The helper/error message element."
             }
           ],
+          "cssStates": [
+            {
+              "name": "disabled",
+              "description": "Applied when the input is disabled."
+            },
+            {
+              "name": "invalid",
+              "description": "Applied while validation error text is visible."
+            }
+          ],
           "cssProperties": [
             {
               "name": "--jb-input-width",
-              "description": "Input host width."
+              "description": "Host width."
             },
             {
               "name": "--jb-input-height",
-              "description": "Default input height."
+              "description": "Base input height."
+            },
+            {
+              "name": "--jb-input-height-xs",
+              "description": "Input height for size xs."
+            },
+            {
+              "name": "--jb-input-height-sm",
+              "description": "Input height for size sm."
+            },
+            {
+              "name": "--jb-input-height-lg",
+              "description": "Input height for size lg."
+            },
+            {
+              "name": "--jb-input-height-xl",
+              "description": "Input height for size xl."
+            },
+            {
+              "name": "--jb-input-border-radius",
+              "description": "Base input border radius."
+            },
+            {
+              "name": "--jb-input-border-radius-xs",
+              "description": "Border radius for size xs."
+            },
+            {
+              "name": "--jb-input-border-radius-sm",
+              "description": "Border radius for size sm."
+            },
+            {
+              "name": "--jb-input-border-radius-lg",
+              "description": "Border radius for size lg."
+            },
+            {
+              "name": "--jb-input-border-radius-xl",
+              "description": "Border radius for size xl."
+            },
+            {
+              "name": "--jb-input-border-width",
+              "description": "Input border width."
+            },
+            {
+              "name": "--jb-input-border-bottom-width",
+              "description": "Input bottom border width."
+            },
+            {
+              "name": "--jb-input-border-width-focus",
+              "description": "Input border width while focused."
+            },
+            {
+              "name": "--jb-input-border-bottom-width-focus",
+              "description": "Input bottom border width while focused."
+            },
+            {
+              "name": "--jb-input-inline-space",
+              "description": "Inline label and message spacing derived from radius."
+            },
+            {
+              "name": "--jb-input-label-margin",
+              "description": "Label margin."
+            },
+            {
+              "name": "--jb-input-label-font-size",
+              "description": "Base label font size."
+            },
+            {
+              "name": "--jb-input-label-font-size-xs",
+              "description": "Label font size for size xs."
+            },
+            {
+              "name": "--jb-input-label-font-size-sm",
+              "description": "Label font size for size sm."
+            },
+            {
+              "name": "--jb-input-label-font-size-lg",
+              "description": "Label font size for size lg."
+            },
+            {
+              "name": "--jb-input-label-font-size-xl",
+              "description": "Label font size for size xl."
+            },
+            {
+              "name": "--jb-input-value-font-size",
+              "description": "Base input value font size."
+            },
+            {
+              "name": "--jb-input-value-font-size-xs",
+              "description": "Value font size for size xs."
+            },
+            {
+              "name": "--jb-input-value-font-size-sm",
+              "description": "Value font size for size sm."
+            },
+            {
+              "name": "--jb-input-value-font-size-lg",
+              "description": "Value font size for size lg."
+            },
+            {
+              "name": "--jb-input-value-font-size-xl",
+              "description": "Value font size for size xl."
+            },
+            {
+              "name": "--jb-input-input-padding",
+              "description": "Base native input padding."
+            },
+            {
+              "name": "--jb-input-input-padding-xs",
+              "description": "Native input padding for size xs."
+            },
+            {
+              "name": "--jb-input-input-padding-sm",
+              "description": "Native input padding for size sm."
+            },
+            {
+              "name": "--jb-input-input-padding-lg",
+              "description": "Native input padding for size lg."
+            },
+            {
+              "name": "--jb-input-input-padding-xl",
+              "description": "Native input padding for size xl."
+            },
+            {
+              "name": "--jb-input-placeholder-font-size",
+              "description": "Placeholder font size."
+            },
+            {
+              "name": "--jb-input-message-font-size",
+              "description": "Base message font size."
+            },
+            {
+              "name": "--jb-input-message-font-size-xs",
+              "description": "Message font size for size xs."
+            },
+            {
+              "name": "--jb-input-message-font-size-sm",
+              "description": "Message font size for size sm."
+            },
+            {
+              "name": "--jb-input-message-font-size-lg",
+              "description": "Message font size for size lg."
+            },
+            {
+              "name": "--jb-input-message-font-size-xl",
+              "description": "Message font size for size xl."
+            },
+            {
+              "name": "--jb-input-inline-slots-padding",
+              "description": "Base inline slot padding."
+            },
+            {
+              "name": "--jb-input-inline-slots-padding-xs",
+              "description": "Inline slot padding for size xs."
+            },
+            {
+              "name": "--jb-input-inline-slots-padding-sm",
+              "description": "Inline slot padding for size sm."
+            },
+            {
+              "name": "--jb-input-inline-slots-padding-lg",
+              "description": "Inline slot padding for size lg."
+            },
+            {
+              "name": "--jb-input-inline-slots-padding-xl",
+              "description": "Inline slot padding for size xl."
             },
             {
               "name": "--jb-input-border-color",
-              "description": "Border color in normal state."
+              "description": "Input border color."
             },
             {
               "name": "--jb-input-border-color-focus",
-              "description": "Border color in focus state."
+              "description": "Input border color while focused."
+            },
+            {
+              "name": "--jb-input-message-color",
+              "description": "Helper message color."
             },
             {
               "name": "--jb-input-message-color-error",
               "description": "Validation error message color."
+            },
+            {
+              "name": "--jb-input-label-color",
+              "description": "Label color."
+            },
+            {
+              "name": "--jb-input-value-color",
+              "description": "Input value color."
+            },
+            {
+              "name": "--jb-input-value-color-disabled",
+              "description": "Input value color while disabled."
+            },
+            {
+              "name": "--jb-input-placeholder-color",
+              "description": "Placeholder color."
+            },
+            {
+              "name": "--jb-input-bg-color",
+              "description": "Input box background color."
+            },
+            {
+              "name": "--jb-input-bg-color-disabled",
+              "description": "Input box background color while disabled."
+            },
+            {
+              "name": "--jb-input-margin",
+              "description": "Host margin."
+            },
+            {
+              "name": "--jb-input-label-font-weight",
+              "description": "Label font weight."
+            },
+            {
+              "name": "--jb-input-box-margin",
+              "description": "Input box margin."
+            },
+            {
+              "name": "--jb-input-box-overflow",
+              "description": "Input box overflow."
+            },
+            {
+              "name": "--jb-input-box-shadow",
+              "description": "Input box shadow."
+            },
+            {
+              "name": "--jb-input-box-shadow-focus",
+              "description": "Input box shadow while focused."
+            },
+            {
+              "name": "--jb-input-input-text-align",
+              "description": "Native input text alignment."
+            },
+            {
+              "name": "--jb-input-input-direction",
+              "description": "Native input text direction."
+            },
+            {
+              "name": "--jb-input-input-font-weight",
+              "description": "Native input font weight."
+            },
+            {
+              "name": "--jb-input-message-box-display",
+              "description": "Message box display value."
             }
           ]
         }

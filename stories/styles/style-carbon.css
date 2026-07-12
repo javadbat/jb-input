@@ -1,0 +1,43 @@
+jb-date-input.carbon-style,
+jb-time-input.carbon-style,
+jb-input.carbon-style {
+    --jb-input-bg-color: var(--jb-surface);
+    --jb-input-bg-color-disabled: var(--jb-surface-hover);
+    --jb-input-border-color: var(--jb-border-color);
+    --jb-input-border-color-focus: var(--jb-primary);
+    --jb-input-border-radius: 0;
+    --jb-input-border-width: 1px;
+    --jb-input-border-bottom-width: 1px;
+    --jb-input-border-bottom-width-focus: 2px;
+    --jb-input-box-shadow-focus: 0 0 0 1px var(--jb-primary);
+    --jb-input-label-color: var(--jb-text-primary);
+    --jb-input-label-font-weight: 600;
+    --jb-input-label-margin: 0 0 0.375rem;
+    --jb-input-value-color: var(--jb-text-contrast);
+    --jb-input-value-color-disabled: #8d8d8d;
+    --jb-input-placeholder-color: #8d8d8d;
+    --jb-input-message-color: var(--jb-text-secondary);
+    --jb-input-message-color-error: #fa4d56;
+}
+
+jb-date-input.carbon-style::part(label),
+jb-date-input.carbon-style::part(message),
+jb-time-input.carbon-style::part(label),
+jb-time-input.carbon-style::part(message),
+jb-input.carbon-style::part(label),
+jb-input.carbon-style::part(message) {
+    text-transform: uppercase;
+    letter-spacing: 0;
+}
+
+jb-date-input.carbon-style::part(message),
+jb-time-input.carbon-style::part(message),
+jb-input.carbon-style::part(message) {
+    padding: 0.375rem 0 0;
+}
+
+jb-input.carbon-style:state(invalid),
+jb-date-input.carbon-style:state(invalid),
+jb-time-input.carbon-style:state(invalid) {
+    --jb-input-border-color: #fa4d56;
+}

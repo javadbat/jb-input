@@ -1,0 +1,40 @@
+jb-date-input.terminal-style,
+jb-time-input.terminal-style,
+jb-input.terminal-style {
+    --jb-input-bg-color: var(--jb-surface);
+    --jb-input-bg-color-disabled: var(--jb-background);
+    --jb-input-border-color: var(--jb-border-color);
+    --jb-input-border-color-focus: var(--jb-focus-color);
+    --jb-input-border-radius: 0.25rem;
+    --jb-input-border-width: 1px;
+    --jb-input-border-bottom-width: 1px;
+    --jb-input-border-bottom-width-focus: 1px;
+    --jb-input-box-shadow-focus: 0 0 0 0.125rem var(--jb-focus-color);
+    --jb-input-label-color: var(--jb-text-primary);
+    --jb-input-label-font-weight: 600;
+    --jb-input-value-color: var(--jb-focus-color);
+    --jb-input-value-color-disabled: var(--jb-text-disabled);
+    --jb-input-placeholder-color: var(--jb-text-secondary);
+    --jb-input-message-color: var(--jb-text-secondary);
+    --jb-input-message-color-error: #ff5f56;
+    --jb-input-input-font-weight: 600;
+}
+
+
+jb-date-input.terminal-style::part(label),
+jb-date-input.terminal-style::part(input),
+jb-date-input.terminal-style::part(message),
+jb-time-input.terminal-style::part(label),
+jb-time-input.terminal-style::part(input),
+jb-time-input.terminal-style::part(message),
+jb-input.terminal-style::part(label),
+jb-input.terminal-style::part(input),
+jb-input.terminal-style::part(message) {
+    font-family: Consolas, "Courier New", monospace;
+}
+
+jb-input.terminal-style:state(invalid),
+jb-date-input.terminal-style:state(invalid),
+jb-time-input.terminal-style:state(invalid) {
+    --jb-input-border-color: #ff5f56;
+}

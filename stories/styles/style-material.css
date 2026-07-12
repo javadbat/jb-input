@@ -1,0 +1,33 @@
+jb-date-input.material-style,
+jb-time-input.material-style,
+jb-input.material-style {
+    --jb-input-bg-color: var(--jb-surface);
+    --jb-input-bg-color-disabled: #f1f3f4;
+    --jb-input-border-color: var(--jb-border-color);
+    --jb-input-border-color-focus: var(--jb-focus-color);
+    --jb-input-border-radius: 0.25rem;
+    --jb-input-border-width: 1px;
+    --jb-input-border-bottom-width: 1px;
+    --jb-input-border-bottom-width-focus: 2px;
+    --jb-input-box-shadow-focus: 0 0.125rem 0.25rem oklch(0% 0 0 / 0.16);
+    --jb-input-label-color: var(--jb-text-secondary);
+    --jb-input-label-font-weight: 500;
+    --jb-input-value-color: var(--jb-text-primary);
+    --jb-input-value-color-disabled: var(--jb-text-disabled);
+    --jb-input-placeholder-color: #5f6368;
+    --jb-input-message-color: var(--jb-text-secondary);
+    --jb-input-message-color-error: #d93025;
+}
+
+
+jb-date-input.material-style::part(label),
+jb-time-input.material-style::part(label),
+jb-input.material-style::part(label) {
+    font-weight: 500;
+}
+
+jb-input.material-style:state(invalid),
+jb-date-input.material-style:state(invalid),
+jb-time-input.material-style:state(invalid) {
+    --jb-input-border-color: #d93025;
+}

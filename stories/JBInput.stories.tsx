@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { JBInput } from 'jb-input/react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { JBInputWebComponent, ValidationValue } from 'jb-input';
 import type { ValidationItem } from 'jb-validation';
 import { JBButton } from 'jb-button/react'
@@ -276,7 +276,7 @@ export const ValidationList: StoryObj = {
         message: 'email is not valid'
       },
       {
-        validator: ({ displayValue, value }) => {
+        validator: ({ displayValue:_, value }) => {
           if (value.includes('yahoo')) {
             return 'you cant enter yahoo email9';
           }
@@ -285,7 +285,7 @@ export const ValidationList: StoryObj = {
         message: "email must be gmail"
       },
       {
-        validator: ({ displayValue, value }) => {
+        validator: ({ displayValue:_, value }) => {
           return new Promise((resolve) => {
             setTimeout(() => {
               if (value.includes('outlook')) {

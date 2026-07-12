@@ -8,7 +8,7 @@
   --border-width-focus: var(--jb-input-border-width-focus, var(--border-width));
   --border-bottom-width-focus: var(--jb-input-border-bottom-width-focus, var(--border-bottom-width));
   /* put message and label forward base on border radius*/
-  --inline-space: var(--jb-input-inline-space, calc(var(--border-radius) / 1.75));
+  --inline-space: var(--jb-input-inline-space, min(calc(var(--border-radius) / 1.75), calc(--height / 2)));
   --label-margin: var(--jb-input-label-margin, 0.125rem var(--inline-space));
   --label-font-size: var(--jb-input-label-font-size, 0.8rem);
   --value-font-size: var(--jb-input-value-font-size, 1rem);

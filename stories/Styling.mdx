@@ -1,0 +1,365 @@
+import { Meta, Source, Story, Title } from '@storybook/addon-docs/blocks';
+import * as StyleStories from './Styles.stories';
+import antDesignThemeCss from '../../../docs/styles/ant-design.css?raw';
+import auroraThemeCss from '../../../docs/styles/aurora.css?raw';
+import bootstrapThemeCss from '../../../docs/styles/bootstrap.css?raw';
+import candyThemeCss from '../../../docs/styles/candy.css?raw';
+import carbonThemeCss from '../../../docs/styles/carbon.css?raw';
+import cupertinoThemeCss from '../../../docs/styles/cupertino.css?raw';
+import fluentThemeCss from '../../../docs/styles/fluent.css?raw';
+import forestThemeCss from '../../../docs/styles/forest.css?raw';
+import materialThemeCss from '../../../docs/styles/material.css?raw';
+import porcelainThemeCss from '../../../docs/styles/porcelain.css?raw';
+import sunsetThemeCss from '../../../docs/styles/sunset.css?raw';
+import terminalThemeCss from '../../../docs/styles/terminal.css?raw';
+import antDesignInputCss from './styles/style-ant-design.css?raw';
+import auroraInputCss from './styles/style-aurora.css?raw';
+import bootstrapInputCss from './styles/style-bootstrap.css?raw';
+import candyInputCss from './styles/style-candy.css?raw';
+import carbonInputCss from './styles/style-carbon.css?raw';
+import cupertinoInputCss from './styles/style-cupertino.css?raw';
+import fluentInputCss from './styles/style-fluent.css?raw';
+import forestInputCss from './styles/style-forest.css?raw';
+import materialInputCss from './styles/style-material.css?raw';
+import porcelainInputCss from './styles/style-porcelain.css?raw';
+import sunsetInputCss from './styles/style-sunset.css?raw';
+import terminalInputCss from './styles/style-terminal.css?raw';
+
+<Meta title="Components/form elements/Inputs/JBInput/Styling" />
+
+<Title>Styling</Title>
+
+`JBInput` styling is theme-driven. Use common design tokens for product-level consistency, component variables for the input API, and CSS parts only for official exposed surfaces.
+
+## Live Gallery
+
+<Story of={StyleStories.Gallery} />
+
+<Source of={StyleStories.Gallery} />
+
+## Common Design Tokens
+
+Use the core theme docs as the source of truth for shared design-system variables:
+
+- [Theme Colors](../../jb-core/theme/stories/colors.mdx) explains the general color palette variables, default colors, customization approaches, and color generation helpers.
+- [Theme Sizes](../../jb-core/theme/stories/sizes.mdx) explains shared size and radius variables.
+- [Theme Custom Galleries](https://javadbat.github.io/design-system/?path=/docs/theme-custom-material--docs) gathers the shared custom style recipes across components.
+
+Input recipes should use those common tokens where possible, then map them into `--jb-input-*` variables only where the input needs a component-specific value.
+
+## Styling Model
+
+Use three layers when styling input examples:
+
+- Common design tokens are documented in [Theme Colors](../../jb-core/theme/stories/colors.mdx) and [Theme Sizes](../../jb-core/theme/stories/sizes.mdx).
+- Reusable example theme packs live in [`docs/styles`](https://github.com/javadbat/design-system/tree/main/docs/styles) and can be shared across components.
+- Component recipe files live in [`modules/jb-input/stories/styles`](https://github.com/javadbat/design-system/tree/main/modules/jb-input/stories/styles).
+- Public component variables use the `--jb-input-*` prefix and are the stable styling API.
+
+Each example uses one shared example theme pack from [`docs/styles`](https://github.com/javadbat/design-system/tree/main/docs/styles) and one input-specific recipe from [`modules/jb-input/stories/styles`](https://github.com/javadbat/design-system/tree/main/modules/jb-input/stories/styles). The style story applies both classes directly to `JBInput`.
+
+## Recommended Customization Path
+
+1. Use `--jb-input-*` variables first for size, colors, typography, spacing, borders, shadows, and state values.
+2. Use host styles for layout context such as width and surrounding grid placement.
+3. Use common theme variables from [Theme Colors](../../jb-core/theme/stories/colors.mdx) and [Theme Sizes](../../jb-core/theme/stories/sizes.mdx) when the style should align with the design system.
+4. Put reusable theme-pack values in [`docs/styles`](https://github.com/javadbat/design-system/tree/main/docs/styles) only when they should be shared by multiple component demos.
+5. Use `::part(...)` only for official exposed parts such as `::part(label)`, `::part(input-box)`, `::part(input)`, and `::part(message)`.
+6. Add a new component variable only when a needed internal surface cannot be customized with the current public variables or official parts.
+
+## Parts And States
+
+<table>
+  <thead>
+    <tr>
+      <th>Part</th>
+      <th>Element</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>label</code></td><td>Label element</td><td>Use for label typography details beyond public label variables.</td></tr>
+    <tr><td><code>input-box</code></td><td>Wrapper around the start slot, input, and end slot</td><td>Use for border, focus, invalid, or disabled state accents.</td></tr>
+    <tr><td><code>input</code></td><td>Inner native input</td><td>Use for targeted native input styling.</td></tr>
+    <tr><td><code>message</code></td><td>Helper or validation message element</td><td>Use for helper text and validation message emphasis.</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Custom State</th>
+      <th>Meaning</th>
+      <th>Example Selector</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>disabled</code></td><td>Applied when the input is disabled.</td><td><code>jb-input:state(disabled)::part(input-box)</code></td></tr>
+    <tr><td><code>invalid</code></td><td>Applied while validation error text is visible.</td><td><code>jb-input:state(invalid)::part(message)</code></td></tr>
+  </tbody>
+</table>
+
+## CSS Variables
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Category</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>--jb-input-width</code></td><td>Size</td><td>Host width.</td></tr>
+    <tr><td><code>--jb-input-height</code></td><td>Size</td><td>Base input height.</td></tr>
+    <tr><td><code>--jb-input-height-xs</code></td><td>Size</td><td>Input height for <code>size="xs"</code>.</td></tr>
+    <tr><td><code>--jb-input-height-sm</code></td><td>Size</td><td>Input height for <code>size="sm"</code>.</td></tr>
+    <tr><td><code>--jb-input-height-lg</code></td><td>Size</td><td>Input height for <code>size="lg"</code>.</td></tr>
+    <tr><td><code>--jb-input-height-xl</code></td><td>Size</td><td>Input height for <code>size="xl"</code>.</td></tr>
+    <tr><td><code>--jb-input-border-radius</code></td><td>Size</td><td>Base input border radius.</td></tr>
+    <tr><td><code>--jb-input-border-radius-xs</code></td><td>Size</td><td>Border radius for <code>size="xs"</code>.</td></tr>
+    <tr><td><code>--jb-input-border-radius-sm</code></td><td>Size</td><td>Border radius for <code>size="sm"</code>.</td></tr>
+    <tr><td><code>--jb-input-border-radius-lg</code></td><td>Size</td><td>Border radius for <code>size="lg"</code>.</td></tr>
+    <tr><td><code>--jb-input-border-radius-xl</code></td><td>Size</td><td>Border radius for <code>size="xl"</code>.</td></tr>
+    <tr><td><code>--jb-input-border-width</code></td><td>Size</td><td>Input border width.</td></tr>
+    <tr><td><code>--jb-input-border-bottom-width</code></td><td>Size</td><td>Input bottom border width.</td></tr>
+    <tr><td><code>--jb-input-border-width-focus</code></td><td>Size</td><td>Input border width while focused.</td></tr>
+    <tr><td><code>--jb-input-border-bottom-width-focus</code></td><td>Size</td><td>Input bottom border width while focused.</td></tr>
+    <tr><td><code>--jb-input-inline-space</code></td><td>Size</td><td>Inline label and message spacing derived from radius.</td></tr>
+    <tr><td><code>--jb-input-label-margin</code></td><td>Size</td><td>Label margin.</td></tr>
+    <tr><td><code>--jb-input-label-font-size</code></td><td>Size</td><td>Base label font size.</td></tr>
+    <tr><td><code>--jb-input-label-font-size-xs</code></td><td>Size</td><td>Label font size for <code>size="xs"</code>.</td></tr>
+    <tr><td><code>--jb-input-label-font-size-sm</code></td><td>Size</td><td>Label font size for <code>size="sm"</code>.</td></tr>
+    <tr><td><code>--jb-input-label-font-size-lg</code></td><td>Size</td><td>Label font size for <code>size="lg"</code>.</td></tr>
+    <tr><td><code>--jb-input-label-font-size-xl</code></td><td>Size</td><td>Label font size for <code>size="xl"</code>.</td></tr>
+    <tr><td><code>--jb-input-value-font-size</code></td><td>Size</td><td>Base input value font size.</td></tr>
+    <tr><td><code>--jb-input-value-font-size-xs</code></td><td>Size</td><td>Value font size for <code>size="xs"</code>.</td></tr>
+    <tr><td><code>--jb-input-value-font-size-sm</code></td><td>Size</td><td>Value font size for <code>size="sm"</code>.</td></tr>
+    <tr><td><code>--jb-input-value-font-size-lg</code></td><td>Size</td><td>Value font size for <code>size="lg"</code>.</td></tr>
+    <tr><td><code>--jb-input-value-font-size-xl</code></td><td>Size</td><td>Value font size for <code>size="xl"</code>.</td></tr>
+    <tr><td><code>--jb-input-input-padding</code></td><td>Size</td><td>Base native input padding.</td></tr>
+    <tr><td><code>--jb-input-input-padding-xs</code></td><td>Size</td><td>Native input padding for <code>size="xs"</code>.</td></tr>
+    <tr><td><code>--jb-input-input-padding-sm</code></td><td>Size</td><td>Native input padding for <code>size="sm"</code>.</td></tr>
+    <tr><td><code>--jb-input-input-padding-lg</code></td><td>Size</td><td>Native input padding for <code>size="lg"</code>.</td></tr>
+    <tr><td><code>--jb-input-input-padding-xl</code></td><td>Size</td><td>Native input padding for <code>size="xl"</code>.</td></tr>
+    <tr><td><code>--jb-input-placeholder-font-size</code></td><td>Size</td><td>Placeholder font size.</td></tr>
+    <tr><td><code>--jb-input-message-font-size</code></td><td>Size</td><td>Base message font size.</td></tr>
+    <tr><td><code>--jb-input-message-font-size-xs</code></td><td>Size</td><td>Message font size for <code>size="xs"</code>.</td></tr>
+    <tr><td><code>--jb-input-message-font-size-sm</code></td><td>Size</td><td>Message font size for <code>size="sm"</code>.</td></tr>
+    <tr><td><code>--jb-input-message-font-size-lg</code></td><td>Size</td><td>Message font size for <code>size="lg"</code>.</td></tr>
+    <tr><td><code>--jb-input-message-font-size-xl</code></td><td>Size</td><td>Message font size for <code>size="xl"</code>.</td></tr>
+    <tr><td><code>--jb-input-inline-slots-padding</code></td><td>Size</td><td>Base inline slot padding.</td></tr>
+    <tr><td><code>--jb-input-inline-slots-padding-xs</code></td><td>Size</td><td>Inline slot padding for <code>size="xs"</code>.</td></tr>
+    <tr><td><code>--jb-input-inline-slots-padding-sm</code></td><td>Size</td><td>Inline slot padding for <code>size="sm"</code>.</td></tr>
+    <tr><td><code>--jb-input-inline-slots-padding-lg</code></td><td>Size</td><td>Inline slot padding for <code>size="lg"</code>.</td></tr>
+    <tr><td><code>--jb-input-inline-slots-padding-xl</code></td><td>Size</td><td>Inline slot padding for <code>size="xl"</code>.</td></tr>
+    <tr><td><code>--jb-input-border-color</code></td><td>Theme/Color</td><td>Input border color.</td></tr>
+    <tr><td><code>--jb-input-border-color-focus</code></td><td>Theme/Color</td><td>Input border color while focused.</td></tr>
+    <tr><td><code>--jb-input-message-color</code></td><td>Theme/Color</td><td>Helper message color.</td></tr>
+    <tr><td><code>--jb-input-message-color-error</code></td><td>Theme/Color</td><td>Validation message color.</td></tr>
+    <tr><td><code>--jb-input-label-color</code></td><td>Theme/Color</td><td>Label color.</td></tr>
+    <tr><td><code>--jb-input-value-color</code></td><td>Theme/Color</td><td>Input value color.</td></tr>
+    <tr><td><code>--jb-input-value-color-disabled</code></td><td>Theme/Color</td><td>Input value color while disabled.</td></tr>
+    <tr><td><code>--jb-input-placeholder-color</code></td><td>Theme/Color</td><td>Placeholder color.</td></tr>
+    <tr><td><code>--jb-input-bg-color</code></td><td>Theme/Color</td><td>Input box background color.</td></tr>
+    <tr><td><code>--jb-input-bg-color-disabled</code></td><td>Theme/Color</td><td>Input box background color while disabled.</td></tr>
+    <tr><td><code>--jb-input-margin</code></td><td>Other</td><td>Host margin.</td></tr>
+    <tr><td><code>--jb-input-label-font-weight</code></td><td>Other</td><td>Label font weight.</td></tr>
+    <tr><td><code>--jb-input-box-margin</code></td><td>Other</td><td>Input box margin.</td></tr>
+    <tr><td><code>--jb-input-box-overflow</code></td><td>Other</td><td>Input box overflow.</td></tr>
+    <tr><td><code>--jb-input-box-shadow</code></td><td>Other</td><td>Input box shadow.</td></tr>
+    <tr><td><code>--jb-input-box-shadow-focus</code></td><td>Other</td><td>Input box shadow while focused.</td></tr>
+    <tr><td><code>--jb-input-input-text-align</code></td><td>Other</td><td>Native input text alignment.</td></tr>
+    <tr><td><code>--jb-input-input-direction</code></td><td>Other</td><td>Native input text direction.</td></tr>
+    <tr><td><code>--jb-input-input-font-weight</code></td><td>Other</td><td>Native input font weight.</td></tr>
+    <tr><td><code>--jb-input-message-box-display</code></td><td>Other</td><td>Message box display value.</td></tr>
+  </tbody>
+</table>
+
+## Style Recipes
+
+### Carbon
+
+<Story of={StyleStories.Carbon} />
+
+<Source of={StyleStories.Carbon} />
+
+Shared style:
+
+<Source code={carbonThemeCss} language="css" />
+
+Input style:
+
+<Source code={carbonInputCss} language="css" />
+
+### Aurora
+
+<Story of={StyleStories.Aurora} />
+
+<Source of={StyleStories.Aurora} />
+
+Shared style:
+
+<Source code={auroraThemeCss} language="css" />
+
+Input style:
+
+<Source code={auroraInputCss} language="css" />
+
+### Forest
+
+<Story of={StyleStories.Forest} />
+
+<Source of={StyleStories.Forest} />
+
+Shared style:
+
+<Source code={forestThemeCss} language="css" />
+
+Input style:
+
+<Source code={forestInputCss} language="css" />
+
+### Sunset
+
+<Story of={StyleStories.Sunset} />
+
+<Source of={StyleStories.Sunset} />
+
+Shared style:
+
+<Source code={sunsetThemeCss} language="css" />
+
+Input style:
+
+<Source code={sunsetInputCss} language="css" />
+
+### Porcelain
+
+<Story of={StyleStories.Porcelain} />
+
+<Source of={StyleStories.Porcelain} />
+
+Shared style:
+
+<Source code={porcelainThemeCss} language="css" />
+
+Input style:
+
+<Source code={porcelainInputCss} language="css" />
+
+### Candy
+
+<Story of={StyleStories.Candy} />
+
+<Source of={StyleStories.Candy} />
+
+Shared style:
+
+<Source code={candyThemeCss} language="css" />
+
+Input style:
+
+<Source code={candyInputCss} language="css" />
+
+### Terminal
+
+<Story of={StyleStories.Terminal} />
+
+<Source of={StyleStories.Terminal} />
+
+Shared style:
+
+<Source code={terminalThemeCss} language="css" />
+
+Input style:
+
+<Source code={terminalInputCss} language="css" />
+
+### Material
+
+<Story of={StyleStories.Material} />
+
+<Source of={StyleStories.Material} />
+
+Shared style:
+
+<Source code={materialThemeCss} language="css" />
+
+Input style:
+
+<Source code={materialInputCss} language="css" />
+
+### Fluent
+
+<Story of={StyleStories.Fluent} />
+
+<Source of={StyleStories.Fluent} />
+
+Shared style:
+
+<Source code={fluentThemeCss} language="css" />
+
+Input style:
+
+<Source code={fluentInputCss} language="css" />
+
+### Bootstrap
+
+<Story of={StyleStories.Bootstrap} />
+
+<Source of={StyleStories.Bootstrap} />
+
+Shared style:
+
+<Source code={bootstrapThemeCss} language="css" />
+
+Input style:
+
+<Source code={bootstrapInputCss} language="css" />
+
+### Cupertino
+
+<Story of={StyleStories.Cupertino} />
+
+<Source of={StyleStories.Cupertino} />
+
+Shared style:
+
+<Source code={cupertinoThemeCss} language="css" />
+
+Input style:
+
+<Source code={cupertinoInputCss} language="css" />
+
+### Ant Design
+
+<Story of={StyleStories.AntDesign} />
+
+<Source of={StyleStories.AntDesign} />
+
+Shared style:
+
+<Source code={antDesignThemeCss} language="css" />
+
+Input style:
+
+<Source code={antDesignInputCss} language="css" />
+
+## Theme File Pattern
+
+Use [Theme Colors](../../jb-core/theme/stories/colors.mdx) and [Theme Sizes](../../jb-core/theme/stories/sizes.mdx) as the common design-token guides. Theme-pack files should keep reusable demo variables in [`docs/styles`](https://github.com/javadbat/design-system/tree/main/docs/styles), then each component should keep its own style CSS in its story [`styles`](https://github.com/javadbat/design-system/tree/main/modules/jb-input/stories/styles) folder.
+
+```css
+/* https://github.com/javadbat/design-system/blob/main/docs/styles/carbon.css */
+.theme-name-style {
+  /* shared design-system variables */
+}
+
+/* https://github.com/javadbat/design-system/blob/main/modules/jb-input/stories/styles/style-carbon.css */
+.theme-name-input {
+  /* input-specific variables and official parts */
+}
+```
+
+This keeps common theme tokens reusable and lets each component page show only the CSS it needs.

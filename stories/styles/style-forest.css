@@ -1,0 +1,33 @@
+jb-date-input.forest-style,
+jb-time-input.forest-style,
+jb-input.forest-style {
+    --jb-input-bg-color: var(--jb-surface);
+    --jb-input-bg-color-disabled: var(--jb-background);
+    --jb-input-border-color: var(--jb-border-color);
+    --jb-input-border-color-focus: var(--jb-focus-color);
+    --jb-input-border-radius: 0.75rem;
+    --jb-input-border-width: 1px;
+    --jb-input-border-bottom-width: 1px;
+    --jb-input-border-bottom-width-focus: 2px;
+    --jb-input-box-shadow-focus: 0 0 0 0.25rem oklch(84% 0.13 90 / 0.18);
+    --jb-input-label-color: var(--jb-text-primary);
+    --jb-input-label-font-weight: 600;
+    --jb-input-value-color: var(--jb-text-primary);
+    --jb-input-value-color-disabled: var(--jb-text-disabled);
+    --jb-input-placeholder-color: var(--jb-text-secondary);
+    --jb-input-message-color: var(--jb-text-secondary);
+    --jb-input-message-color-error: #ffb26b;
+}
+
+
+jb-date-input.forest-style::part(message),
+jb-time-input.forest-style::part(message),
+jb-input.forest-style::part(message) {
+    color: var(--jb-success);
+}
+
+jb-input.forest-style:state(invalid),
+jb-date-input.forest-style:state(invalid),
+jb-time-input.forest-style:state(invalid) {
+    --jb-input-message-color-error: #ffb26b;
+}

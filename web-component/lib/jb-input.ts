@@ -94,7 +94,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     //do not write any logic or task here this function will be overrides by other inputs like mobile input or payment input 
     this.#setValue(value, "SET_VALUE");
   }
-  #setValue(value: string, eventType: ValueSetterEventType) {
+  #setValue(value: string | null, eventType: ValueSetterEventType) {
     if (value === null || value === undefined) {
       value = "";
     }
