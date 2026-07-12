@@ -110,6 +110,11 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.elements.input.value = valueOnj.displayValue;
   }
   initialValue = "";
+  formResetCallback() {
+    this.value = this.initialValue;
+    this.#validation.reset();
+    this.#internals?.setValidity({}, '');
+  }
   get isDirty(): boolean {
     return this.#value.value !== this.initialValue;
   }

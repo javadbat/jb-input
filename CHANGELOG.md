@@ -4,6 +4,7 @@
 
 ### Added
 
+- Added the standard `formResetCallback()` to restore `initialValue` and clear validation state.
 - Added a Storybook styling guide with reusable style recipes for Carbon, Aurora, Forest, Sunset, Porcelain, Candy, Terminal, Material, Fluent, Bootstrap, Cupertino, and Ant Design examples.
 - Added `disabled` and `invalid` custom states plus the full public CSS variable list to the custom elements manifest.
 
