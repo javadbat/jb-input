@@ -4,16 +4,8 @@
     width: var(--width);
 }
 
-:host(:focus),
-:host(:focus-visible) {
-    outline: none;
-}
-
 .jb-input-web-component {
     width: 100%;
-    &:focus-visible {
-        outline: none;
-    }
     label {
         width: 100%;
         margin: var(--label-margin);
@@ -40,6 +32,10 @@
         grid-template-columns: auto 1fr auto;
         grid-template-rows: minmax(0, 1fr);
         box-shadow: var(--box-shadow);
+        &:has(input:focus-visible) {
+            outline: 2px solid var(--jb-input-focus-ring-color, Highlight);
+            outline-offset: 2px;
+        }
         &:focus-within {
             border-width: var(--border-width-focus);
             border-bottom-width: var(--border-bottom-width-focus);
@@ -62,9 +58,6 @@
             direction: var(--input-direction);
             font-weight: var(--input-font-weight);
             cursor: inherit;
-            &:focus {
-                outline: none;
-            }
             &::placeholder {
                 color: var(--placeholder-color);
                 font-size: var(--placeholder-font-size);

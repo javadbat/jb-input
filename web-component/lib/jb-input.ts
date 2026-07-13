@@ -46,6 +46,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   #required = false;
   set required(value: boolean) {
     this.#required = value;
+    this.elements.input.required = value;
+    if (this.#internals) this.#internals.ariaRequired = value ? "true" : "false";
     this.#checkValidity(false);
   }
   get required() {
@@ -419,6 +421,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
  */
   showValidationError(error: ShowValidationErrorParameters) {
     this.elements.messageBox.innerHTML = error.message;
+    this.elements.input.setAttribute("aria-invalid", "true");
+    this.elements.input.setAttribute("aria-errormessage", "message");
     //invalid state is used for ui purpose
     this.#internals.states?.add("invalid");
     this.#internals.ariaInvalid = "true"
@@ -430,6 +434,8 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   clearValidationError() {
     const text = this.getAttribute("message") || "";
     this.elements.messageBox.innerHTML = text;
+    this.elements.input.setAttribute("aria-invalid", "false");
+    this.elements.input.removeAttribute("aria-errormessage");
     this.#internals.states?.delete("invalid");
     this.#internals.ariaInvalid = "false"
   }
