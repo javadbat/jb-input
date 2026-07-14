@@ -333,6 +333,8 @@ we have `label`, `input-box`, `input`, `message` as a supported **part** in our 
 
 For complete styling guidance, live examples, official parts and states, and the full CSS variable reference, see [Styling](https://javadbat.github.io/design-system/?path=/docs/components-form-elements-inputs-jbinput-styling).
 
+The default and `xs`, `sm`, `lg`, and `xl` input heights inherit the matching `--jb-control-height-*` theme tokens. Set `--jb-input-height` or a size-specific `--jb-input-height-*` variable when one input needs a component-level override.
+
 ## Related Docs
 - see [jb-input/react](https://github.com/javadbat/jb-input/tree/main/react) if you want to use this component in react.
 

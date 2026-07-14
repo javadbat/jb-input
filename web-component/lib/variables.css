@@ -1,7 +1,7 @@
 :host {
   /* Size */
   --width: var(--jb-input-width, 100%);
-  --height: var(--jb-input-height, 2.5rem);
+  --height: var(--jb-input-height, var(--jb-control-height-md, 2.5rem));
   --border-radius: var(--jb-input-border-radius, var(--jb-radius));
   --border-width: var(--jb-input-border-width, 1px);
   --border-bottom-width: var(--jb-input-border-bottom-width, 3px);
@@ -52,7 +52,7 @@
 
 /* Size */
 :host([size="xs"]) {
-  --height: var(--jb-input-height-xs, 1.5rem);
+  --height: var(--jb-input-height-xs, var(--jb-control-height-xs, 1.5rem));
   --value-font-size: var(--jb-input-value-font-size-xs, 0.75rem);
   --label-font-size: var(--jb-input-label-font-size-xs, 0.6rem);
   /*0.7 - (0.0875 *2) */
@@ -64,7 +64,7 @@
 }
 
 :host([size="sm"]) {
-  --height: var(--jb-input-height-sm, 2rem);
+  --height: var(--jb-input-height-sm, var(--jb-control-height-sm, 2rem));
   --value-font-size: var(--jb-input-value-font-size-sm, 0.875rem);
   --label-font-size: var(--jb-input-label-font-size-sm, 0.7rem);
   --message-font-size: var(--jb-input-message-font-size-sm, 0.6125rem);
@@ -74,7 +74,7 @@
 }
 
 :host([size="lg"]) {
-  --height: var(--jb-input-height-lg, 3rem);
+  --height: var(--jb-input-height-lg, var(--jb-control-height-lg, 3rem));
   --value-font-size: var(--jb-input-value-font-size-lg, 1.125rem);
   --label-font-size: var(--jb-input-label-font-size-lg, 0.9rem);
   /*0.7 + 0.0875*/
@@ -85,7 +85,7 @@
 }
 
 :host([size="xl"]) {
-  --height: var(--jb-input-height-xl, 4rem);
+  --height: var(--jb-input-height-xl, var(--jb-control-height-xl, 4rem));
   --value-font-size: var(--jb-input-value-font-size-xl, 1.25rem);
   --label-font-size: var(--jb-input-label-font-size-xl, 1rem);
   --message-font-size: var(--jb-input-message-font-size-xl, 0.875rem);

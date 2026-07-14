@@ -10,6 +10,7 @@
 
 ### Changed
 
+- Input heights now inherit the shared `--jb-control-height-*` theme tokens for each size while preserving `--jb-input-height*` as the component-level override.
 - Added the React `initialValue` prop and forwarded `value` and `initialValue` directly as React 19 custom-element properties.
 - Breaking: renamed `--jb-input-bgcolor` to `--jb-input-bg-color`.
 - Breaking: renamed `--jb-input-message-error-color` to `--jb-input-message-color-error`.
