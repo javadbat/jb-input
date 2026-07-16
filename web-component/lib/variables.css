@@ -15,6 +15,7 @@
   --input-padding: var(--jb-input-input-padding, 0.125rem 0.75rem 0 0.75rem);
   --placeholder-font-size: var(--jb-input-placeholder-font-size, var(--value-font-size));
   --message-font-size: var(--jb-input-message-font-size, 0.7rem);
+  --message-padding: var(--jb-input-message-padding, 0.125rem var(--inline-space));
   --inline-slots-padding: var(--jb-input-inline-slots-padding, 0.375rem 0.625rem);
   /* Colors */
   --border-color: var(--jb-input-border-color, var(--jb-neutral-10));

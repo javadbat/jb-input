@@ -18,6 +18,8 @@ jb-input.aurora-style {
     --jb-input-placeholder-color: var(--jb-text-secondary);
     --jb-input-message-color: var(--jb-text-secondary);
     --jb-input-message-color-error: #ff8fb8;
+    --jb-input-label-margin: 0 0 0.375rem;
+    --jb-input-message-padding: 0.375rem 0 0;
 }
 
 jb-date-input.aurora-style::part(label),

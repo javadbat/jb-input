@@ -17,6 +17,8 @@ jb-input.forest-style {
     --jb-input-placeholder-color: var(--jb-text-secondary);
     --jb-input-message-color: var(--jb-text-secondary);
     --jb-input-message-color-error: #ffb26b;
+    --jb-input-label-margin: 0 0 0.375rem;
+    --jb-input-message-padding: 0.375rem 0 0;
 }
 
 

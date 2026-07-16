@@ -17,6 +17,8 @@ jb-input.cupertino-style {
     --jb-input-placeholder-color: #8e8e93;
     --jb-input-message-color: var(--jb-text-secondary);
     --jb-input-message-color-error: var(--jb-success);
+    --jb-input-label-margin: 0 0 0.375rem;
+    --jb-input-message-padding: 0.375rem 0 0;
 }
 
 

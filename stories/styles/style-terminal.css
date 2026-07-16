@@ -17,6 +17,8 @@ jb-input.terminal-style {
     --jb-input-placeholder-color: var(--jb-text-secondary);
     --jb-input-message-color: var(--jb-text-secondary);
     --jb-input-message-color-error: #ff5f56;
+    --jb-input-label-margin: 0 0 0.375rem;
+    --jb-input-message-padding: 0.375rem 0 0;
     --jb-input-input-font-weight: 600;
 }
 

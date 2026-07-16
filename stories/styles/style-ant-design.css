@@ -17,6 +17,8 @@ jb-input.ant-design-style {
     --jb-input-placeholder-color: #8c8c8c;
     --jb-input-message-color: var(--jb-text-secondary);
     --jb-input-message-color-error: #ff4d4f;
+    --jb-input-label-margin: 0 0 0.375rem;
+    --jb-input-message-padding: 0.375rem 0 0;
 }
 
 jb-date-input.ant-design-style::part(label),

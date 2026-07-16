@@ -17,6 +17,8 @@ jb-input.material-style {
     --jb-input-placeholder-color: #5f6368;
     --jb-input-message-color: var(--jb-text-secondary);
     --jb-input-message-color-error: #d93025;
+    --jb-input-label-margin: 0 0 0.375rem;
+    --jb-input-message-padding: 0.375rem 0 0;
 }
 
 

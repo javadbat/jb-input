@@ -32,10 +32,6 @@
         grid-template-columns: auto 1fr auto;
         grid-template-rows: minmax(0, 1fr);
         box-shadow: var(--box-shadow);
-        &:has(input:focus-visible) {
-            outline: 2px solid var(--jb-input-focus-ring-color, Highlight);
-            outline-offset: 2px;
-        }
         &:focus-within {
             border-width: var(--border-width-focus);
             border-bottom-width: var(--border-bottom-width-focus);
@@ -97,7 +93,7 @@
     }
     .message-box {
         font-size: var(--message-font-size);
-        padding: 0.125rem var(--inline-space);
+        padding: var(--message-padding);
         color: var(--message-color);
         display: var(--message-box-display);
         &:empty {
