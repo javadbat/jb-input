@@ -30,6 +30,17 @@
   ],
   "main": "index.js",
   "types": "./web-component/dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./web-component/dist/index.d.ts",
+      "default": "./index.js"
+    },
+    "./react": {
+      "types": "./react/dist/JBInput.d.ts",
+      "default": "./react/index.js"
+    },
+    "./*": "./*"
+  },
   "customElements": "web-component/custom-elements.json",
   "sideEffects": true,
   "repository": {
