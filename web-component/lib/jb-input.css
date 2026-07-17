@@ -54,6 +54,9 @@
             direction: var(--input-direction);
             font-weight: var(--input-font-weight);
             cursor: inherit;
+            &:focus-visible{
+                outline: none;
+            }
             &::placeholder {
                 color: var(--placeholder-color);
                 font-size: var(--placeholder-font-size);
