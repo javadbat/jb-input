@@ -3,6 +3,7 @@ jb-time-input.candy-style,
 jb-input.candy-style{
     --jb-input-bg-color: var(--jb-background);
     --jb-input-bg-color-disabled: var(--jb-surface);
+    --jb-input-height: 2.5rem;
     --jb-input-border-color: var(--jb-border-color);
     --jb-input-border-color-focus: var(--jb-focus-color);
     --jb-input-border-radius: 2rem;
@@ -10,9 +11,9 @@ jb-input.candy-style{
     --jb-input-border-bottom-width: 1px;
     --jb-input-border-bottom-width-focus: 1px;
     --jb-input-inline-space: 1rem;
-    --jb-input-box-shadow-focus: 0 0 0 0.25rem oklch(67% 0.22 345 / 0.2);
+    --jb-input-box-shadow-focus: 0 0 0 0.1875rem oklch(67% 0.22 345 / 0.18);
     --jb-input-label-color: var(--jb-text-primary);
-    --jb-input-label-font-weight: 700;
+    --jb-input-label-font-weight: 600;
     --jb-input-value-color: var(--jb-text-primary);
     --jb-input-value-color-disabled: var(--jb-text-disabled);
     --jb-input-placeholder-color: var(--jb-text-secondary);
@@ -22,12 +23,15 @@ jb-input.candy-style{
     --jb-input-message-padding: 0.375rem 0 0;
 }
 jb-date-input.candy-style::part(label),
-jb-date-input.candy-style::part(message),
 jb-time-input.candy-style::part(label),
+jb-input.candy-style::part(label) {
+    font-weight: 600;
+}
+
+jb-date-input.candy-style::part(message),
 jb-time-input.candy-style::part(message),
-jb-input.candy-style::part(label),
 jb-input.candy-style::part(message) {
-    font-weight: 700;
+    font-weight: 500;
 }
 jb-input.candy-style:state(invalid),
 jb-date-input.candy-style:state(invalid),

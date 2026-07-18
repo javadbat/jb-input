@@ -3,6 +3,7 @@ jb-time-input.ant-design-style,
 jb-input.ant-design-style {
     --jb-input-bg-color: var(--jb-surface);
     --jb-input-bg-color-disabled: var(--jb-background);
+    --jb-input-height: 2rem;
     --jb-input-border-color: #d9d9d9;
     --jb-input-border-color-focus: var(--jb-focus-color);
     --jb-input-border-radius: 0.375rem;
@@ -11,20 +12,25 @@ jb-input.ant-design-style {
     --jb-input-border-bottom-width-focus: 1px;
     --jb-input-box-shadow-focus: 0 0 0 0.125rem oklch(58% 0.2 255 / 0.16);
     --jb-input-label-color: var(--jb-text-primary);
-    --jb-input-label-font-weight: 500;
+    --jb-input-label-font-size: 0.875rem;
+    --jb-input-label-font-weight: 400;
+    --jb-input-value-font-size: 0.875rem;
+    --jb-input-placeholder-font-size: 0.875rem;
+    --jb-input-message-font-size: 0.75rem;
+    --jb-input-input-padding: 0.25rem 0.6875rem;
     --jb-input-value-color: var(--jb-text-primary);
     --jb-input-value-color-disabled: var(--jb-text-disabled);
     --jb-input-placeholder-color: #8c8c8c;
     --jb-input-message-color: var(--jb-text-secondary);
     --jb-input-message-color-error: #ff4d4f;
-    --jb-input-label-margin: 0 0 0.375rem;
-    --jb-input-message-padding: 0.375rem 0 0;
+    --jb-input-label-margin: 0 0 0.25rem;
+    --jb-input-message-padding: 0.25rem 0 0;
 }
 
 jb-date-input.ant-design-style::part(label),
 jb-time-input.ant-design-style::part(label),
 jb-input.ant-design-style::part(label){
-    font-weight: 500;
+    font-weight: 400;
 }
 
 jb-input.ant-design-style:state(invalid),

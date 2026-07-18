@@ -6,12 +6,12 @@ jb-input.carbon-style {
     --jb-input-border-color: var(--jb-border-color);
     --jb-input-border-color-focus: var(--jb-primary);
     --jb-input-border-radius: 0;
-    --jb-input-border-width: 1px;
+    --jb-input-border-width: 0;
     --jb-input-border-bottom-width: 1px;
     --jb-input-border-bottom-width-focus: 2px;
-    --jb-input-box-shadow-focus: 0 0 0 1px var(--jb-primary);
+    --jb-input-box-shadow-focus: inset 0 0 0 2px var(--jb-focus-color);
     --jb-input-label-color: var(--jb-text-primary);
-    --jb-input-label-font-weight: 600;
+    --jb-input-label-font-weight: 400;
     --jb-input-value-color: var(--jb-text-contrast);
     --jb-input-value-color-disabled: #8d8d8d;
     --jb-input-placeholder-color: #8d8d8d;
@@ -27,12 +27,14 @@ jb-time-input.carbon-style::part(label),
 jb-time-input.carbon-style::part(message),
 jb-input.carbon-style::part(label),
 jb-input.carbon-style::part(message) {
-    text-transform: uppercase;
-    letter-spacing: 0;
+    text-transform: none;
+    letter-spacing: 0.01em;
 }
 
 jb-input.carbon-style:state(invalid),
 jb-date-input.carbon-style:state(invalid),
 jb-time-input.carbon-style:state(invalid) {
     --jb-input-border-color: #fa4d56;
+    --jb-input-border-color-focus: #fa4d56;
+    --jb-input-box-shadow-focus: inset 0 0 0 2px rgb(250 77 86 / 0.24);
 }
