@@ -1,5 +1,6 @@
 jb-date-input.carbon-style,
 jb-time-input.carbon-style,
+jb-payment-input.carbon-style,
 jb-input.carbon-style {
     --jb-input-bg-color: var(--jb-surface);
     --jb-input-bg-color-disabled: var(--jb-surface-hover);
@@ -25,12 +26,15 @@ jb-date-input.carbon-style::part(label),
 jb-date-input.carbon-style::part(message),
 jb-time-input.carbon-style::part(label),
 jb-time-input.carbon-style::part(message),
+jb-payment-input.carbon-style::part(label),
+jb-payment-input.carbon-style::part(message),
 jb-input.carbon-style::part(label),
 jb-input.carbon-style::part(message) {
     text-transform: none;
     letter-spacing: 0.01em;
 }
 
+jb-payment-input.carbon-style:state(invalid),
 jb-input.carbon-style:state(invalid),
 jb-date-input.carbon-style:state(invalid),
 jb-time-input.carbon-style:state(invalid) {

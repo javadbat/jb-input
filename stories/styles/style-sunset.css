@@ -1,5 +1,6 @@
 jb-date-input.sunset-style,
 jb-time-input.sunset-style,
+jb-payment-input.sunset-style,
 jb-input.sunset-style {
     --jb-input-bg-color: var(--jb-surface);
     --jb-input-bg-color-disabled: var(--jb-background);
@@ -26,11 +27,14 @@ jb-date-input.sunset-style::part(label),
 jb-date-input.sunset-style::part(message),
 jb-time-input.sunset-style::part(label),
 jb-time-input.sunset-style::part(message),
+jb-payment-input.sunset-style::part(label),
+jb-payment-input.sunset-style::part(message),
 jb-input.sunset-style::part(label),
 jb-input.sunset-style::part(message) {
     text-shadow: 0 0.4rem 1rem oklch(0% 0 0 / 0.2);
 }
 
+jb-payment-input.sunset-style:state(invalid),
 jb-input.sunset-style:state(invalid),
 jb-date-input.sunset-style:state(invalid),
 jb-time-input.sunset-style:state(invalid) {

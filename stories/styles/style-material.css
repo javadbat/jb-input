@@ -1,5 +1,6 @@
 jb-date-input.material-style,
 jb-time-input.material-style,
+jb-payment-input.material-style,
 jb-input.material-style {
     --jb-input-height: 3rem;
     --jb-input-bg-color: var(--jb-surface);
@@ -28,10 +29,12 @@ jb-input.material-style {
 
 jb-date-input.material-style::part(label),
 jb-time-input.material-style::part(label),
+jb-payment-input.material-style::part(label),
 jb-input.material-style::part(label) {
     font-weight: 500;
 }
 
+jb-payment-input.material-style:state(invalid),
 jb-input.material-style:state(invalid),
 jb-date-input.material-style:state(invalid),
 jb-time-input.material-style:state(invalid) {

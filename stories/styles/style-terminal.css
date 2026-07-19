@@ -1,5 +1,6 @@
 jb-date-input.terminal-style,
 jb-time-input.terminal-style,
+jb-payment-input.terminal-style,
 jb-input.terminal-style {
     --jb-input-bg-color: var(--jb-surface);
     --jb-input-bg-color-disabled: var(--jb-background);
@@ -29,12 +30,16 @@ jb-date-input.terminal-style::part(message),
 jb-time-input.terminal-style::part(label),
 jb-time-input.terminal-style::part(input),
 jb-time-input.terminal-style::part(message),
+jb-payment-input.terminal-style::part(label),
+jb-payment-input.terminal-style::part(input),
+jb-payment-input.terminal-style::part(message),
 jb-input.terminal-style::part(label),
 jb-input.terminal-style::part(input),
 jb-input.terminal-style::part(message) {
     font-family: Consolas, "Courier New", monospace;
 }
 
+jb-payment-input.terminal-style:state(invalid),
 jb-input.terminal-style:state(invalid),
 jb-date-input.terminal-style:state(invalid),
 jb-time-input.terminal-style:state(invalid) {
