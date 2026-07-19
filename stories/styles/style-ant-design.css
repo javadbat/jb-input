@@ -1,5 +1,6 @@
 jb-date-input.ant-design-style,
 jb-time-input.ant-design-style,
+jb-number-input.ant-design-style,
 jb-payment-input.ant-design-style,
 jb-input.ant-design-style {
     --jb-input-bg-color: var(--jb-surface);
@@ -30,11 +31,13 @@ jb-input.ant-design-style {
 
 jb-date-input.ant-design-style::part(label),
 jb-time-input.ant-design-style::part(label),
+jb-number-input.ant-design-style::part(label),
 jb-payment-input.ant-design-style::part(label),
 jb-input.ant-design-style::part(label){
     font-weight: 400;
 }
 
+jb-number-input.ant-design-style:state(invalid),
 jb-payment-input.ant-design-style:state(invalid),
 jb-input.ant-design-style:state(invalid),
 jb-date-input.ant-design-style:state(invalid),

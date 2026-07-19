@@ -1,5 +1,6 @@
 jb-date-input.forest-style,
 jb-time-input.forest-style,
+jb-number-input.forest-style,
 jb-payment-input.forest-style,
 jb-input.forest-style {
     --jb-input-bg-color: var(--jb-surface);
@@ -25,11 +26,13 @@ jb-input.forest-style {
 
 jb-date-input.forest-style::part(message),
 jb-time-input.forest-style::part(message),
+jb-number-input.forest-style::part(message),
 jb-payment-input.forest-style::part(message),
 jb-input.forest-style::part(message) {
     color: var(--jb-success);
 }
 
+jb-number-input.forest-style:state(invalid),
 jb-payment-input.forest-style:state(invalid),
 jb-input.forest-style:state(invalid),
 jb-date-input.forest-style:state(invalid),

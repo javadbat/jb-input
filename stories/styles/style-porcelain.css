@@ -1,5 +1,6 @@
 jb-date-input.porcelain-style,
 jb-time-input.porcelain-style,
+jb-number-input.porcelain-style,
 jb-payment-input.porcelain-style,
 jb-input.porcelain-style {
     --jb-input-bg-color: var(--jb-surface);
@@ -25,11 +26,13 @@ jb-input.porcelain-style {
 
 jb-date-input.porcelain-style::part(message),
 jb-time-input.porcelain-style::part(message),
+jb-number-input.porcelain-style::part(message),
 jb-payment-input.porcelain-style::part(message),
 jb-input.porcelain-style::part(message) {
     color: var(--jb-primary-pressed);
 }
 
+jb-number-input.porcelain-style:state(invalid),
 jb-payment-input.porcelain-style:state(invalid),
 jb-input.porcelain-style:state(invalid),
 jb-date-input.porcelain-style:state(invalid),

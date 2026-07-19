@@ -1,5 +1,6 @@
 jb-date-input.bootstrap-style,
 jb-time-input.bootstrap-style,
+jb-number-input.bootstrap-style,
 jb-payment-input.bootstrap-style,
 jb-input.bootstrap-style {
     --jb-input-bg-color: var(--jb-surface);
@@ -25,11 +26,13 @@ jb-input.bootstrap-style {
 
 jb-date-input.bootstrap-style::part(label),
 jb-time-input.bootstrap-style::part(label),
+jb-number-input.bootstrap-style::part(label),
 jb-payment-input.bootstrap-style::part(label),
 jb-input.bootstrap-style::part(label) {
     font-weight: 500;
 }
 
+jb-number-input.bootstrap-style:state(invalid),
 jb-payment-input.bootstrap-style:state(invalid),
 jb-input.bootstrap-style:state(invalid),
 jb-date-input.bootstrap-style:state(invalid),

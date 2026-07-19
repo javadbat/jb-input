@@ -1,5 +1,6 @@
 jb-date-input.fluent-style,
 jb-time-input.fluent-style,
+jb-number-input.fluent-style,
 jb-payment-input.fluent-style,
 jb-input.fluent-style {
     --jb-input-height: 2.25rem;
@@ -27,11 +28,13 @@ jb-input.fluent-style {
 
 jb-date-input.fluent-style::part(label),
 jb-time-input.fluent-style::part(label),
+jb-number-input.fluent-style::part(label),
 jb-payment-input.fluent-style::part(label),
 jb-input.fluent-style::part(label) {
     font-weight: 600;
 }
 
+jb-number-input.fluent-style:state(invalid),
 jb-payment-input.fluent-style:state(invalid),
 jb-input.fluent-style:state(invalid),
 jb-date-input.fluent-style:state(invalid),

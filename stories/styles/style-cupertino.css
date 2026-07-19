@@ -1,5 +1,6 @@
 jb-date-input.cupertino-style,
 jb-time-input.cupertino-style,
+jb-number-input.cupertino-style,
 jb-payment-input.cupertino-style,
 jb-input.cupertino-style {
     --jb-input-bg-color: var(--jb-surface);
@@ -25,11 +26,13 @@ jb-input.cupertino-style {
 
 jb-date-input.cupertino-style::part(input-box),
 jb-time-input.cupertino-style::part(input-box),
+jb-number-input.cupertino-style::part(input-box),
 jb-payment-input.cupertino-style::part(input-box),
 jb-input.cupertino-style::part(input-box) {
     backdrop-filter: blur(0.75rem);
 }
 
+jb-number-input.cupertino-style:state(disabled)::part(label),
 jb-payment-input.cupertino-style:state(disabled)::part(label),
 jb-input.cupertino-style:state(disabled)::part(label),
 jb-date-input.cupertino-style:state(disabled)::part(label),
