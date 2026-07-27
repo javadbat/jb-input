@@ -44,13 +44,13 @@ export const JBInput = forwardRef((props: Props, ref) => {
     error,
     inputmode,
     autocomplete,
-    value: value?.toString() ?? "",
     initialValue: initialValue?.toString() ?? "",
   }
+  const valueProps = value === undefined ? {} : { value: value?.toString() ?? "" };
   useJBInputEvents(element, { onBeforeinput, onBlur, onChange, onEnter, onFocus, onInput, onKeydown, onKeyup });
   useJBInputAttribute(element, { disabled, required, validationList });
   return (
-    <jb-input ref={element} {...directProps} {...standardProps} >
+    <jb-input ref={element} {...directProps} {...valueProps} {...standardProps} >
       {props.children}
     </jb-input>
   );

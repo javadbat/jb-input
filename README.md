@@ -107,7 +107,7 @@ Use this section as a quick contract for the component. Some attributes and prop
 | --- | --- | --- | --- |
 | [`value`](#getset-value) | `string` | no | Canonical value submitted with forms and returned by `.value`. |
 | `displayValue` | `string` | yes | Value rendered in the inner input after standardization. It can differ from `value`. |
-| `initialValue` | `string` | no | Value used as the baseline for `isDirty`; default is `""`. |
+| `initialValue` | `string` | no | Default and reset value. It initializes `value` until the live value is explicitly set. |
 | `validation` | `ValidationHelper<JBInputValue>` | yes | Validation helper from `jb-validation`; set `validation.list` for custom rules. |
 | `disabled` | `boolean` | no | Enables or disables the component. |
 | [`required`](#required-validation) | `boolean` | no | Enables required validation. |

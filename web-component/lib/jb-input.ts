@@ -94,6 +94,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   //do not call it from inside and use #setValue in inside
   set value(value: string) {
     //do not write any logic or task here this function will be overrides by other inputs like mobile input or payment input 
+    this.#isDirty = true;
     this.#setValue(value, "SET_VALUE");
   }
   #setValue(value: string | null, eventType: ValueSetterEventType) {
@@ -103,6 +104,17 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const standardValue = this.standardValue(value, eventType);
     this.#setValueByObject(standardValue);
   }
+  /**
+   * Re-applies a value after an internal configuration change without treating
+   * that reformatting as a consumer-provided live value.
+   */
+  protected setValueFromInternal(value: string | null, eventType: ValueSetterEventType = "SET_VALUE") {
+    // Some formatters change the canonical domain as well as presentation
+    // (CARD -> SHABA, for example). Transform the reset baseline with the same
+    // configuration so reset and isDirty keep comparing equivalent values.
+    this.#initialValue = this.standardValue(this.#initialValue, eventType).value;
+    this.#setValue(value, eventType);
+  }
   #setValueByObject(valueOnj: JBInputValue) {
     this.#value = valueOnj;
     //comment for typescript problem
@@ -111,9 +123,25 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     }
     this.elements.input.value = valueOnj.displayValue;
   }
-  initialValue = "";
+  #initialValue = "";
+  // Tracks whether the live value has been explicitly set. This is separate
+  // from the public isDirty comparison against initialValue.
+  #isDirty = false;
+  get initialValue() {
+    return this.#initialValue;
+  }
+  set initialValue(value: string) {
+    // Keep the reset baseline in the same canonical form as the live value.
+    // Derived inputs may remove separators or convert Persian digits here.
+    const standardValue = this.standardValue(value ?? "", "SET_VALUE");
+    this.#initialValue = standardValue.value;
+    if (!this.#isDirty) {
+      this.#setValueByObject(standardValue);
+    }
+  }
   formResetCallback() {
-    this.value = this.initialValue;
+    this.#isDirty = false;
+    this.#setValue(this.initialValue, "SET_VALUE");
     this.#validation.reset();
     this.#internals?.setValidity({}, '');
   }
@@ -234,7 +262,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
   initProp() {
     const valueAttribute = this.getAttribute("value");
     if (valueAttribute !== null) {
-      this.#setValue(valueAttribute, "SET_VALUE");
+      this.value = valueAttribute;
     }
   }
   static get observedAttributes(): string[] {
@@ -289,7 +317,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         }
         break;
       case "value":
-        this.#setValue(value, "SET_VALUE");
+        this.value = value;
         break;
 
       case "placeholder":
@@ -357,6 +385,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const inputText = (e.target as HTMLInputElement).value;
     const target = (e.target as HTMLInputElement);
     //to standard value again
+    this.#isDirty = true;
     this.#setValue(inputText, "INPUT");
     //if user type in middle of text we will return the caret position to the middle of text because this.value = inputText will move caret to end
     if (endCaretPos !== inputText.length) {
@@ -393,11 +422,14 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     const inputText = (e.target as HTMLInputElement).value;
     //here is the rare  time we update value directly because we want trigger event that may read value directly from dom
     const oldValue = this.#value;
+    const wasDirty = this.#isDirty;
+    this.#isDirty = true;
     this.#setValue(inputText, "CHANGE");
     this.#checkValidity(true);
     const isCanceled = this.#dispatchOnChangeEvent(e);
     if (isCanceled) {
       this.#value = oldValue;
+      this.#isDirty = wasDirty;
       e.preventDefault();
     }
   }

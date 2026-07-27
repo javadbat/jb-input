@@ -42,6 +42,98 @@ export const DirectValueProperties: Story = {
   },
 };
 
+export const InitialValue: Story = {
+  render: (args) => {
+    const formRef = useRef<HTMLFormElement>(null);
+    return (
+      <form ref={formRef}>
+        <JBInput {...args} />
+        <JBButton onClick={() => formRef.current?.reset()}>Reset</JBButton>
+      </form>
+    );
+  },
+  args: {
+    label: 'initial value',
+    initialValue: 'initial value',
+  },
+  play: async ({ canvasElement }) => {
+    const input = getInput(canvasElement);
+    const nativeInput = getNativeInput(input);
+    const resetButton = canvasElement.querySelector('jb-button')?.shadowRoot?.querySelector<HTMLButtonElement>('button');
+
+    expect(resetButton).toBeTruthy();
+
+    await waitFor(() => {
+      expect(input.value).toBe('initial value');
+      expect(input.initialValue).toBe('initial value');
+      expect(nativeInput.value).toBe('initial value');
+      expect(input.isDirty).toBe(false);
+    });
+
+    // Use the public setter because this story verifies live-value precedence;
+    // keyboard editing behavior is covered by the dedicated interaction stories.
+    input.value = 'changed value';
+
+    await waitFor(() => {
+      expect(input.value).toBe('changed value');
+      expect(input.isDirty).toBe(true);
+    });
+
+    input.initialValue = 'reset value';
+
+    await waitFor(() => {
+      expect(input.initialValue).toBe('reset value');
+      expect(input.value).toBe('changed value');
+      expect(input.isDirty).toBe(true);
+    });
+
+    await userEvent.click(resetButton!);
+
+    await waitFor(() => {
+      expect(input.value).toBe('reset value');
+      expect(input.initialValue).toBe(input.value);
+      expect(nativeInput.value).toBe('reset value');
+      expect(input.isDirty).toBe(false);
+    });
+
+    input.value = 'second changed value';
+    input.initialValue = 'second reset value';
+
+    await waitFor(() => {
+      expect(input.initialValue).toBe('second reset value');
+      expect(input.value).toBe('second changed value');
+      expect(nativeInput.value).toBe('second changed value');
+      expect(input.isDirty).toBe(true);
+    });
+
+    await userEvent.click(resetButton!);
+
+    await waitFor(() => {
+      expect(input.value).toBe('second reset value');
+      expect(input.initialValue).toBe(input.value);
+      expect(nativeInput.value).toBe('second reset value');
+      expect(input.isDirty).toBe(false);
+    });
+  },
+};
+
+export const ExplicitNullValueDoesNotFallBackToInitialValue: Story = {
+  args: {
+    initialValue: 'initial value',
+    value: null,
+  },
+  play: async ({ canvasElement }) => {
+    const input = getInput(canvasElement);
+    const nativeInput = getNativeInput(input);
+
+    await waitFor(() => {
+      expect(input.value).toBe('');
+      expect(nativeInput.value).toBe('');
+      expect(input.isDirty).toBe(true);
+    });
+  },
+};
+
 
 
 export const Required: Story = {
