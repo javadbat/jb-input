@@ -145,6 +145,9 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     this.#validation.reset();
     this.#internals?.setValidity({}, '');
   }
+  formDisabledCallback(disabled: boolean) {
+    this.disabled = disabled;
+  }
   get isDirty(): boolean {
     return this.#value.value !== this.initialValue;
   }
