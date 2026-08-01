@@ -11,7 +11,7 @@ import type {
   SupportedState,
 } from "./types";
 import { renderHTML } from "./render";
-import { createInputEvent, createKeyboardEvent, listenAndSilentEvent } from "jb-core";
+import { createInputEvent, createKeyboardEvent, listenAndSilentEvent, parseBooleanAttribute } from "jb-core";
 import { registerDefaultVariables } from 'jb-core/theme';
 import { getRequiredMessage, i18n } from 'jb-core/i18n';
 export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue>, JBFormInputStandards<string> {
@@ -62,7 +62,7 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
  */
   get isAutoValidationDisabled(): boolean {
     //currently we only support disable-validation in attribute and only in initiate time but later we can add support for change of this 
-    return !!(this.getAttribute('disable-auto-validation') === '' || this.getAttribute('disable-auto-validation') === 'true' );
+    return parseBooleanAttribute(this.getAttribute('disable-auto-validation'));
   }
   #checkValidity(showError: boolean) {
     if (!this.isAutoValidationDisabled) {
@@ -328,15 +328,10 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
         this.#internals.ariaPlaceholder = value;
         break;
       case "disabled":
-        if (value === "" || value === "true") {
-          this.disabled = true;
-        } else if (value === "false" || value == null || value === undefined) {
-          this.disabled = false;
-          this.elements.input.removeAttribute("disabled");
-        }
+        this.disabled = parseBooleanAttribute(value);
         break;
       case "required":
-        this.required = (!!value || value === '') && value !== 'false';
+        this.required = parseBooleanAttribute(value);
         break;
       case "error":
         //to check error and show or clear error message base on error attribute
