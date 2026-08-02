@@ -21,7 +21,7 @@ text input `react component` with these benefits:
 
 - extendable so you can create your own custom input based on jb-input like [jb-number-input](https://github.com/javadbat/jb-number-input).
 
-Demo: [codeSandbox preview](https://3f63dj.csb.app/samples/jb-input) for just see the demo and [codeSandbox editor](https://codesandbox.io/p/sandbox/jb-design-system-3f63dj?file=%2Fsrc%2Fsamples%2FJBInput.tsx) if you want to see and play with code
+Try the [interactive component examples](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--overview), read the [React API docs](https://javadbat.github.io/design-system/?path=/docs/components-form-elements-inputs-jbinput-react-readme--docs), or open the [CodeSandbox preview](https://3f63dj.csb.app/samples/jb-input) and [editor](https://codesandbox.io/p/sandbox/jb-design-system-3f63dj?file=%2Fsrc%2Fsamples%2FJBInput.tsx).
 
 ## When to use
 
@@ -60,21 +60,22 @@ import {JBInput} from 'jb-input/react';
 
 | prop | type | description |
 | --- | --- | --- |
-| `value` | `string \| number \| null \| undefined` | Controlled value. `null` and `undefined` are normalized to an empty string. |
-| `label` | `string` | Visible label text and accessible label. |
-| `message` | `string` | Helper text shown under the input when no validation error is visible. |
-| `placeholder` | `string` | Placeholder text. |
+| `value` | `string \| number \| null \| undefined` | Controlled value. `null` and `undefined` are normalized to an empty string. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--test-actions) |
+| `label` | `string` | Visible label text and accessible label. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--normal) |
+| `message` | `string` | Helper text shown under the input when no validation error is visible. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--normal) |
+| `placeholder` | `string` | Placeholder text. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-placeholder) |
 | `name` | `string` | Form field name. |
 | `type` | `string` | Native input type forwarded to the inner input. |
-| `inputmode` | `string` | Native inputmode value such as `numeric`, `decimal`, `email`, `url`, or `search`. |
+| `inputmode` | `string` | Native inputmode value such as `numeric`, `decimal`, `email`, `url`, or `search`. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--custom-mobile-keyboard) |
 | `autocomplete` | `string` | Native autocomplete value. |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | Visual size variant. |
-| `disabled` | `boolean` | Disables the input. |
-| `required` | `boolean \| string` | Enables required validation. A string is used as the required error message. |
-| `error` | `string` | External validation error message. |
-| `validationList` | `ValidationItem<ValidationValue>[]` | Custom validation rules from `jb-validation`. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | Visual size variant. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--size-variants) |
+| `disabled` | `boolean` | Disables the input. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--disabled) |
+| `required` | `boolean \| string` | Enables required validation. A string is used as the required error message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--required-with-custom-message) |
+| `error` | `string` | External validation error message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-error) |
+| `validationList` | `ValidationItem<ValidationValue>[]` | Custom validation rules from `jb-validation`. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--validation-list) |
 
 ## Events
+[Input, change, keyboard, and focus events](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--test-actions) · [Enter event](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--on-enter-test)
 ```jsx
     //when default property are defined best time for impl your config
     <JBInput onInit={(event) => {}}></JBInput>
@@ -96,11 +97,22 @@ import {JBInput} from 'jb-input/react';
     <JBInput onBeforeinput={(event) => console.log(event.target.value)}></JBInput>
 ```
 
+## get/set value
+
+Use the controlled `value` prop for runtime updates. For imperative reads and writes, keep a ref to `JBInput`; the wrapper exposes the same `value`, `initialValue`, `displayValue`, and `isDirty` properties as the web component. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--direct-value-properties)
+
+## required validation
+
+Set `required` to `true` for the default message or pass a string for a custom message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--required-with-custom-message)
+
+## external error
+
+Use the `error` prop when a form library or server response owns the validation message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-error)
+
 
 
 ## set validation
-
-you can set validation to your input by creating a validationList array and passing in to validationList props:
+You can set validation to your input by creating a validationList array and passing in to validationList props. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--validation-list)
 
 ``` javascript
     const validationList = [
@@ -120,8 +132,7 @@ you can set validation to your input by creating a validationList array and pass
 ```
 
 ## check validation
-
-you can check if an input value meet your validation standard by creating a ref of the element using `React.createRef()`.
+You can check if an input value meet your validation standard by creating a ref of the element using `React.createRef()`. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--required-with-custom-message)
 ```javascript
     const elementRef = React.createRef();
     const isValid = elementRef.current.checkValidity();
@@ -134,6 +145,22 @@ if you want to show your own error message (you may get it from tanstack form or
 
 ```jsx
 <JBInput error="your own error message"></JBInput>
+```
+
+## intercept user input
+
+For value standardization, register `addStandardValueCallback` through a ref. The callback can return separate canonical and display values; the [standardization demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--standard-value-callback) filters non-numeric input as you type.
+
+```tsx
+import type { JBInputWebComponent } from 'jb-input';
+
+const inputRef = useRef<JBInputWebComponent>(null);
+useEffect(() => {
+  inputRef.current?.addStandardValueCallback((text) => {
+    const value = text.replace(/\D/g, '');
+    return { value, displayValue: value };
+  });
+}, []);
 ```
 
 ## other props
@@ -152,12 +179,10 @@ if you want to show your own error message (you may get it from tanstack form or
 
 
 ## set custom style
-
-since jb-input-react use jb-input underneath, read [jb-input](https://github.com/javadbat/jb-input) custom style section.
+Since `jb-input-react` uses `jb-input` underneath, read the shared [web-component styling guidance](../README.md#css-parts-and-states) and browse the [styling guide](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput-styling--docs).
 
 ## add custom element in input box
-
-in JBInput you can put icon or any other custom html DOM in input box. to doing so you just have to place custom DOM in JBInput tag and add `slot="start-section"` or `slot="end-section"` to place it before or after input field. 
+In JBInput you can put icon or any other custom html DOM in input box. to doing so you just have to place custom DOM in JBInput tag and add `slot="start-section"` or `slot="end-section"` to place it before or after input field. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-start-and-end-section)
 
 ``` javascript
 <JBInput>
@@ -166,7 +191,12 @@ in JBInput you can put icon or any other custom html DOM in input box. to doing 
 </JBInput>
 ```
 
+## Slots
+
+Use `slot="start-section"` and `slot="end-section"` for adornments around the native input. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-start-and-end-section)
+
 ## CSS parts and states
+The React wrapper exposes the same styling contract shown in the [web-component CSS parts demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput-style--gallery).
 
 The React wrapper exposes the same CSS parts, custom states, and variables as `jb-input`. Use `::part(...)` and CSS variables on the React component class name.
 
@@ -186,7 +216,7 @@ Set `label` whenever the field does not already have an external accessible labe
 
 ## Shared Documentation
 
-For web-component behavior, events, slots, and CSS variables, see [`jb-input`](https://github.com/javadbat/jb-input).
+For web-component behavior, events, slots, and CSS variables, see the shared [`jb-input` documentation](../README.md).
 
 ## Related Docs
 - see [jb-input](https://github.com/javadbat/jb-input) if you want to use this component as a pure-js web-component

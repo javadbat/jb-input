@@ -40,11 +40,12 @@ Do not use `jb-input` for multi-line text; use `jb-textarea` instead.
 
 ## Demo
 
-- [codepen](https://codepen.io/javadbat/pen/dyNwddd)
-- [storybook](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput)
+[Try the interactive examples](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--overview) or [open the CodePen](https://codepen.io/javadbat/pen/dyNwddd).
 
 ## Using With JS Frameworks
 <a href="https://github.com/javadbat/jb-input/tree/main/react" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/React.js-jb--input%2Freact-000.svg?logo=react&logoColor=%2361DAFB" height="30" /></a>
+
+See the [React API and examples](https://javadbat.github.io/design-system/?path=/docs/components-form-elements-inputs-jbinput-react-readme--docs).
 
 Other integrations: <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#angular" target="_blank" rel="noopener noreferrer">Angular</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#vue" target="_blank" rel="noopener noreferrer">Vue</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#nuxt" target="_blank" rel="noopener noreferrer">Nuxt</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#svelte" target="_blank" rel="noopener noreferrer">Svelte</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#sveltekit" target="_blank" rel="noopener noreferrer">SvelteKit</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#solidjs" target="_blank" rel="noopener noreferrer">SolidJS</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#lit" target="_blank" rel="noopener noreferrer">Lit</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#nextjs" target="_blank" rel="noopener noreferrer">Next.js</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#astro" target="_blank" rel="noopener noreferrer">Astro</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#blazor" target="_blank" rel="noopener noreferrer">Blazor</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#server-rendered-templates" target="_blank" rel="noopener noreferrer">Server-rendered templates</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#wordpress" target="_blank" rel="noopener noreferrer">WordPress</a> · <a href="https://javadbat.github.io/design-system/?path=/docs/getting-started-framework-integration--docs#alpinejs-and-htmx" target="_blank" rel="noopener noreferrer">Alpine.js and HTMX</a>
 
@@ -85,33 +86,33 @@ Use this section as a quick contract for the component. Some attributes and prop
 
 | name | type | default | description |
 | --- | --- | --- | --- |
-| [`value`](#getset-value) | `string` | `""` | Initial value attribute. Prefer the `value` property for programmatic updates. |
-| `label` | `string` | `""` | Visible label text and accessible aria label. |
-| `message` | `string` | `""` | Helper text shown under the input when no validation error is visible. |
+| [`value`](#getset-value) | `string` | `""` | Initial value attribute. Prefer the `value` property for programmatic updates. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--direct-value-properties) |
+| `label` | `string` | `""` | Visible label text and accessible aria label. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--normal) |
+| `message` | `string` | `""` | Helper text shown under the input when no validation error is visible. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--normal) |
 | `name` | `string` | `""` | Form field name. Also forwarded to the inner native input. |
 | `type` | `string` | browser default | Native input type. If set to `number`, `inputmode` becomes `numeric` when no `inputmode` is provided. |
-| `placeholder` | `string` | `""` | Placeholder text forwarded to the inner native input. |
+| `placeholder` | `string` | `""` | Placeholder text forwarded to the inner native input. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-placeholder) |
 | `autocomplete` | `string` | browser default | Native autocomplete value forwarded to the inner input. |
 | `inputmode` | `string` | browser default | Native inputmode value such as `text`, `numeric`, `decimal`, `email`, `url`, or `search`. |
 | `virtualkeyboardpolicy` | `string` | browser default | Forwarded to the inner native input. |
 | `readonly` | `boolean` | `false` | Forwarded to the inner native input. |
-| `disabled` | `boolean` | `false` | Disables the input and sets the `disabled` custom state. |
-| [`required`](#required-validation) | `boolean \| string` | `false` | Enables required validation. A string value is used as the required error message. |
-| [`error`](#external-error) | `string` | `""` | External validation error message. |
+| `disabled` | `boolean` | `false` | Disables the input and sets the `disabled` custom state. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--disabled) |
+| [`required`](#required-validation) | `boolean \| string` | `false` | Enables required validation. A string value is used as the required error message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--required-with-custom-message) |
+| [`error`](#external-error) | `string` | `""` | External validation error message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-error) |
 | `disable-auto-validation` | `boolean` | `false` | Stops automatic validation on input and blur when set to `true` or an empty attribute. |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `md` style defaults | Visual size variant. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `md` style defaults | Visual size variant. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--size-variants) |
 
 ### Properties
 
 | name | type | readonly | description |
 | --- | --- | --- | --- |
-| [`value`](#getset-value) | `string` | no | Canonical value submitted with forms and returned by `.value`. |
-| `displayValue` | `string` | yes | Value rendered in the inner input after standardization. It can differ from `value`. |
-| `initialValue` | `string` | no | Default and reset value. It initializes `value` until the live value is explicitly set. |
+| [`value`](#getset-value) | `string` | no | Canonical value submitted with forms and returned by `.value`. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--direct-value-properties) |
+| `displayValue` | `string` | yes | Value rendered in the inner input after standardization. It can differ from `value`. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--standard-value-callback) |
+| `initialValue` | `string` | no | Default and reset value. It initializes `value` until the live value is explicitly set. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--initial-value) |
 | `validation` | `ValidationHelper<JBInputValue>` | yes | Validation helper from `jb-validation`; set `validation.list` for custom rules. |
-| `disabled` | `boolean` | no | Enables or disables the component. |
+| `disabled` | `boolean` | no | Enables or disables the component. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--disabled) |
 | [`required`](#required-validation) | `boolean` | no | Enables required validation. |
-| `isDirty` | `boolean` | yes | `true` when current `value` differs from `initialValue`. |
+| `isDirty` | `boolean` | yes | `true` when current `value` differs from `initialValue`. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--initial-value) |
 | `selectionStart` | `number \| null` | no | Forwarded to the inner input. |
 | `selectionEnd` | `number \| null` | no | Forwarded to the inner input. |
 | `selectionDirection` | `'forward' \| 'backward' \| 'none' \| null` | no | Forwarded to the inner input. |
@@ -121,14 +122,14 @@ Use this section as a quick contract for the component. Some attributes and prop
 
 | name | returns | description |
 | --- | --- | --- |
-| `checkValidity()` | `boolean` | Runs validation without showing the error message. Dispatches `invalid` when invalid. |
-| `reportValidity()` | `boolean` | Runs validation and shows the first error message. Dispatches `invalid` when invalid. |
-| `focus()` | `void` | Focuses the inner native input. |
+| `checkValidity()` | `boolean` | Runs validation without showing the error message. Dispatches `invalid` when invalid. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--required-with-custom-message) |
+| `reportValidity()` | `boolean` | Runs validation and shows the first error message. Dispatches `invalid` when invalid. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--validation-list) |
+| `focus()` | `void` | Focuses the inner native input. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--test-actions) |
 | `setSelectionRange(start, end, direction?)` | `void` | Forwards `setSelectionRange` to the inner input. |
-| [`addStandardValueCallback(callback)`](#intercept-user-input) | `void` | Adds a value standardization callback that can change `value` and `displayValue`. |
+| [`addStandardValueCallback(callback)`](#intercept-user-input) | `void` | Adds a value standardization callback that can change `value` and `displayValue`. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--standard-value-callback) |
 
 ## get/set value
-Like normal native input you can get/set value like below or use html attribute.
+Like normal native input you can get/set value like below or use html attribute. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--direct-value-properties)
 
 The `value` attribute is useful for the initial value in markup. For runtime updates, use the `value` property. `jb-input` also supports value standardization, so the visible `displayValue` can be different from the submitted `.value`.
 
@@ -144,8 +145,7 @@ document.querySelector('jb-input').value = "new string";
 ```
 
 ## required validation
-
-Use `required` with no value for the default required message:
+Use `required` with no value for the default required message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--required-with-custom-message)
 
 ```html
 <jb-input label="Username" required></jb-input>
@@ -158,8 +158,7 @@ Use `required="message"` when the required error text must be customized:
 ```
 
 ## external error
-
-Use the `error` attribute when validation is controlled outside of `jb-input`, for example by a form library or server response. The component observes this attribute and updates its validation UI when the value changes.
+Use the `error` attribute when validation is controlled outside of `jb-input`, for example by a form library or server response. The component observes this attribute and updates its validation UI when the value changes. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-error)
 
 ```html
 <jb-input label="Username" error="This username is already taken"></jb-input>
@@ -168,6 +167,7 @@ Use the `error` attribute when validation is controlled outside of `jb-input`, f
 Clear the external error by removing the attribute or setting it to an empty value.
 
 ## Events
+The interaction story covers input, change, keyboard, and focus events; see the [Enter event demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--on-enter-test) for submit-on-Enter behavior. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--test-actions)
 
 | event | cancelable | when it fires | value access |
 | --- | --- | --- | --- |
@@ -199,8 +199,7 @@ input.addEventListener('enter', (event) => {
 ```
 
 ## set validation
-
-jb-input use [jb-validation](https://github.com/javadbat/jb-validation) inside to handle validation. so for more information you can read [jb-validation](https://github.com/javadbat/jb-validation) documentation.  
+jb-input use [jb-validation](https://github.com/javadbat/jb-validation) inside to handle validation. so for more information you can read [jb-validation](https://github.com/javadbat/jb-validation) documentation. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--validation-list)
 for simple usage you can set validation to your input:
 
 ```js
@@ -232,8 +231,7 @@ const result = document.querySelector('jb-input').validation.addValidationListGe
 ```
 
 ## check validation
-
-Like any other jb design system you can access validation by `validation` property:
+Like any other jb design system you can access validation by `validation` property. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--validation-list)
 
 ```js
 //access validation module
@@ -249,8 +247,7 @@ const result = document.querySelector('jb-input').reportValidity()
 
 ```
 ## intercept user input
-
-I don't recommend this in most cases but sometimes you need to change what user input in the text field or prevent user from typing or paste the wrong value into the field in this scenario we have a tools to let you do this. to doing so just register a interceptor function like this:
+I don't recommend this in most cases but sometimes you need to change what user input in the text field or prevent user from typing or paste the wrong value into the field in this scenario we have a tools to let you do this. The [standardization demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--standard-value-callback) filters non-numeric input; to use your own rule, register an interceptor function like this:
 
 ```ts
 input.addStandardValueCallback((inputtedString:string, oldValue:JBInputValue, prevResult:JBInputValue):JBInputValue=>{
@@ -277,8 +274,8 @@ if you want something more than just simple input please check this components t
 
 | slot | description | example use |
 | --- | --- | --- |
-| `start-section` | Content rendered before the native input. | search icon, currency prefix, country code |
-| `end-section` | Content rendered after the native input. | clear button, visibility toggle, unit suffix |
+| `start-section` | Content rendered before the native input. | search icon, currency prefix, country code. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-start-section) |
+| `end-section` | Content rendered after the native input. | clear button, visibility toggle, unit suffix. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-end-section) |
 
 ```html
 <jb-input label="Amount" inputmode="decimal">
@@ -288,6 +285,7 @@ if you want something more than just simple input please check this components t
 ```
 
 ## CSS parts and states
+The [style gallery](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput-style--gallery) shows the available visual treatments.
 
 | part | description |
 | --- | --- |
@@ -311,8 +309,7 @@ if you want something more than just simple input please check this components t
 - The shadow root uses `delegatesFocus`, so focusing `<jb-input>` focuses the inner native input.
 
 ### set custom style
-
-you have 2 way to customize style,
+You have two ways to customize the component; compare them in the [styling guide](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput-styling--docs).
 
 1. using selectors like`:states` or `::part` selector
 ```css

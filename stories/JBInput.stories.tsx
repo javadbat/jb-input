@@ -319,6 +319,40 @@ export const testActions: Story = {
   }
 };
 
+export const StandardValueCallback: Story = {
+  render: () => {
+    const input = useRef<JBInputWebComponent>(null);
+
+    useEffect(() => {
+      input.current?.addStandardValueCallback((inputtedString) => {
+        const digitsOnly = inputtedString.replace(/\D/g, '');
+        return { value: digitsOnly, displayValue: digitsOnly };
+      });
+    }, []);
+
+    return (
+      <JBInput
+        ref={input}
+        label="Digits only"
+        message="The callback removes non-numeric characters while you type."
+        placeholder="Type letters and numbers"
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const input = getInput(canvasElement);
+    const nativeInput = getNativeInput(input);
+
+    await userEvent.type(nativeInput, '12ab3');
+
+    await waitFor(() => {
+      expect(input.value).toBe('123');
+      expect(input.displayValue).toBe('123');
+      expect(nativeInput.value).toBe('123');
+    });
+  },
+};
+
 export const OnEnterTest: Story = {
   args: {
     label: "enter test",
