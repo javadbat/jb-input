@@ -14,7 +14,7 @@ jb-input.carbon-style {
     --jb-input-box-shadow-focus: inset 0 0 0 2px var(--jb-focus-color);
     --jb-input-label-color: var(--jb-text-primary);
     --jb-input-label-font-weight: 400;
-    --jb-input-value-color: var(--jb-text-contrast);
+    --jb-input-value-color: var(--jb-text-inverse);
     --jb-input-value-color-disabled: #8d8d8d;
     --jb-input-placeholder-color: #8d8d8d;
     --jb-input-message-color: var(--jb-text-secondary);
