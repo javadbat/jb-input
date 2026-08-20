@@ -1,3 +1,4 @@
+import { defineWebComponent, JBBaseComponent, createInputEvent, createKeyboardEvent, listenAndSilentEvent, parseBooleanAttribute } from "jb-core";
 import CSS from "./jb-input.css";
 import VariablesCSS from "./variables.css";
 import { type ValidationItem, type ValidationResult, type WithValidation, ValidationHelper, type ShowValidationErrorParameters } from 'jb-validation';
@@ -11,10 +12,9 @@ import type {
   SupportedState,
 } from "./types";
 import { renderHTML } from "./render";
-import { createInputEvent, createKeyboardEvent, listenAndSilentEvent, parseBooleanAttribute } from "jb-core";
 import { registerDefaultVariables } from 'jb-core/theme';
 import { getRequiredMessage, i18n } from 'jb-core/i18n';
-export class JBInputWebComponent extends HTMLElement implements WithValidation<ValidationValue>, JBFormInputStandards<string> {
+export class JBInputWebComponent extends JBBaseComponent implements WithValidation<ValidationValue>, JBFormInputStandards<string> {
   static get formAssociated() {
     return true;
   }
@@ -546,7 +546,4 @@ export class JBInputWebComponent extends HTMLElement implements WithValidation<V
     return this.#internals.validationMessage;
   }
 }
-const myElementNotExists = !customElements.get("jb-input");
-if (myElementNotExists) {
-  window.customElements.define("jb-input", JBInputWebComponent);
-}
+defineWebComponent("jb-input", JBInputWebComponent);
