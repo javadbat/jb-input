@@ -547,3 +547,9 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
   }
 }
 defineWebComponent("jb-input", JBInputWebComponent);
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "jb-input": JBInputWebComponent;
+  }
+}
