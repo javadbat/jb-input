@@ -45,7 +45,7 @@
   "sideEffects": true,
   "repository": {
 		"type": "git",
-		"url": "git@github.com:javadbat/jb-input.git"
+		"url": "https://github.com/javadbat/jb-input.git"
   },
   "dependencies": {
     "jb-validation": "^1.0.0",
