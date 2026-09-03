@@ -23,14 +23,14 @@
   --label-color: var(--jb-input-label-color, var(--jb-content-primary));
   --value-color: var(--jb-input-value-color, var(--jb-content-primary));
   --placeholder-color: var(--jb-input-placeholder-color, var(--jb-neutral-6));
-  --input-box-bg-color: var(--jb-input-bg-color, var(--jb-surface-secondary));
+  --control-bg-color: var(--jb-input-bg-color, var(--jb-surface-secondary));
   /* Other */
   --margin: var(--jb-input-margin, 0 0);
   --label-font-weight: var(--jb-input-label-font-weight, 300);
-  --box-margin: var(--jb-input-box-margin, 0px);
-  --box-overflow: var(--jb-input-box-overflow, hidden);
-  --box-shadow: var(--jb-input-box-shadow, none);
-  --box-shadow-focus: var(--jb-input-box-shadow-focus, none);
+  --box-margin: var(--jb-control-margin, 0px);
+  --box-overflow: var(--jb-control-overflow, hidden);
+  --box-shadow: var(--jb-control-shadow, none);
+  --box-shadow-focus: var(--jb-control-shadow-focus, none);
   --input-text-align: var(--jb-input-input-text-align, initial);
   --input-direction: var(--jb-input-input-direction, inherit);
   --input-font-weight: var(--jb-input-input-font-weight, initial);
@@ -43,7 +43,7 @@
 
 :host(:state(disabled)) {
   cursor: not-allowed;
-  --input-box-bg-color: var(--jb-input-bg-color-disabled, hsl(from var(--jb-surface-secondary) h 12% 66.1));
+  --control-bg-color: var(--jb-input-bg-color-disabled, hsl(from var(--jb-surface-secondary) h 12% 66.1));
   --value-color: var(--jb-input-value-color-disabled, var(--jb-neutral-3));
 }
 

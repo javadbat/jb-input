@@ -124,6 +124,7 @@ Use this section as a quick contract for the component. Some attributes and prop
 | --- | --- | --- |
 | `checkValidity()` | `boolean` | Runs validation without showing the error message. Dispatches `invalid` when invalid. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--required-with-custom-message) |
 | `reportValidity()` | `boolean` | Runs validation and shows the first error message. Dispatches `invalid` when invalid. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--validation-list) |
+| `reset()` | `void` | Restores `initialValue` and clears displayed validation. |
 | `focus()` | `void` | Focuses the inner native input. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--test-actions) |
 | `setSelectionRange(start, end, direction?)` | `void` | Forwards `setSelectionRange` to the inner input. |
 | [`addStandardValueCallback(callback)`](#intercept-user-input) | `void` | Adds a value standardization callback that can change `value` and `displayValue`. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--standard-value-callback) |
@@ -274,13 +275,13 @@ if you want something more than just simple input please check this components t
 
 | slot | description | example use |
 | --- | --- | --- |
-| `start-section` | Content rendered before the native input. | search icon, currency prefix, country code. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-start-section) |
-| `end-section` | Content rendered after the native input. | clear button, visibility toggle, unit suffix. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-end-section) |
+| `inline-start` | Content rendered before the native input. | search icon, currency prefix, country code. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-inline-start) |
+| `inline-end` | Content rendered after the native input. | clear button, visibility toggle, unit suffix. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-inline-end) |
 
 ```html
 <jb-input label="Amount" inputmode="decimal">
-  <span slot="start-section">$</span>
-  <span slot="end-section">USD</span>
+  <span slot="inline-start">$</span>
+  <span slot="inline-end">USD</span>
 </jb-input>
 ```
 
@@ -290,7 +291,7 @@ The [style gallery](https://javadbat.github.io/design-system/?path=/story/compon
 | part | description |
 | --- | --- |
 | `label` | The label element. |
-| `input-box` | The wrapper around the slots and inner input. |
+| `control` | The wrapper around the slots and inner input. |
 | `input` | The inner native input. |
 | `message` | The helper or validation message element. |
 
@@ -319,14 +320,14 @@ jb-input::part(label){
 jb-input:states(invalid)::part(label){
   color:red;
 }
-jb-input:states(invalid)::part(input-box){
+jb-input:states(invalid)::part(control){
   border-color:red;
 }
 jb-input:states(disabled)::part(input){
   cursor:not-allowed;
 }
 ```
-we have `label`, `input-box`, `input`, `message` as a supported **part** in our component. you can also combine them with `disabled`, `invalid` **states** for different style in different states.
+we have `label`, `control`, `input`, `message` as a supported **part** in our component. you can also combine them with `disabled`, `invalid` **states** for different style in different states.
 
 2. using CSS variable
 

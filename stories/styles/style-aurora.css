@@ -12,8 +12,8 @@ jb-input.aurora-style {
     --jb-input-border-width: 1px;
     --jb-input-border-bottom-width: 1px;
     --jb-input-border-bottom-width-focus: 1px;
-    --jb-input-box-shadow: inset 0 0 0 1px oklch(100% 0 0 / 0.04);
-    --jb-input-box-shadow-focus: 0 0 0 0.1875rem oklch(83% 0.11 185 / 0.18);
+    --jb-control-shadow: inset 0 0 0 1px oklch(100% 0 0 / 0.04);
+    --jb-control-shadow-focus: 0 0 0 0.1875rem oklch(83% 0.11 185 / 0.18);
     --jb-input-label-color: var(--jb-content-primary);
     --jb-input-label-font-weight: 600;
     --jb-input-value-color: var(--jb-content-primary);
@@ -38,6 +38,6 @@ jb-payment-input.aurora-style:state(invalid),
 jb-input.aurora-style:state(invalid),
 jb-date-input.aurora-style:state(invalid),
 jb-time-input.aurora-style:state(invalid) {
-    --jb-input-box-shadow: 0 0 0 0.1875rem oklch(70% 0.16 350 / 0.18);
-    --jb-input-box-shadow-focus: 0 0 0 0.1875rem oklch(70% 0.16 350 / 0.18);
+    --jb-control-shadow: 0 0 0 0.1875rem oklch(70% 0.16 350 / 0.18);
+    --jb-control-shadow-focus: 0 0 0 0.1875rem oklch(70% 0.16 350 / 0.18);
 }

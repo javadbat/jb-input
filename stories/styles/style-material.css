@@ -13,7 +13,7 @@ jb-input.material-style {
     --jb-input-border-bottom-width: 1px;
     --jb-input-border-width-focus: 2px;
     --jb-input-border-bottom-width-focus: 2px;
-    --jb-input-box-shadow-focus: none;
+    --jb-control-shadow-focus: none;
     --jb-input-label-color: var(--jb-content-secondary);
     --jb-input-label-font-weight: 500;
     --jb-input-label-font-size: 0.75rem;

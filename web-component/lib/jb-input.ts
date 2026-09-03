@@ -99,7 +99,8 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
   }
   #setValue(value: string | null, eventType: ValueSetterEventType) {
     if (value === null || value === undefined) {
-      value = "";
+      this.#clearValue(eventType);
+      return;
     }
     const standardValue = this.standardValue(value, eventType);
     this.#setValueByObject(standardValue);
@@ -117,11 +118,16 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
   }
   #setValueByObject(valueOnj: JBInputValue) {
     this.#value = valueOnj;
-    //comment for typescript problem
-    if (this.#internals && typeof this.#internals.setFormValue == "function") {
-      this.#internals.setFormValue(valueOnj.value);
-    }
+    this.#updateFormValue();
     this.elements.input.value = valueOnj.displayValue;
+  }
+  #clearValue(eventType: ValueSetterEventType = "SET_VALUE") {
+    this.#setValueByObject(this.standardValue("", eventType));
+  }
+  #updateFormValue() {
+    if (this.#internals && typeof this.#internals.setFormValue == "function") {
+      this.#internals.setFormValue(this.#value.value);
+    }
   }
   #initialValue = "";
   // Tracks whether the live value has been explicitly set. This is separate
@@ -139,11 +145,14 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
       this.#setValueByObject(standardValue);
     }
   }
-  formResetCallback() {
+  reset() {
     this.#isDirty = false;
     this.#setValue(this.initialValue, "SET_VALUE");
     this.#validation.reset();
     this.#internals?.setValidity({}, '');
+  }
+  formResetCallback() {
+    this.reset();
   }
   formDisabledCallback(disabled: boolean) {
     this.disabled = disabled;
@@ -214,13 +223,13 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
     registerDefaultVariables();
     this.#render();
     this.elements = {
-      input: shadowRoot.querySelector(".input-box input")!,
-      inputBox: shadowRoot.querySelector(".input-box")!,
+      input: shadowRoot.querySelector(".control input")!,
+      inputBox: shadowRoot.querySelector(".control")!,
       label: shadowRoot.querySelector("label")!,
       messageBox: shadowRoot.querySelector(".message-box")!,
       slots: {
-        startSection: shadowRoot.querySelector(".jb-input-start-section-wrapper slot")!,
-        endSection: shadowRoot.querySelector(".jb-input-end-section-wrapper slot")!
+        startSection: shadowRoot.querySelector(".jb-input-inline-start-wrapper slot")!,
+        endSection: shadowRoot.querySelector(".jb-input-inline-end-wrapper slot")!
       }
     };
     this.#registerEventListener();
@@ -256,7 +265,7 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
     this.elements.input.addEventListener("input", (e) => this.#onInputInput(e as InputEvent), { capture: false });
     this.elements.input.addEventListener("blur", () => this.#onInputBlur(), { capture: false, passive: true });
     //because keyboard event are composable and will scape from shadow dom we need to listen to them in document and stop their propagation
-    listenAndSilentEvent(this.elements.input, "keyup", this.#onInputKeyup.bind(this));
+    listenAndSilentEvent(this.elements.input, "keyup", this.#onInputKeyUp.bind(this));
     listenAndSilentEvent(this.elements.input, "keydown", this.#onInputKeyDown.bind(this));
     listenAndSilentEvent(this.elements.input, "keypress", this.#onInputKeyPress.bind(this));
     // by click on label input get focus
@@ -358,7 +367,7 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
     const event = createKeyboardEvent("keypress", e, { cancelable: false });
     this.dispatchEvent(event);
   }
-  #onInputKeyup(e: KeyboardEvent): void {
+  #onInputKeyUp(e: KeyboardEvent): void {
     this.#dispatchKeyupEvent(e);
     if (e.keyCode == 13) {
       this.#onInputEnter(e);
@@ -427,6 +436,7 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
     const isCanceled = this.#dispatchOnChangeEvent(e);
     if (isCanceled) {
       this.#value = oldValue;
+      this.#updateFormValue();
       this.#isDirty = wasDirty;
       e.preventDefault();
     }
@@ -544,6 +554,9 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
   }
   get validationMessage() {
     return this.#internals.validationMessage;
+  }
+  get validity() {
+    return this.#internals.validity;
   }
 }
 defineWebComponent("jb-input", JBInputWebComponent);

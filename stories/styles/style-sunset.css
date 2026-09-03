@@ -11,7 +11,7 @@ jb-input.sunset-style {
     --jb-input-border-width: 1px;
     --jb-input-border-bottom-width: 1px;
     --jb-input-border-bottom-width-focus: 2px;
-    --jb-input-box-shadow-focus: 0 0 0 0.25rem oklch(85% 0.14 75 / 0.18);
+    --jb-control-shadow-focus: 0 0 0 0.25rem oklch(85% 0.14 75 / 0.18);
     --jb-input-label-color: var(--jb-content-primary);
     --jb-input-label-font-weight: 700;
     --jb-input-value-color: var(--jb-content-primary);

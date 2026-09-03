@@ -11,7 +11,7 @@ jb-input.cupertino-style {
     --jb-input-border-width: 1px;
     --jb-input-border-bottom-width: 1px;
     --jb-input-border-bottom-width-focus: 1px;
-    --jb-input-box-shadow-focus: 0 0 0 0.25rem oklch(58% 0.2 255 / 0.18);
+    --jb-control-shadow-focus: 0 0 0 0.25rem oklch(58% 0.2 255 / 0.18);
     --jb-input-label-color: var(--jb-content-primary);
     --jb-input-label-font-weight: 500;
     --jb-input-value-color: var(--jb-content-primary);
@@ -24,11 +24,11 @@ jb-input.cupertino-style {
 }
 
 
-jb-date-input.cupertino-style::part(input-box),
-jb-time-input.cupertino-style::part(input-box),
-jb-number-input.cupertino-style::part(input-box),
-jb-payment-input.cupertino-style::part(input-box),
-jb-input.cupertino-style::part(input-box) {
+jb-date-input.cupertino-style::part(control),
+jb-time-input.cupertino-style::part(control),
+jb-number-input.cupertino-style::part(control),
+jb-payment-input.cupertino-style::part(control),
+jb-input.cupertino-style::part(control) {
     backdrop-filter: blur(0.75rem);
 }
 

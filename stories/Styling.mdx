@@ -64,7 +64,7 @@ Each example uses one shared example theme pack from [`docs/styles`](https://git
 2. Use host styles for layout context such as width and surrounding grid placement.
 3. Use common theme variables from [Theme Colors](../../jb-core/theme/stories/colors.mdx) and [Theme Sizes](../../jb-core/theme/stories/sizes.mdx) when the style should align with the design system.
 4. Put reusable theme-pack values in [`docs/styles`](https://github.com/javadbat/design-system/tree/main/docs/styles) only when they should be shared by multiple component demos.
-5. Use `::part(...)` only for official exposed parts such as `::part(label)`, `::part(input-box)`, `::part(input)`, and `::part(message)`.
+5. Use `::part(...)` only for official exposed parts such as `::part(label)`, `::part(control)`, `::part(input)`, and `::part(message)`.
 6. Add a new component variable only when a needed internal surface cannot be customized with the current public variables or official parts.
 
 ## Parts And States
@@ -79,7 +79,7 @@ Each example uses one shared example theme pack from [`docs/styles`](https://git
   </thead>
   <tbody>
     <tr><td><code>label</code></td><td>Label element</td><td>Use for label typography details beyond public label variables.</td></tr>
-    <tr><td><code>input-box</code></td><td>Wrapper around the start slot, input, and end slot</td><td>Use for border, focus, invalid, or disabled state accents.</td></tr>
+    <tr><td><code>control</code></td><td>Wrapper around the start slot, input, and end slot</td><td>Use for border, focus, invalid, or disabled state accents.</td></tr>
     <tr><td><code>input</code></td><td>Inner native input</td><td>Use for targeted native input styling.</td></tr>
     <tr><td><code>message</code></td><td>Helper or validation message element</td><td>Use for helper text and validation message emphasis.</td></tr>
   </tbody>
@@ -94,7 +94,7 @@ Each example uses one shared example theme pack from [`docs/styles`](https://git
     </tr>
   </thead>
   <tbody>
-    <tr><td><code>disabled</code></td><td>Applied when the input is disabled.</td><td><code>jb-input:state(disabled)::part(input-box)</code></td></tr>
+    <tr><td><code>disabled</code></td><td>Applied when the input is disabled.</td><td><code>jb-input:state(disabled)::part(control)</code></td></tr>
     <tr><td><code>invalid</code></td><td>Applied while validation error text is visible.</td><td><code>jb-input:state(invalid)::part(message)</code></td></tr>
   </tbody>
 </table>
@@ -165,10 +165,10 @@ Each example uses one shared example theme pack from [`docs/styles`](https://git
     <tr><td><code>--jb-input-bg-color-disabled</code></td><td>Theme/Color</td><td>Input box background color while disabled.</td></tr>
     <tr><td><code>--jb-input-margin</code></td><td>Other</td><td>Host margin.</td></tr>
     <tr><td><code>--jb-input-label-font-weight</code></td><td>Other</td><td>Label font weight.</td></tr>
-    <tr><td><code>--jb-input-box-margin</code></td><td>Other</td><td>Input box margin.</td></tr>
-    <tr><td><code>--jb-input-box-overflow</code></td><td>Other</td><td>Input box overflow.</td></tr>
-    <tr><td><code>--jb-input-box-shadow</code></td><td>Other</td><td>Input box shadow.</td></tr>
-    <tr><td><code>--jb-input-box-shadow-focus</code></td><td>Other</td><td>Input box shadow while focused.</td></tr>
+    <tr><td><code>--jb-control-margin</code></td><td>Other</td><td>Input box margin.</td></tr>
+    <tr><td><code>--jb-control-overflow</code></td><td>Other</td><td>Input box overflow.</td></tr>
+    <tr><td><code>--jb-control-shadow</code></td><td>Other</td><td>Input box shadow.</td></tr>
+    <tr><td><code>--jb-control-shadow-focus</code></td><td>Other</td><td>Input box shadow while focused.</td></tr>
     <tr><td><code>--jb-input-input-text-align</code></td><td>Other</td><td>Native input text alignment.</td></tr>
     <tr><td><code>--jb-input-input-direction</code></td><td>Other</td><td>Native input text direction.</td></tr>
     <tr><td><code>--jb-input-input-font-weight</code></td><td>Other</td><td>Native input font weight.</td></tr>

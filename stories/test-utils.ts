@@ -19,7 +19,7 @@ export function getMessageText(input: JBInputWebComponent) {
 }
 
 export function getInputBox(input: JBInputWebComponent) {
-  const inputBox = input.shadowRoot?.querySelector<HTMLDivElement>('.input-box');
+  const inputBox = input.shadowRoot?.querySelector<HTMLDivElement>('.control');
   expect(inputBox).toBeTruthy();
   return inputBox!;
 }

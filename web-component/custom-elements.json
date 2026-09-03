@@ -184,6 +184,10 @@
           ],
           "methods": [
             {
+              "name": "reset",
+              "description": "Restores initialValue and clears displayed validation."
+            },
+            {
               "name": "checkValidity",
               "description": "Runs validation without showing the error message and returns whether the input is valid.",
               "return": {
@@ -258,11 +262,11 @@
           ],
           "slots": [
             {
-              "name": "start-section",
+              "name": "inline-start",
               "description": "Content rendered before the native input, commonly an icon or prefix."
             },
             {
-              "name": "end-section",
+              "name": "inline-end",
               "description": "Content rendered after the native input, commonly an action, icon, or suffix."
             }
           ],
@@ -272,8 +276,8 @@
               "description": "The label element."
             },
             {
-              "name": "input-box",
-              "description": "The wrapper around start slot, input, and end slot."
+              "name": "control",
+              "description": "The control surface around the inline-start slot, input, and inline-end slot."
             },
             {
               "name": "input",
@@ -516,19 +520,19 @@
               "description": "Label font weight."
             },
             {
-              "name": "--jb-input-box-margin",
+              "name": "--jb-control-margin",
               "description": "Input box margin."
             },
             {
-              "name": "--jb-input-box-overflow",
+              "name": "--jb-control-overflow",
               "description": "Input box overflow."
             },
             {
-              "name": "--jb-input-box-shadow",
+              "name": "--jb-control-shadow",
               "description": "Input box shadow."
             },
             {
-              "name": "--jb-input-box-shadow-focus",
+              "name": "--jb-control-shadow-focus",
               "description": "Input box shadow while focused."
             },
             {

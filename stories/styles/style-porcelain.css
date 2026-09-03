@@ -11,7 +11,7 @@ jb-input.porcelain-style {
     --jb-input-border-width: 1px;
     --jb-input-border-bottom-width: 1px;
     --jb-input-border-bottom-width-focus: 2px;
-    --jb-input-box-shadow-focus: 0 0 0 0.2rem oklch(48% 0.1 240 / 0.14);
+    --jb-control-shadow-focus: 0 0 0 0.2rem oklch(48% 0.1 240 / 0.14);
     --jb-input-label-color: var(--jb-content-primary);
     --jb-input-label-font-weight: 600;
     --jb-input-value-color: var(--jb-content-primary);

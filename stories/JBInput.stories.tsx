@@ -282,7 +282,7 @@ export const testActions: Story = {
     }, []);
     return (
       <div>
-        <JBInput ref={input} value={value} onKeyup={e => setValue(e.target.value)} onKeydown={(e) => { console.log(e); }} label="type value" message='native input and JB Input value must be sync'></JBInput>
+        <JBInput ref={input} value={value} onKeyUp={e => setValue(e.target.value)} onKeyDown={(e) => { console.log(e); }} label="type value" message='native input and JB Input value must be sync'></JBInput>
         <br />
         <span>value:</span>
         <input data-testid="mirror-input" value={value} onChange={e => setValue(e.target.value)} />
@@ -500,7 +500,7 @@ export const WithStartSection: Story = {
     label: 'label',
     message: 'static text under input show all the time',
     placeholder: 'place holder',
-    children: <div slot="start-section" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
+    children: <div slot="inline-start" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
   }
 };
 
@@ -510,7 +510,7 @@ export const WithEndSection: Story = {
     label: 'label',
     message: 'static text under input show all the time',
     placeholder: 'place holder',
-    children: <div slot="end-section" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
+    children: <div slot="inline-end" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
   }
 };
 
@@ -521,8 +521,8 @@ export const WithStartAndEndSection: Story = {
     placeholder: 'place holder',
     children: (
       <Fragment>
-        <div slot="end-section" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
-        <div slot="start-section" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
+        <div slot="inline-end" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
+        <div slot="inline-start" style={{ width: '1.5rem', height: '1.5rem', backgroundColor: '#262626' }}></div>
       </Fragment>)
   }
 };

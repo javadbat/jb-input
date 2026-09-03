@@ -36,8 +36,8 @@ Use specialized inputs such as `JBNumberInput`, `JBMobileInput`, `JBDateInput`, 
 - Use `onChange` for committed changes, usually after blur.
 - Pass custom validators with `validationList`.
 - Use `required={true}` for default required validation or `required="Custom message"` for a custom required message.
-- Use the exact event prop casing from this README, such as `onKeydown`, `onKeyup`, and `onBeforeinput`.
-- Put adornments inside the component with `slot="start-section"` or `slot="end-section"`.
+- Use the exact event prop casing from this README, such as `onKeyDown`, `onKeyUp`, and `onBeforeInput`.
+- Put adornments inside the component with `slot="inline-start"` or `slot="inline-end"`.
 - Use `ref` when you need imperative methods such as `checkValidity()`, `reportValidity()`, or `focus()`.
 
 ## Installation
@@ -84,8 +84,8 @@ import {JBInput} from 'jb-input/react';
     <JBInput onLoad={(event) => {}}></JBInput>
 
     //keyboard event
-    <JBInput onKeydown={(event) => console.log(event.target.value)}></JBInput>
-    <JBInput onKeyup={(event) => console.log(event.target.value)}></JBInput>
+    <JBInput onKeyDown={(event) => console.log(event.target.value)}></JBInput>
+    <JBInput onKeyUp={(event) => console.log(event.target.value)}></JBInput>
     <JBInput onChange={(event) => console.log(event.target.value)}></JBInput>
     // when user press enter on type good for situation you want so submit form or call search function on user press enter. 
     <JBInput onEnter={(event) => console.log(event.target.value)}></JBInput>
@@ -94,7 +94,7 @@ import {JBInput} from 'jb-input/react';
     <JBInput onBlur={(event) => console.log(event.target.value)}></JBInput>
     //input Event
     <JBInput onInput={(event) => console.log(event.target.value)}></JBInput>
-    <JBInput onBeforeinput={(event) => console.log(event.target.value)}></JBInput>
+    <JBInput onBeforeInput={(event) => console.log(event.target.value)}></JBInput>
 ```
 
 ## get/set value
@@ -182,18 +182,18 @@ useEffect(() => {
 Since `jb-input-react` uses `jb-input` underneath, read the shared [web-component styling guidance](../README.md#css-parts-and-states) and browse the [styling guide](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput-styling--docs).
 
 ## add custom element in input box
-In JBInput you can put icon or any other custom html DOM in input box. to doing so you just have to place custom DOM in JBInput tag and add `slot="start-section"` or `slot="end-section"` to place it before or after input field. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-start-and-end-section)
+In JBInput you can put icon or any other custom html DOM in input box. to doing so you just have to place custom DOM in JBInput tag and add `slot="inline-start"` or `slot="inline-end"` to place it before or after input field. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-start-and-inline-end)
 
 ``` javascript
 <JBInput>
-    <div slot="end-section">after</div>
-    <div slot="start-section">before</div>
+    <div slot="inline-end">after</div>
+    <div slot="inline-start">before</div>
 </JBInput>
 ```
 
 ## Slots
 
-Use `slot="start-section"` and `slot="end-section"` for adornments around the native input. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-start-and-end-section)
+Use `slot="inline-start"` and `slot="inline-end"` for adornments around the native input. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-start-and-inline-end)
 
 ## CSS parts and states
 The React wrapper exposes the same styling contract shown in the [web-component CSS parts demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput-style--gallery).
@@ -212,7 +212,7 @@ The React wrapper exposes the same CSS parts, custom states, and variables as `j
 
 ## Accessibility notes
 
-Set `label` whenever the field does not already have an external accessible label. Keep custom `start-section` and `end-section` content decorative unless it is interactive and independently keyboard-accessible.
+Set `label` whenever the field does not already have an external accessible label. Keep custom `inline-start` and `inline-end` content decorative unless it is interactive and independently keyboard-accessible.
 
 ## Shared Documentation
 

@@ -76,8 +76,8 @@ function InputStyleSample({ className }: { className: string }) {
     }}>
       <JBInput className={className} label="Account name" placeholder="Company workspace" message="Shown with helper text" />
       <JBInput className={className} label="Email" value="sara@example.com">
-        <InputAdornment slot="start-section">@</InputAdornment>
-        <InputAdornment slot="end-section">OK</InputAdornment>
+        <InputAdornment slot="inline-start">@</InputAdornment>
+        <InputAdornment slot="inline-end">OK</InputAdornment>
       </JBInput>
       <JBInput className={className} label="Validation error" value="bad" error="Static Error Under TextBox" />
       <JBInput className={className} label="Disabled" value="Locked value" disabled />

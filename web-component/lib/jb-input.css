@@ -17,12 +17,12 @@
             display: none;
         }
     }
-    .input-box {
+    .control {
         width: 100%;
         box-sizing: border-box;
         height: var(--height);
         border: solid var(--border-width) var(--border-color);
-        background-color: var(--input-box-bg-color);
+        background-color: var(--control-bg-color);
         margin: var(--box-margin);
         border-bottom: solid var(--border-bottom-width) var(--border-color);
         border-radius: var(--border-radius);
@@ -74,14 +74,14 @@
                 -moz-appearance: textfield;
             }
         }
-        .jb-input-start-section-wrapper{
+        .jb-input-inline-start-wrapper{
             display: flex;
             height: 100%;
             width: auto;
             align-items: center;
             justify-content: center;
         }
-        ::slotted([slot="start-section"]), ::slotted([slot="end-section"]){
+        ::slotted([slot="inline-start"]), ::slotted([slot="inline-end"]){
             height: 100%;
             display: flex;
             justify-content: center;

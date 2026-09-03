@@ -13,7 +13,7 @@ jb-input.candy-style{
     --jb-input-border-bottom-width: 1px;
     --jb-input-border-bottom-width-focus: 1px;
     --jb-input-inline-space: 1rem;
-    --jb-input-box-shadow-focus: 0 0 0 0.1875rem oklch(67% 0.22 345 / 0.18);
+    --jb-control-shadow-focus: 0 0 0 0.1875rem oklch(67% 0.22 345 / 0.18);
     --jb-input-label-color: var(--jb-content-primary);
     --jb-input-label-font-weight: 600;
     --jb-input-value-color: var(--jb-content-primary);

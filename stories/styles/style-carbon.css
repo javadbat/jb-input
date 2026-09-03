@@ -11,7 +11,7 @@ jb-input.carbon-style {
     --jb-input-border-width: 0;
     --jb-input-border-bottom-width: 1px;
     --jb-input-border-bottom-width-focus: 2px;
-    --jb-input-box-shadow-focus: inset 0 0 0 2px var(--jb-focus-color);
+    --jb-control-shadow-focus: inset 0 0 0 2px var(--jb-focus-color);
     --jb-input-label-color: var(--jb-content-primary);
     --jb-input-label-font-weight: 400;
     --jb-input-value-color: var(--jb-content-inverse);
@@ -44,5 +44,5 @@ jb-date-input.carbon-style:state(invalid),
 jb-time-input.carbon-style:state(invalid) {
     --jb-input-border-color: #fa4d56;
     --jb-input-border-color-focus: #fa4d56;
-    --jb-input-box-shadow-focus: inset 0 0 0 2px rgb(250 77 86 / 0.24);
+    --jb-control-shadow-focus: inset 0 0 0 2px rgb(250 77 86 / 0.24);
 }

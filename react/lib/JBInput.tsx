@@ -32,7 +32,7 @@ export const JBInput = forwardRef((props: Props, ref) => {
     () => (element ? element.current : undefined),
     [element],
   );
-  const { onBeforeinput, onBlur, onChange, onEnter, onFocus, onInput, onKeydown, onKeyup, size, autocomplete, disabled, error, initialValue, inputmode, label, message, name, placeholder, required, type, validationList, value, ...standardProps } = props;
+  const { onBeforeInput, onBlur, onChange, onEnter, onFocus, onInput, onKeyDown, onKeyUp, size, autocomplete, disabled, error, initialValue, inputmode, label, message, name, placeholder, required, type, validationList, value, ...standardProps } = props;
   // props that directly set in jsx dom and need no process or property set
   const directProps: DirectProps = {
     label,
@@ -47,7 +47,7 @@ export const JBInput = forwardRef((props: Props, ref) => {
     initialValue: initialValue?.toString() ?? "",
   }
   const valueProps = value === undefined ? {} : { value: value?.toString() ?? "" };
-  useJBInputEvents(element, { onBeforeinput, onBlur, onChange, onEnter, onFocus, onInput, onKeydown, onKeyup });
+  useJBInputEvents(element, { onBeforeInput, onBlur, onChange, onEnter, onFocus, onInput, onKeyDown, onKeyUp });
   useJBInputAttribute(element, { disabled, required, validationList });
   return (
     <jb-input ref={element} {...directProps} {...valueProps} {...standardProps} >

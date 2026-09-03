@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0] - 2026-09-03
+
+### Changed
+
+- Standardized private DOM event handlers on the `#on<Target><Event>()` naming convention.
+- Standardized private empty-value and form synchronization helpers as `#clearValue()` and `#updateFormValue()`.
+- Added the standard public `reset()` method; native form reset delegates to the same behavior.
+- Breaking: renamed the public input container part to `control` and directional slots to `inline-start`/`inline-end`.
+- Breaking: renamed React keyboard event props to the React convention: `onBeforeInput`, `onKeyDown`, and `onKeyUp`; old prop names are removed.
+- Breaking: standardized the message error color token on `--jb-input-message-color-error`; the old variable name is removed.
+
 ## [3.19.0] - 2026-08-22
 
 ### Changed
