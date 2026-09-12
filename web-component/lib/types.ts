@@ -3,6 +3,7 @@ import {type EventTypeWithTarget} from 'jb-core';
 export type ElementsObject = {
     input: HTMLInputElement;
     inputBox: HTMLDivElement;
+    clearButton: HTMLButtonElement | null;
     label: HTMLLabelElement;
     messageBox: HTMLDivElement;
     slots:{

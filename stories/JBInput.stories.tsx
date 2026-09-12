@@ -6,7 +6,7 @@ import type { ValidationItem } from 'jb-validation';
 import { JBButton } from 'jb-button/react'
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import './styles/styles.css';
-import { getInput, getInputBox, getMessageText, getNativeInput } from './test-utils';
+import { getClearButton, getInput, getInputBox, getMessageText, getNativeInput } from './test-utils';
 
 const meta = {
   title: "Components/form elements/Inputs/JBInput",
@@ -24,6 +24,67 @@ export const Normal: Story = {
   }
 };
 
+export const ClearButton: Story = {
+  args: {
+    label: 'Clearable input',
+    value: 'Clear me',
+    clearable: true,
+    onBeforeInput: fn(),
+    onInput: fn(),
+    onChange: fn(),
+    onClick: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const input = getInput(canvasElement);
+    const clearButton = getClearButton(input);
+    const closeIcon = clearButton.querySelector('jb-icon-close');
+    const eventOrder: string[] = [];
+
+    expect(closeIcon?.shadowRoot).toBeTruthy();
+    input.addEventListener('beforeinput', () => eventOrder.push(`beforeinput:${input.value}`));
+    input.addEventListener('input', () => eventOrder.push(`input:${input.value}`));
+    input.addEventListener('change', () => eventOrder.push(`change:${input.value}`));
+
+    await waitFor(() => expect(getComputedStyle(clearButton).display).not.toBe('none'));
+    await userEvent.click(clearButton);
+
+    expect(input.value).toBe('');
+    expect(eventOrder).toEqual(['beforeinput:Clear me', 'input:', 'change:']);
+    expect(args.onBeforeInput).toHaveBeenCalledOnce();
+    expect(args.onInput).toHaveBeenCalledOnce();
+    expect(args.onChange).toHaveBeenCalledOnce();
+    expect(args.onClick).toHaveBeenCalledOnce();
+    expect(input.shadowRoot?.querySelector('.clear-button')).toBe(clearButton);
+    expect(clearButton.hidden).toBe(true);
+
+    input.value = 'Clear again';
+    await waitFor(() => expect(clearButton.hidden).toBe(false));
+    expect(input.shadowRoot?.querySelector('.clear-button')).toBe(clearButton);
+  },
+};
+
+export const PreventClear: Story = {
+  args: {
+    label: 'Prevent clear',
+    value: 'Keep me',
+    clearable: true,
+    onBeforeInput: (event) => event.preventDefault(),
+    onInput: fn(),
+    onChange: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const input = getInput(canvasElement);
+    const clearButton = getClearButton(input);
+
+    await userEvent.click(clearButton);
+
+    expect(input.value).toBe('Keep me');
+    expect(args.onInput).not.toHaveBeenCalled();
+    expect(args.onChange).not.toHaveBeenCalled();
+    expect(getComputedStyle(clearButton).display).not.toBe('none');
+  },
+};
+
 export const DirectValueProperties: Story = {
   args: {
     value: 'current value',
@@ -38,6 +99,7 @@ export const DirectValueProperties: Story = {
       expect(input.initialValue).toBe('initial value');
       expect(nativeInput.value).toBe('current value');
       expect(input.isDirty).toBe(true);
+      expect(input.shadowRoot?.querySelector('.clear-button')).toBeNull();
     });
   },
 };

@@ -4,6 +4,10 @@
     width: var(--width);
 }
 
+.jb-input-web-component .control .clear-button[hidden] {
+    display: none;
+}
+
 .jb-input-web-component {
     width: 100%;
     label {
@@ -80,6 +84,35 @@
             width: auto;
             align-items: center;
             justify-content: center;
+        }
+        .jb-input-inline-end-wrapper {
+            display: flex;
+            height: 100%;
+            width: auto;
+            align-items: center;
+            justify-content: center;
+        }
+        .clear-button {
+            display: flex;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            width: var(--height);
+            height: 100%;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--value-color);
+            cursor: pointer;
+            font-size: var(--value-font-size);
+            --jb-icon-color: var(--clear-icon-color);
+            --jb-icon-size: 1em;
+
+            &:focus-visible {
+                outline: 2px solid var(--jb-input-focus-ring-color, Highlight);
+                outline-offset: -2px;
+            }
+
         }
         ::slotted([slot="inline-start"]), ::slotted([slot="inline-end"]){
             height: 100%;

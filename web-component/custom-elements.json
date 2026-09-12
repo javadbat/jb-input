@@ -88,6 +88,13 @@
               }
             },
             {
+              "name": "clearable",
+              "description": "Enables the clear button for non-empty editable values.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
               "name": "disabled",
               "description": "Disables the input and sets the disabled custom state.",
               "type": {
@@ -167,6 +174,14 @@
             },
             {
               "kind": "field",
+              "name": "clearable",
+              "description": "Whether a clear button is rendered for a non-empty editable value.",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
               "name": "required",
               "type": {
                 "text": "boolean"
@@ -221,15 +236,15 @@
           "events": [
             {
               "name": "change",
-              "description": "Dispatched when the native input change event fires, usually after commit/blur."
+              "description": "Dispatched when the native input change event fires, usually after commit/blur, and after the clear button clears the value."
             },
             {
               "name": "input",
-              "description": "Dispatched on each user input after value standardization."
+              "description": "Dispatched on each user input after value standardization and after the clear button clears the value."
             },
             {
               "name": "beforeinput",
-              "description": "Cancelable event dispatched before the native input changes."
+              "description": "Cancelable event dispatched before the native input changes or the clear button clears the value. Preventing it cancels the clear action."
             },
             {
               "name": "keydown",
@@ -282,6 +297,10 @@
             {
               "name": "input",
               "description": "The inner native input."
+            },
+            {
+              "name": "clear-button",
+              "description": "Button rendered when clearable is enabled and the input has an editable value; clears it after a non-prevented beforeinput event."
             },
             {
               "name": "message",
@@ -498,6 +517,10 @@
             {
               "name": "--jb-input-value-color-disabled",
               "description": "Input value color while disabled."
+            },
+            {
+              "name": "--jb-input-clear-icon-color",
+              "description": "Clear icon color. Defaults to the clear button's current color."
             },
             {
               "name": "--jb-input-placeholder-color",

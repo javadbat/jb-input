@@ -22,6 +22,7 @@ export type DirectProps = {
   autocomplete?:string,
   value?: string | number | null,
   initialValue?: string | number | null,
+  clearable?: boolean,
 }
 
 // eslint-disable-next-line react/display-name
@@ -32,7 +33,7 @@ export const JBInput = forwardRef((props: Props, ref) => {
     () => (element ? element.current : undefined),
     [element],
   );
-  const { onBeforeInput, onBlur, onChange, onEnter, onFocus, onInput, onKeyDown, onKeyUp, size, autocomplete, disabled, error, initialValue, inputmode, label, message, name, placeholder, required, type, validationList, value, ...standardProps } = props;
+  const { onBeforeInput, onBlur, onChange, onEnter, onFocus, onInput, onKeyDown, onKeyUp, size, autocomplete, clearable, disabled, error, initialValue, inputmode, label, message, name, placeholder, required, type, validationList, value, ...standardProps } = props;
   // props that directly set in jsx dom and need no process or property set
   const directProps: DirectProps = {
     label,
@@ -44,6 +45,7 @@ export const JBInput = forwardRef((props: Props, ref) => {
     error,
     inputmode,
     autocomplete,
+    clearable,
     initialValue: initialValue?.toString() ?? "",
   }
   const valueProps = value === undefined ? {} : { value: value?.toString() ?? "" };
@@ -59,4 +61,3 @@ export const JBInput = forwardRef((props: Props, ref) => {
 export type BaseProps<T extends JBInputWebComponent> = PropsWithChildren<JBElementStandardProps<T,keyof JBInputAttributes & DirectProps>> & JBInputEvents<T> & JBInputAttributes & DirectProps;
 export type Props = BaseProps<JBInputWebComponent>;
 JBInput.displayName = "JBInput";
-

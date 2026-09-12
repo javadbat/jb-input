@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.1.0] - 2026-09-13
+
+### Added
+
+- Added an opt-in `clearable` property and attribute that renders a clear button for non-empty editable values and dispatches preventable `beforeinput`, followed by `input` and `change` after clearing.
+- Once enabled, the clear button is created once and its `hidden` state follows the current value and editability state.
+- Added `--jb-input-clear-icon-color` to customize the clear icon color.
+
+### Changed
+
+- The clear button now renders the shared `jb-icon-close` icon.
+
 ## [4.0.0] - 2026-09-03
 
 ### Changed

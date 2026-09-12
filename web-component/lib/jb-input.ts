@@ -1,4 +1,5 @@
 import { defineWebComponent, JBBaseComponent, createInputEvent, createKeyboardEvent, listenAndSilentEvent, parseBooleanAttribute } from "jb-core";
+import "jb-icons/close";
 import CSS from "./jb-input.css";
 import VariablesCSS from "./variables.css";
 import { type ValidationItem, type ValidationResult, type WithValidation, ValidationHelper, type ShowValidationErrorParameters } from 'jb-validation';
@@ -11,7 +12,7 @@ import type {
   ValidationValue,
   SupportedState,
 } from "./types";
-import { renderHTML } from "./render";
+import { renderClearButtonHTML, renderHTML } from "./render";
 import { registerDefaultVariables } from 'jb-core/theme';
 import { getRequiredMessage, i18n } from 'jb-core/i18n';
 export class JBInputWebComponent extends JBBaseComponent implements WithValidation<ValidationValue>, JBFormInputStandards<string> {
@@ -30,9 +31,18 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
   get form(){
     return this.#internals.form;
   }
+  #clearable = false;
+  get clearable() {
+    return this.#clearable;
+  }
+  set clearable(value: boolean) {
+    this.#clearable = value;
+    this.#updateClearButton();
+  }
   set disabled(value: boolean) {
     this.#disabled = value;
     this.elements.input.disabled = value;
+    this.#updateClearButton();
     if (this.#internals)
       if (value) {
 
@@ -120,6 +130,7 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
     this.#value = valueOnj;
     this.#updateFormValue();
     this.elements.input.value = valueOnj.displayValue;
+    this.#updateClearButton();
   }
   #clearValue(eventType: ValueSetterEventType = "SET_VALUE") {
     this.#setValueByObject(this.standardValue("", eventType));
@@ -225,6 +236,7 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
     this.elements = {
       input: shadowRoot.querySelector(".control input")!,
       inputBox: shadowRoot.querySelector(".control")!,
+      clearButton: null,
       label: shadowRoot.querySelector("label")!,
       messageBox: shadowRoot.querySelector(".message-box")!,
       slots: {
@@ -286,6 +298,7 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
       "name",
       "autocomplete",
       "placeholder",
+      "clearable",
       "disabled",
       "inputmode",
       "readonly",
@@ -306,9 +319,12 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
       case "name":
       case "autocomplete":
       case "inputmode":
-      case "readonly":
       case "virtualkeyboardpolicy":
         this.elements.input.setAttribute(name, value);
+        break;
+      case "readonly":
+        this.hasAttribute("readonly") ? this.elements.input.setAttribute("readonly", "") : this.elements.input.removeAttribute("readonly");
+        this.#updateClearButton();
         break;
       case "label":
         this.elements.label.innerHTML = value;
@@ -336,6 +352,9 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
         this.elements.input.placeholder = value;
         this.#internals.ariaPlaceholder = value;
         break;
+      case "clearable":
+        this.clearable = parseBooleanAttribute(value);
+        break;
       case "disabled":
         this.disabled = parseBooleanAttribute(value);
         break;
@@ -349,6 +368,42 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
   }
   #onInputBlur() {
     this.#checkValidity(true);
+  }
+  #updateClearButton() {
+    if (!this.#clearable) {
+      this.elements.clearButton?.remove();
+      this.elements.clearButton = null;
+      return;
+    }
+    if (!this.elements.clearButton) {
+      const template = document.createElement("template");
+      template.innerHTML = renderClearButtonHTML();
+      const clearButton = template.content.firstElementChild as HTMLButtonElement;
+      clearButton.addEventListener("mousedown", (event) => event.preventDefault());
+      clearButton.addEventListener("click", this.#onClearButtonClick.bind(this));
+      this.elements.clearButton = clearButton;
+    }
+    this.elements.clearButton.hidden = this.#value.value.length === 0 || this.#disabled || this.hasAttribute("readonly");
+    if (!this.elements.clearButton.parentElement) {
+      this.elements.slots.endSection.before(this.elements.clearButton);
+    }
+  }
+  #onClearButtonClick(e: MouseEvent) {
+    e.preventDefault();
+    const eventInit: InputEventInit = {
+      bubbles: true,
+      composed: true,
+      data: null,
+      inputType: "deleteContentBackward"
+    };
+    const beforeInputEvent = new InputEvent("beforeinput", { ...eventInit, cancelable: true });
+    if (this.#dispatchBeforeInputEvent(beforeInputEvent)) return;
+
+    this.#isDirty = true;
+    this.#clearValue("INPUT");
+    this.#checkValidity(true);
+    this.#dispatchOnInputEvent(new InputEvent("input", { ...eventInit, cancelable: true }));
+    this.#dispatchOnChangeEvent(new Event("change", { bubbles: true, composed: true }));
   }
   #onInputKeyDown(e: KeyboardEvent): void {
     this.#dispatchKeydownEvent(e);
@@ -409,7 +464,7 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
   }
   #dispatchOnInputEvent(e: InputEvent): void {
     e.stopPropagation();
-    const event = createInputEvent('input', e, { cancelable: true });
+    const event = createInputEvent('input', e, { cancelable: false });
     this.dispatchEvent(event);
   }
 

@@ -96,6 +96,7 @@ Use this section as a quick contract for the component. Some attributes and prop
 | `inputmode` | `string` | browser default | Native inputmode value such as `text`, `numeric`, `decimal`, `email`, `url`, or `search`. |
 | `virtualkeyboardpolicy` | `string` | browser default | Forwarded to the inner native input. |
 | `readonly` | `boolean` | `false` | Forwarded to the inner native input. |
+| `clearable` | `boolean` | `false` | Renders a clear button while the input has a non-empty editable value. |
 | `disabled` | `boolean` | `false` | Disables the input and sets the `disabled` custom state. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--disabled) |
 | [`required`](#required-validation) | `boolean \| string` | `false` | Enables required validation. A string value is used as the required error message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--required-with-custom-message) |
 | [`error`](#external-error) | `string` | `""` | External validation error message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--with-error) |
@@ -111,6 +112,7 @@ Use this section as a quick contract for the component. Some attributes and prop
 | `initialValue` | `string` | no | Default and reset value. It initializes `value` until the live value is explicitly set. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--initial-value) |
 | `validation` | `ValidationHelper<JBInputValue>` | yes | Validation helper from `jb-validation`; set `validation.list` for custom rules. |
 | `disabled` | `boolean` | no | Enables or disables the component. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--disabled) |
+| `clearable` | `boolean` | no | Enables the clear button for non-empty editable values. |
 | [`required`](#required-validation) | `boolean` | no | Enables required validation. |
 | `isDirty` | `boolean` | yes | `true` when current `value` differs from `initialValue`. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--initial-value) |
 | `selectionStart` | `number \| null` | no | Forwarded to the inner input. |
@@ -172,9 +174,9 @@ The interaction story covers input, change, keyboard, and focus events; see the 
 
 | event | cancelable | when it fires | value access |
 | --- | --- | --- | --- |
-| `input` | yes | On each user edit, after `value` and `displayValue` are standardized. | `event.target.value` |
-| `beforeinput` | yes | Before the inner input value changes. Call `event.preventDefault()` to block the edit. | `event.target.value` |
-| `change` | native behavior | When the user commits the value, usually on blur. | `event.target.value` |
+| `input` | yes | On each user edit after standardization, and after the clear button clears the value. | `event.target.value` |
+| `beforeinput` | yes | Before the inner input value changes or the clear button clears it. Call `event.preventDefault()` to block the edit or clear action. | `event.target.value` |
+| `change` | native behavior | When the user commits the value, usually on blur, and after the clear button clears it. | `event.target.value` |
 | `keydown` | yes | Re-dispatched from the inner input. | `event.target.value` |
 | `keyup` | no | Re-dispatched from the inner input. | `event.target.value` |
 | `keypress` | no | Re-dispatched from the inner input. | `event.target.value` |
@@ -198,6 +200,8 @@ input.addEventListener('enter', (event) => {
   console.log(event.target.value);
 });
 ```
+
+When `clearable` is enabled, the clear button is rendered while `value` is non-empty and editable. Activating it dispatches `beforeinput`, then clears the value and dispatches `input` followed by `change`. If `beforeinput` is prevented, the value remains unchanged and neither later event is dispatched.
 
 ## set validation
 jb-input use [jb-validation](https://github.com/javadbat/jb-validation) inside to handle validation. so for more information you can read [jb-validation](https://github.com/javadbat/jb-validation) documentation. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--validation-list)
@@ -293,6 +297,7 @@ The [style gallery](https://javadbat.github.io/design-system/?path=/story/compon
 | `label` | The label element. |
 | `control` | The wrapper around the slots and inner input. |
 | `input` | The inner native input. |
+| `clear-button` | The clear action shown while the input has a value. |
 | `message` | The helper or validation message element. |
 
 | custom state | description |
@@ -307,6 +312,7 @@ The [style gallery](https://javadbat.github.io/design-system/?path=/story/compon
 - `message` is exposed as the component aria description when no validation error is visible.
 - `placeholder` is forwarded to the inner input and exposed as aria placeholder.
 - `disabled`, `invalid`, and validation state are synchronized with `ElementInternals` where the browser supports it.
+- The clear button has an accessible name and is hidden for empty, disabled, and read-only inputs.
 - The shadow root uses `delegatesFocus`, so focusing `<jb-input>` focuses the inner native input.
 
 ### set custom style
@@ -334,6 +340,14 @@ we have `label`, `control`, `input`, `message` as a supported **part** in our co
 For complete styling guidance, live examples, official parts and states, and the full CSS variable reference, see [Styling](https://javadbat.github.io/design-system/?path=/docs/components-form-elements-inputs-jbinput-styling).
 
 The default and `xs`, `sm`, `lg`, and `xl` input heights inherit the matching `--jb-control-height-*` theme tokens. Set `--jb-input-height` or a size-specific `--jb-input-height-*` variable when one input needs a component-level override.
+
+Set `--jb-input-clear-icon-color` to customize the clear icon color. It defaults to the clear button's current color, which follows `--jb-input-value-color`.
+
+```css
+jb-input {
+  --jb-input-clear-icon-color: var(--jb-red);
+}
+```
 
 ## Related Docs
 - see [jb-input/react](https://github.com/javadbat/jb-input/tree/main/react) if you want to use this component in react.

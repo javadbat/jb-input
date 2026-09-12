@@ -23,3 +23,9 @@ export function getInputBox(input: JBInputWebComponent) {
   expect(inputBox).toBeTruthy();
   return inputBox!;
 }
+
+export function getClearButton(input: JBInputWebComponent) {
+  const clearButton = input.shadowRoot?.querySelector<HTMLButtonElement>('.clear-button');
+  expect(clearButton).toBeTruthy();
+  return clearButton!;
+}

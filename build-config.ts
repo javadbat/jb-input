@@ -7,12 +7,13 @@ export const webComponentList: WebComponentBuildConfig[] = [
     outputPath: "./web-component/dist/index.js",
     tsConfigPath: "./web-component/tsconfig.json",
     umdName: "JBInput",
-    external: ["jb-validation", "jb-form", "jb-core", "jb-core/theme", "jb-core/i18n"],
+    external: ["jb-validation", "jb-form", "jb-core", "jb-core/theme", "jb-core/i18n", "jb-icons/close"],
     globals: {
       "jb-validation": "JBValidation",
       "jb-core":"JBCore",
       "jb-core/theme":"JBCoreTheme",
       "jb-core/i18n":"JBCoreI18N",
+      "jb-icons/close": "JBIconClose",
     },
   },
 ];

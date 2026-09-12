@@ -38,6 +38,7 @@ Use specialized inputs such as `JBNumberInput`, `JBMobileInput`, `JBDateInput`, 
 - Use `required={true}` for default required validation or `required="Custom message"` for a custom required message.
 - Use the exact event prop casing from this README, such as `onKeyDown`, `onKeyUp`, and `onBeforeInput`.
 - Put adornments inside the component with `slot="inline-start"` or `slot="inline-end"`.
+- With `clearable`, the clear button is rendered while the value is non-empty and calls `onBeforeInput`, `onInput`, and `onChange` in that order. Prevent `onBeforeInput` to keep the value.
 - Use `ref` when you need imperative methods such as `checkValidity()`, `reportValidity()`, or `focus()`.
 
 ## Installation
@@ -68,6 +69,7 @@ import {JBInput} from 'jb-input/react';
 | `type` | `string` | Native input type forwarded to the inner input. |
 | `inputmode` | `string` | Native inputmode value such as `numeric`, `decimal`, `email`, `url`, or `search`. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--custom-mobile-keyboard) |
 | `autocomplete` | `string` | Native autocomplete value. |
+| `clearable` | `boolean` | Enables the clear button for non-empty editable values. |
 | `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | Visual size variant. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--size-variants) |
 | `disabled` | `boolean` | Disables the input. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--disabled) |
 | `required` | `boolean \| string` | Enables required validation. A string is used as the required error message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--required-with-custom-message) |
@@ -207,8 +209,11 @@ The React wrapper exposes the same CSS parts, custom states, and variables as `j
 
 .username-input {
   --jb-input-border-radius: 0.5rem;
+  --jb-input-clear-icon-color: var(--jb-red);
 }
 ```
+
+`--jb-input-clear-icon-color` customizes the clear icon and defaults to the clear button's current color.
 
 ## Accessibility notes
 

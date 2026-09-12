@@ -15,3 +15,11 @@ export function renderHTML():string{
 </div>
   `;
 }
+
+export function renderClearButtonHTML(): string {
+  return /* html */ `
+    <button class="clear-button" part="clear-button" type="button" aria-label="Clear input">
+      <jb-icon-close aria-hidden="true"></jb-icon-close>
+    </button>
+  `;
+}
