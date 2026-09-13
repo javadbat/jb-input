@@ -1,5 +1,5 @@
-import { type JBInputWebComponent } from "./jb-input";
-import {type EventTypeWithTarget} from 'jb-core';
+import type { JBInputWebComponent } from "./jb-input";
+import type {EventTypeWithTarget} from 'jb-core';
 export type ElementsObject = {
     input: HTMLInputElement;
     inputBox: HTMLDivElement;
@@ -7,8 +7,8 @@ export type ElementsObject = {
     label: HTMLLabelElement;
     messageBox: HTMLDivElement;
     slots:{
-        startSection:HTMLSlotElement;
-        endSection:HTMLSlotElement;
+        inlineStart:HTMLSlotElement;
+        inlineEnd:HTMLSlotElement;
     };
 };
 /**

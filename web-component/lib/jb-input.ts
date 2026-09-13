@@ -240,8 +240,8 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
       label: shadowRoot.querySelector("label")!,
       messageBox: shadowRoot.querySelector(".message-box")!,
       slots: {
-        startSection: shadowRoot.querySelector(".jb-input-inline-start-wrapper slot")!,
-        endSection: shadowRoot.querySelector(".jb-input-inline-end-wrapper slot")!
+        inlineStart: shadowRoot.querySelector(".jb-input-inline-start-wrapper slot")!,
+        inlineEnd: shadowRoot.querySelector(".jb-input-inline-end-wrapper slot")!
       }
     };
     this.#registerEventListener();
@@ -385,7 +385,7 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
     }
     this.elements.clearButton.hidden = this.#value.value.length === 0 || this.#disabled || this.hasAttribute("readonly");
     if (!this.elements.clearButton.parentElement) {
-      this.elements.slots.endSection.before(this.elements.clearButton);
+      this.elements.slots.inlineEnd.before(this.elements.clearButton);
     }
   }
   #onClearButtonClick(e: MouseEvent) {
