@@ -222,7 +222,7 @@ export class JBInputWebComponent extends JBBaseComponent implements WithValidati
     this.dispatchEvent(event);
   }
   #callOnInitEvent(): void {
-    const event = new CustomEvent("init", { bubbles: true, composed: true });
+    const event = new CustomEvent("init", { bubbles: true, composed: false });
     this.dispatchEvent(event);
   }
   #initWebComponent(): void {
