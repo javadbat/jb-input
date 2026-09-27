@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.0] - 2026-09-26
+
+### Changed
+
+- change react component onChange event to react onChange event type
+- add `onChangeNative` event to react component to listen to native web-component `change` event   
+
 ## [4.1.0] - 2026-09-13
 
 ### Added

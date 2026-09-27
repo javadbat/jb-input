@@ -78,6 +78,11 @@ import {JBInput} from 'jb-input/react';
 
 ## Events
 [Input, change, keyboard, and focus events](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--test-actions) · [Enter event](https://javadbat.github.io/design-system/?path=/story/components-form-elements-inputs-jbinput--on-enter-test)
+
+The React wrapper supports `onEnter`, `onInput`, `onBeforeInput`, `onFocus`, `onBlur`, `onKeyUp`, `onKeyDown`, `onChange`, and `onChangeNative`. These handlers receive the `jb-input` component as `event.target`.
+
+`onChange` is the React change handler (`React.ChangeEventHandler`) and is wired through the JSX event props. Use `onChangeNative` when you specifically need the web component's native `change` event (`Event`). The native event is typically dispatched when the user commits a value, usually on blur; `onInput` runs for each edit. If both props are provided, they can both observe a native `change` event.
+
 ```jsx
     //when default property are defined best time for impl your config
     <JBInput onInit={(event) => {}}></JBInput>
@@ -97,6 +102,8 @@ import {JBInput} from 'jb-input/react';
     //input Event
     <JBInput onInput={(event) => console.log(event.target.value)}></JBInput>
     <JBInput onBeforeInput={(event) => console.log(event.target.value)}></JBInput>
+    {/* Native web-component change event, distinct from React onChange. */}
+    <JBInput onChangeNative={(event) => console.log(event.target.value)}></JBInput>
 ```
 
 ## get/set value
