@@ -1,6 +1,6 @@
 import { useEvent } from "jb-core/react";
 import type { EventTypeWithTarget } from "jb-core";
-import type { ChangeEvent, RefObject } from "react";
+import { useCallback, type ChangeEvent, type RefObject } from "react";
 import type { JBInputWebComponent } from "jb-input";
 
 export type JBInputEvents<TElement extends JBInputWebComponent> = {
@@ -30,8 +30,8 @@ export function useJBInputEvents<TElement extends JBInputWebComponent>(element:R
   useEvent(element, 'input', props.onInput);
   useEvent(element, 'change', props.onChangeNative);
 
-  function onChange(e: ChangeEvent<TElement>){
+  const onChange = useCallback((e: ChangeEvent<TElement>)=>{
     props.onChange?.(e)
-  }
+  },[props.onChange])
   return {onChange}
 }

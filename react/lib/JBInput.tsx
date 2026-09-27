@@ -2,7 +2,7 @@
 import React, { useRef, useImperativeHandle, forwardRef, type PropsWithChildren } from 'react';
 import 'jb-input';
 // eslint-disable-next-line no-duplicate-imports
-import { JBInputWebComponent, type JBInputEventType, type SizeVariants } from 'jb-input';
+import type { JBInputWebComponent, JBInputEventType, SizeVariants } from 'jb-input';
 import { type JBInputEvents, useJBInputEvents } from './events-hook.js';
 import { type JBInputAttributes, useJBInputAttribute } from './attributes-hook.js';
 import type { JBElementStandardProps } from 'jb-core/react';
