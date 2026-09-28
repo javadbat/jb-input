@@ -36,6 +36,7 @@
         grid-template-columns: auto 1fr auto;
         grid-template-rows: minmax(0, 1fr);
         box-shadow: var(--box-shadow);
+        corner-shape: var(--box-corner-shape);
         &:focus-within {
             border-width: var(--border-width-focus);
             border-bottom-width: var(--border-bottom-width-focus);

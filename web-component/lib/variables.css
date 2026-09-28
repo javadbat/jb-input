@@ -30,8 +30,9 @@
   --label-font-weight: var(--jb-input-label-font-weight, 300);
   --box-margin: var(--jb-control-margin, 0px);
   --box-overflow: var(--jb-control-overflow, hidden);
-  --box-shadow: var(--jb-control-shadow, none);
-  --box-shadow-focus: var(--jb-control-shadow-focus, none);
+  --box-shadow: var(--jb-control-shadow);
+  --box-shadow-focus: var(--jb-control-shadow-focus);
+  --box-corner-shape: var(--jb-input-corner-shape, var(--jb-corner-shape));
   --input-text-align: var(--jb-input-input-text-align, initial);
   --input-direction: var(--jb-input-input-direction, inherit);
   --input-font-weight: var(--jb-input-input-font-weight, initial);
